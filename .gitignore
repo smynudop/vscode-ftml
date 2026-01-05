@@ -1,5 +1,6 @@
 node_modules
 *.vsix
 dist/
+dist_prebuild/
 syntaxes/ftml.tmLanguage.json
 docs/sources

@@ -39,7 +39,6 @@ export default defineConfig({
       fileName: () => '[name].cjs',
     },
 
-    emptyOutDir: false,
     sourcemap: true,
   },
 });

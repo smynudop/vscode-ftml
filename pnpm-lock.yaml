@@ -8,9 +8,6 @@ importers:
 
   .:
     dependencies:
-      '@vscode-ftml/ftml-wasm':
-        specifier: ^1.28.0
-        version: 1.28.0
       '@wikijump/ftml-wasm':
         specifier: ^1.6.3
         version: 1.6.3
@@ -355,9 +352,6 @@ packages:
 
   '@types/vscode@1.107.0':
     resolution: {integrity: sha512-XS8YE1jlyTIowP64+HoN30OlC1H9xqSlq1eoLZUgFEC8oUTO6euYZxti1xRiLSfZocs4qytTzR6xCBYtioQTCg==}
-
-  '@vscode-ftml/ftml-wasm@1.28.0':
-    resolution: {integrity: sha512-enmSXz2exQiFL9qKjyK1++t0pawNASyKMSpFgOhrTBL60JiNVqzh2vBG3rEhqnzf290LQpzeA18xoNx9DP9QMA==}
 
   '@wikijump/ftml-wasm@1.6.3':
     resolution: {integrity: sha512-nXNCihXWbX4SFEvQxUwdntp3a1SUerbIKv9A3mvCtXbNicbUVRh4dlrryNc1MrrzNLhB4+kaAClXkYELZeIygA==}
@@ -861,8 +855,6 @@ snapshots:
   '@types/vscode-webview@1.57.5': {}
 
   '@types/vscode@1.107.0': {}
-
-  '@vscode-ftml/ftml-wasm@1.28.0': {}
 
   '@wikijump/ftml-wasm@1.6.3': {}
 

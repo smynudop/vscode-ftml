@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import ftmlWorker from '../../dist/ftml.web.worker.cjs?raw';
+import ftmlWorker from '../../dist_prebuild/ftml.web.worker.cjs?raw';
 import css from './css/wikidot.css?raw';
 import cssponyfill from './css/ponyfill.css?raw';
 import collapsible from './css/collapsible.css?raw';

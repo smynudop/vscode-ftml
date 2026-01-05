@@ -19,7 +19,7 @@ export default defineConfig({
   ],
   build: {
     target: 'es2020',
-    outDir: join(process.cwd(), 'dist'),
+    outDir: join(process.cwd(), 'dist_prebuild'),
     assetsDir: '.',
     rollupOptions: {
       external: "vscode",
@@ -39,7 +39,6 @@ export default defineConfig({
       fileName: () => '[name].cjs',
     },
 
-    emptyOutDir: false,
     sourcemap: true,
   },
 });
