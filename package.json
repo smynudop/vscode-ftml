@@ -1,27 +1,27 @@
 {
-  "name": "vscode-ftml",
-  "publisher": "zokhoi",
+  "name": "vscode-ftml-preview",
+  "publisher": "udotree",
   "type": "module",
-  "displayName": "FTML/Wikidot Workshop",
+  "displayName": "FTML/Wikidot Preview",
   "description": "VSCode extension for support of FTML",
-  "version": "0.2.6",
+  "version": "0.1.0",
+  "license": "AGPL-3.0-or-later",
   "engines": {
     "vscode": "^1.75.0"
   },
   "icon": "assets/vscode-ftml.128x128.png",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Zokhoi/vscode-ftml.git"
+    "url": "https://github.com/smynudop/vscode-ftml"
   },
   "bugs": {
-    "url": "https://github.com/Zokhoi/vscode-ftml/issues"
+    "url": "https://github.com/smynudop/vscode-ftml/issues"
   },
   "categories": [
     "Programming Languages"
   ],
   "activationEvents": [],
   "main": "./dist/extension.cjs",
-  "browser": "./dist/extension.browser.cjs",
   "contributes": {
     "languages": [
       {

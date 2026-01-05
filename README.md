@@ -1,41 +1,30 @@
-# FTML/Wikidot Workshop for VSCode
+# FTML/Wikidot Preview
 
-[![version](https://img.shields.io/vscode-marketplace/v/zokhoi.vscode-ftml.svg?style=flat-square&label=vscode%20marketplace)](https://marketplace.visualstudio.com/items?itemName=zokhoi.vscode-ftml)
+FTML/Wikidot Preview is a VS Code extension that provides FTML syntax highlighting and a local preview for Wikidot content. It is a fork of the [FTML/Wikidot Workshop](https://github.com/Zokhoi/vscode-ftml).
 
-A VSCode extension for support of FTML, the markup language of SCP Foundation.
+This project narrows the feature set compared to the original FTML/Wikidot Workshop. It does not provide a preview that depends on Wikidot's server-side features, and it does not offer login, fetch, or push functionality to Wikidot.
 
-This extension supports only a subset of [Wikidot text](https://www.wikidot.com/doc-wiki-syntax:start) (Wikitext), refered to as [FTML](https://github.com/scpwiki/wikijump/tree/develop/ftml) (Foundation Text Markup Language).
+## 概要(japanese)
 
-## Features for desktop and web VSCode
+Wikidot, FTMLのシンタックスハイライト、プレビュー機能を提供するVS Code拡張です。[FTML/Wikidot Workshop](https://github.com/Zokhoi/vscode-ftml)のForkです。
 
-* Syntax highlighting
-  * applicable to file extensions `.ftml`, `.wd`, `.wikidot`, `.wj`, `.wikijump`
-* Wikitext Live preview
+本家FTML/Wikidot Workshopから機能を絞っています。Wikidotの機能を利用したプレビュー機能と、Wikidotへのログイン/フェッチ/プッシュ機能は提供しません。
 
 ![vscode-ftml-live-preview](./docs/vscode-ftml-live-preview.gif)
 
-### Features for desktop VSCode only
-
-* Retreiving Wikidot page wikitext source and metadata
-* Diffing between local and remote content
-
-![vscode-ftml-fetch](./docs/vscode-ftml-fetch.gif)
-
-* Pushing local wikitext files to Wikidot
-
-![vscode-ftml-push](./docs/vscode-ftml-push.gif)
-
 ## Development
 
-This repository uses pnpm for package management.
-
-Install development dependencies and use
 ```bash
 pnpm run compile
 ```
-for compiling.
 
 ## References
 
 * [FTML Blocks documentation](https://github.com/scpwiki/wikijump/blob/develop/ftml/docs/Blocks.md)
 * [FTML file specficiation](https://gist.github.com/Zokhoi/06dbc890a4f2fab3eadcd7d2ed0d8698)
+
+## License
+
+- This project is licensed under the GNU Affero General Public License v3 or later. See [LICENSE.md](LICENSE.md) for the full text.
+- This repository is a modified version of another project; see [CHANGES.md](CHANGES.md) for attribution and a summary of modifications.
+- To obtain the Corresponding Source for any distributed binaries or to request the source for a running service, check the repository or contact the maintainers.
