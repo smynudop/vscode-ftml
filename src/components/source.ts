@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 import fm from 'front-matter';
-import { PageData, getPreview } from "../wikidot/interface";
+import { type PageData, getPreview } from "../wikidot/interface";
 import { unixNamify } from '../utils';
 
 /**
@@ -37,14 +37,14 @@ function serveBackend(panel: vscode.WebviewPanel, fileName: string, source: stri
         source: meta.source,
         wikiSite: meta.site,
         wikiPage: meta.page,
-      }).then(res=>{
+      }).then(res => {
         panel.webview.postMessage({
           type: "content",
           backend,
           fileName,
           wdHtml: res,
         });
-      }).catch(e=>{
+      }).catch(e => {
         vscode.window.showErrorMessage(`Wikidot error: ${e.message}\n\nSite: ${e.site}\n\nFile: ${fileName.split("/").pop()}`);
       })
       break;

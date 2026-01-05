@@ -1,0 +1,21 @@
+{
+  "ftml.preview.open": "プレビューを表示",
+  "ftml.preview.openToSide": "プレビューを横に表示",
+  "ftml.preview.toggleLock": "プレビューのロック状態を切り替える",
+  "ftml.preview.toggleLive": "プレビューのライブ状態を切り替える",
+  "ftml.preview.toggleBackend": "バックエンドを切り替える（ftml/wikidot）",
+  "ftml.preview.lock": "プレビューを単一のFTMLドキュメントにロックするかの既定値",
+  "ftml.preview.live": "プレビューをライブにするかの既定値（コマンド実行で更新）。FTMLバックエンド使用時のみ有効",
+  "ftml.preview.backend": "プレビューで使用する既定のバックエンド（ftml/wikidot）",
+  "ftml.preview.wikidot": "Wikidotプレビューの既定サイト",
+  "ftml.preview.refresh": "プレビューを更新",
+  "ftml.remote.wikidot.login": "Wikidotにログイン",
+  "ftml.remote.wikidot.logout": "Wikidotからログアウト",
+  "ftml.remote.wikidot.switchAccount": "現在選択中のWikidotアカウントを変更する",
+  "ftml.remote.wikidot.fetch": "現在のページをWikidotから取得する",
+  "ftml.remote.wikidot.push": "現在のページをWikidotにプッシュする",
+  "ftml.diff.merge.selected": "選択した行を現在のドキュメントにマージする",
+  "ftml.diff.merge.all": "すべての変更を現在のドキュメントにマージする",
+  "ftml.diff.save": "現在のファイルを保存する",
+  "ftml.remote.sync.accountSelect": "ページ取得/プッシュ時に毎回アカウント選択を許可する"
+}

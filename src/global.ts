@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import { previewInfo } from "./components/preview";
+import type { previewInfo } from "./components/preview";
 
 /**
  * Set the extension context for internal tracking purposes.
@@ -48,7 +48,7 @@ let idToTabChangeListener: Map<string, vscode.Disposable>;
 let WdRevUriToSourceEditor: Map<string, vscode.TextEditor>;
 let lockedPreviews: Set<string>;
 
-const NOOP = () => {};
+const NOOP = () => { };
 const basename = (path: string) => path.split(/[\/\\]/).pop()!;
 
 export {

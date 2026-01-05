@@ -1,5 +1,5 @@
-import { CancellationToken, TextDocumentContentProvider, Uri, authentication } from "vscode";
-import { Page } from "./interface";
+import { type CancellationToken, type TextDocumentContentProvider, Uri, authentication } from "vscode";
+import * as Page from "./interface.page";
 import { dump } from "js-yaml";
 
 /**
@@ -25,7 +25,7 @@ export function toWikidotRevUri(wikiSite: string, wikiPage: string, revisionOrId
  * A provider for Wikidot Revision Uri.
  */
 export class WikidotRevContentProvider implements TextDocumentContentProvider {
-  constructor() {}
+  constructor() { }
   async provideTextDocumentContent(uri: Uri, token: CancellationToken): Promise<string> {
     let session = await authentication.getSession('wikidot', []);
     let meta = await Page.getMetadata({

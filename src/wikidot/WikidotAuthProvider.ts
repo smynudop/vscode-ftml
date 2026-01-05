@@ -1,6 +1,6 @@
-import type { AuthenticationProvider, AuthenticationSession } from "vscode";
+import type { AuthenticationProvider, AuthenticationSession, AuthenticationProviderSessionOptions } from "vscode";
 import * as vscode from "vscode";
-import { Session, login, getUserInfo, AjaxModule } from "./interface";
+import { type Session, login, getUserInfo, AjaxModule } from "./interface";
 
 /**
  * Represents a session of a currently logged in Wikidot user.
@@ -20,7 +20,7 @@ class WikidotAuthProvider implements AuthenticationProvider {
 
   constructor(context: vscode.ExtensionContext) {
     this.context = context;
-    this.restoreSessions().then(()=>{
+    this.restoreSessions().then(() => {
       this.validateAllSessions();
     });
   };
@@ -32,7 +32,7 @@ class WikidotAuthProvider implements AuthenticationProvider {
     } else return [this.sessions.get(scopes[0])!];
   }
 
-  async createSession(scope?: readonly string[], username?: string): Promise<WikidotSession> {
+  async createSession(scope?: readonly string[], options?: AuthenticationProviderSessionOptions): Promise<WikidotSession> {
     let cancel = "Login dialog cancelled";
     let retry = 0;
     let newUsername: string | undefined;
@@ -42,7 +42,7 @@ class WikidotAuthProvider implements AuthenticationProvider {
       newUsername = await vscode.window.showInputBox({
         title: "Login to wikidot",
         placeHolder: "Your wikidot username",
-        value: username,
+        value: options?.account?.id,
         prompt: retry ? e?.message : undefined,
       })
       if (!newUsername) throw cancel;
@@ -126,15 +126,15 @@ class WikidotAuthProvider implements AuthenticationProvider {
     let choice = await vscode.window.showWarningMessage(
       `${session.account.label}'s login session has expired.`,
       "Sign in again")
-      if (choice) {
-        try {
-          await this.createSession([], session.account.label);
-        } catch (_) {
-          await this.removeSession(session.id);
-        }
-      } else {
+    if (choice) {
+      try {
+        await this.createSession([], { account: session.account });
+      } catch (_) {
         await this.removeSession(session.id);
       }
+    } else {
+      await this.removeSession(session.id);
+    }
   }
 }
 

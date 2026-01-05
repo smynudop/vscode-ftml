@@ -1,11 +1,12 @@
 {
   "name": "vscode-ftml",
   "publisher": "zokhoi",
+  "type": "module",
   "displayName": "FTML/Wikidot Workshop",
   "description": "VSCode extension for support of FTML",
   "version": "0.2.6",
   "engines": {
-    "vscode": "^1.65.0"
+    "vscode": "^1.75.0"
   },
   "icon": "assets/vscode-ftml.128x128.png",
   "repository": {
@@ -18,21 +19,9 @@
   "categories": [
     "Programming Languages"
   ],
-  "activationEvents": [
-    "onLanguage:ftml",
-    "onCommand:ftml.preview.open",
-    "onCommand:ftml.preview.openToSide",
-    "onCommand:ftml.preview.toggleLock",
-    "onCommand:ftml.preview.toggleLive",
-    "onCommand:ftml.preview.toggleBackend",
-    "onCommand:ftml.preview.refresh",
-    "onCommand:ftml.remote.wikidot.login",
-    "onCommand:ftml.remote.wikidot.switchAccount",
-    "onCommand:ftml.remote.wikidot.fetch",
-    "onCommand:ftml.remote.wikidot.push"
-  ],
-  "main": "./dist/extension.js",
-  "browser": "./dist/extension.browser.js",
+  "activationEvents": [],
+  "main": "./dist/extension.cjs",
+  "browser": "./dist/extension.browser.cjs",
   "contributes": {
     "languages": [
       {
@@ -78,84 +67,13 @@
       {
         "command": "ftml.preview.openToSide",
         "title": "%ftml.preview.openToSide%",
-        "category": "Ftml"
-      },
-      {
-        "command": "ftml.preview.toggleLock",
-        "title": "%ftml.preview.toggleLock%",
-        "category": "Ftml"
-      },
-      {
-        "command": "ftml.preview.toggleLive",
-        "title": "%ftml.preview.toggleLive%",
-        "category": "Ftml"
-      },
-      {
-        "command": "ftml.preview.toggleBackend",
-        "title": "%ftml.preview.toggleBackend%",
-        "enablement": "!isWeb",
-        "category": "Ftml"
+        "category": "Ftml",
+        "icon": "$(open-preview)"
       },
       {
         "command": "ftml.preview.refresh",
         "title": "%ftml.preview.refresh%",
         "category": "Ftml"
-      },
-      {
-        "command": "ftml.remote.wikidot.login",
-        "title": "%ftml.remote.wikidot.login%",
-        "enablement": "!isWeb",
-        "category": "Ftml"
-      },
-      {
-        "command": "ftml.remote.wikidot.logout",
-        "title": "%ftml.remote.wikidot.logout%",
-        "enablement": "!isWeb",
-        "category": "Ftml"
-      },
-      {
-        "command": "ftml.remote.wikidot.switchAccount",
-        "title": "%ftml.remote.wikidot.switchAccount%",
-        "enablement": "!isWeb",
-        "category": "Ftml"
-      },
-      {
-        "command": "ftml.remote.wikidot.fetch",
-        "title": "%ftml.remote.wikidot.fetch%",
-        "enablement": "!isWeb",
-        "category": "Ftml"
-      },
-      {
-        "command": "ftml.remote.wikidot.push",
-        "title": "%ftml.remote.wikidot.push%",
-        "enablement": "!isWeb",
-        "category": "Ftml"
-      },
-      {
-        "command": "ftml.diff.merge.selected",
-        "title": "%ftml.diff.merge.selected%",
-        "enablement": "resourceLangId == ftml && isInDiffEditor && !isWeb",
-        "category": "Ftml"
-      },
-      {
-        "command": "ftml.diff.merge.all",
-        "title": "%ftml.diff.merge.all%",
-        "enablement": "resourceLangId == ftml && isInDiffEditor && !isWeb",
-        "category": "Ftml"
-      },
-      {
-        "command": "ftml.diff.save",
-        "title": "%ftml.diff.save%",
-        "enablement": "resourceLangId == ftml && isInDiffEditor && !isWeb",
-        "category": "Ftml"
-      }
-    ],
-    "keybindings": [
-      {
-        "command": "ftml.diff.save",
-        "key": "ctrl+s",
-        "mac": "cmd+s",
-        "when": "resourceLangId == ftml && isInDiffEditor && !isWeb"
       }
     ],
     "menus": {
@@ -169,26 +87,6 @@
           "when": "resourceLangId == ftml && !isInDiffEditor",
           "command": "ftml.preview.openToSide",
           "group": "4_ftml"
-        },
-        {
-          "when": "resourceLangId == ftml && !isInDiffEditor && !isWeb",
-          "command": "ftml.remote.wikidot.fetch",
-          "group": "4_ftml"
-        },
-        {
-          "when": "resourceLangId == ftml && !isInDiffEditor && !isWeb",
-          "command": "ftml.remote.wikidot.push",
-          "group": "4_ftml"
-        },
-        {
-          "when": "resourceLangId == ftml && isInDiffEditor && editorReadonly && !isWeb",
-          "command": "ftml.diff.merge.selected",
-          "group": "4_ftml"
-        },
-        {
-          "when": "resourceLangId == ftml && isInDiffEditor && editorReadonly && !isWeb",
-          "command": "ftml.diff.merge.all",
-          "group": "4_ftml"
         }
       ],
       "editor/title": [
@@ -200,47 +98,8 @@
         {
           "when": "resourceLangId == ftml && !isInDiffEditor",
           "command": "ftml.preview.openToSide",
-          "group": "4_ftml"
-        },
-        {
-          "when": "resourceLangId == ftml && !isInDiffEditor && !isWeb",
-          "command": "ftml.remote.wikidot.fetch",
-          "group": "4_ftml"
-        },
-        {
-          "when": "resourceLangId == ftml && !isInDiffEditor && !isWeb",
-          "command": "ftml.remote.wikidot.push",
-          "group": "4_ftml"
-        },
-        {
-          "when": "resourceLangId == ftml && isInDiffEditor && editorReadonly && !isWeb",
-          "command": "ftml.diff.merge.selected",
-          "group": "4_ftml"
-        },
-        {
-          "when": "resourceLangId == ftml && isInDiffEditor && editorReadonly && !isWeb",
-          "command": "ftml.diff.merge.all",
-          "group": "4_ftml"
-        },
-        {
-          "when": "ftmlPreviewFocus",
-          "command": "ftml.preview.toggleLock",
-          "group": "4_ftml"
-        },
-        {
-          "when": "ftmlPreviewFocus && ftmlPreviewBackend == ftml",
-          "command": "ftml.preview.toggleLive",
-          "group": "4_ftml"
-        },
-        {
-          "when": "ftmlPreviewFocus && !isWeb",
-          "command": "ftml.preview.toggleBackend",
-          "group": "4_ftml"
-        },
-        {
-          "when": "ftmlPreviewFocus",
-          "command": "ftml.preview.refresh",
-          "group": "4_ftml"
+          "group": "navigation",
+          "icon": "$(preview)"
         }
       ]
     },
@@ -257,21 +116,6 @@
             "type": "boolean",
             "default": true,
             "description": "%ftml.preview.live%"
-          },
-          "ftml.preview.backend": {
-            "type": "string",
-            "default": "ftml",
-            "description": "%ftml.preview.backend%"
-          },
-          "ftml.preview.wikidot": {
-            "type": "string",
-            "default": "https://scp-wiki.wikidot.com",
-            "description": "%ftml.preview.wikidot%"
-          },
-          "ftml.remote.sync.accountSelect": {
-            "type": "boolean",
-            "default": true,
-            "description": "%ftml.remote.sync.accountSelect%"
           }
         }
       }
@@ -280,10 +124,11 @@
   "scripts": {
     "vscode:prepublish": "pnpm run compile",
     "update:syntax-blocks": "node scripts/updateBlocks.js",
-    "compile:vite": "node ./scripts/build.js",
+    "compile:worker": "vite build --config ./scripts/config.worker.vite.ts",
+    "compile:vite": "vite build --config ./scripts/config.vite.ts",
     "compile:ts": "tsc -p ./",
     "compile:yaml": "pnpx js-yaml ./syntaxes/ftml.tmLanguage.yaml > ./syntaxes/ftml.tmLanguage.json",
-    "compile": "pnpm run compile:yaml && pnpm run compile:vite",
+    "compile": "pnpm run compile:yaml && pnpm run compile:worker && pnpm run compile:vite",
     "package": "vsce package --no-dependencies",
     "lint": "eslint . --ext .ts,.tsx",
     "watch": "tsc -w -p ./"
@@ -291,18 +136,19 @@
   "devDependencies": {
     "@types/diff": "^5.0.2",
     "@types/js-yaml": "^4.0.5",
-    "@types/node": "^17.0.23",
-    "@types/vscode": "^1.65.0",
-    "@types/vscode-webview": "^1.57.0",
+    "@types/node": "^22.19.3",
+    "@types/vscode": "^1.107.0",
+    "@types/vscode-webview": "^1.57.5",
     "esbuild": "^0.14.27",
     "js-yaml": "^4.1.0",
     "toml": "^3.0.0",
-    "typescript": "^4.6.2",
-    "vite": "^2.8.6",
+    "typescript": "^5.9.3",
+    "vite": "^7.3.0",
     "vite-plugin-commonjs-externals": "^0.1.1"
   },
   "dependencies": {
-    "@vscode-ftml/ftml-wasm": "^1.28",
+    "@vscode-ftml/ftml-wasm": "^1.28.0",
+    "@wikijump/ftml-wasm": "^1.6.3",
     "cross-fetch": "^3.1.5",
     "diff": "^5.0.0",
     "front-matter": "^4.0.2",

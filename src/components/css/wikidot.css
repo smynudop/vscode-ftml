@@ -1,7 +1,27 @@
-blockquote, .blockquote {
+body {
+  font-size: calc(16px * 0.8);
+  /* 0.8em */
+  font-family: verdana, arial, helvetica, sans-serif;
+  background-color: white;
+  color: #333;
+}
+
+p {
+  line-height: 141%;
+}
+
+a {
+  color: #bb0011;
+  text-decoration: none;
+  background: transparent;
+}
+
+
+blockquote,
+.blockquote {
   border: 1px dashed #999;
-  padding: 0 12.8px;
-  margin: 1em 0;
+  padding: 0 1em;
+  background-color: #f4f4f4;
 }
 
 .wj-clear-float-both {
@@ -14,11 +34,13 @@ table.wj-table {
   border-spacing: 0;
   margin: 0.5em auto;
 }
+
 table.wiki-content-table td,
 table.wj-table td {
   border: 1px solid #666;
   padding: 0.3em 0.7em;
 }
+
 table.wiki-content-table th,
 table.wj-table th {
   border: 1px solid #666;
@@ -29,12 +51,15 @@ table.wj-table th {
 .wj-align-center {
   text-align: center;
 }
+
 .wj-align-left {
   text-align: left;
 }
+
 .wj-align-right {
   text-align: right;
 }
+
 .wj-align-justify {
   text-align: justify;
 }
@@ -51,28 +76,31 @@ table.wj-table th {
 
 #toc .title {
   font-weight: bold;
-  margin: 0.2em 0  ;
+  margin: 0.2em 0;
   padding: 0 2em;
   text-align: center;
 }
 
-#toc #toc-action-bar{
+#toc #toc-action-bar {
   padding: 2px;
 }
 
-#toc-list{
+#toc-list {
   margin: 0.5em 0;
 }
-#toc.floatright{
+
+#toc.floatright {
   float: right;
   margin: 1em;
 }
-#toc.floatleft{
+
+#toc.floatleft {
   float: left;
   margin: 1em;
 }
 
-.code, code {
+.code,
+code {
   border: 1px dashed #999;
   background-color: #333;
   font-family: 'Andale Mono', 'Courier New', Courier, monospace;
@@ -82,26 +110,69 @@ table.wj-table th {
 }
 
 
-.footnote .f-heading, .equation .e-heading, .reference .r-heading{
+.footnote .f-heading,
+.equation .e-heading,
+.reference .r-heading {
   font-weight: bold;
 }
-.footnote .f-content, .reference .r-content{
+
+.footnote .f-content,
+.reference .r-content {
   margin: 0.5em 0;
 }
-.footnote .f-footer, .equation .e-footer, .reference .r-footer{
+
+.footnote .f-footer,
+.equation .e-footer,
+.reference .r-footer {
   font-size: 90%;
 }
 
-.footnotes-footer{
-margin: 0; padding: 0.5em 0;
-/*border-top: 1px solid #CCC;*/
-height: 1%;
+/* emph*/
+.emph {
+  text-emphasis-style: dot;
 }
-.footnotes-footer .title{
-margin: 0.5em 0;
-font-size: 130%;
-font-weight: bold;
+
+
+/* user*/
+.wj-user-info .wj-small {
+  vertical-align: -0.3em;
+  margin: 0;
+  width: 16px;
+  height: 16px;
+  z-index: 0;
+  padding: 1px 9px 1px 8px;
+  background-repeat: no-repeat;
+  background-position: center left;
 }
-a.footnoteref{
-display: inline-block;
+
+/* Footnotes */
+
+
+.footnotes-footer {
+  margin: 0;
+  padding: 0.5em 0;
+  /*border-top: 1px solid #CCC;*/
+  height: 1%;
+}
+
+.wj-footnotes-list .wj-title {
+  margin: 0.5em 0;
+  font-size: 130%;
+  font-weight: bold;
+}
+
+a.footnoteref {
+  display: inline-block;
+}
+
+div.wj-footnotes-list ol {
+  padding-inline-start: 0;
+}
+
+li.wj-footnote {
+  list-style: none;
+}
+
+div.wj-footnote-contents {
+  display: inline;
 }

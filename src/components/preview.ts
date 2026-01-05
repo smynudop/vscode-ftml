@@ -1,8 +1,8 @@
 import * as vscode from "vscode";
-import ftmlWorker from './ftml.web.worker.js?bundled-worker&dataurl';
-import css from './css/wikidot.css';
-import cssponyfill from './css/ponyfill.css';
-import collapsible from './css/collapsible.css';
+import ftmlWorker from '../../dist/ftml.web.worker.cjs?raw';
+import css from './css/wikidot.css?raw';
+import cssponyfill from './css/ponyfill.css?raw';
+import collapsible from './css/collapsible.css?raw';
 import {
   idToInfo,
   idToPreview,
@@ -33,7 +33,7 @@ type previewInfo = {
  * @param lock The preview being locked to a file or not.
  */
 function genTitle(fileName: string, backend: string, live: boolean, lock: boolean) {
-  let prefix = backend=="ftml" && live ? `Live ${backend}` : backend;
+  let prefix = backend == "ftml" && live ? `Live ${backend}` : backend;
   prefix = lock ? `[${prefix}]` : prefix;
   return `${prefix} ${fileName}`;
 }
@@ -68,14 +68,32 @@ function genHtml(panelInfo: previewInfo) {
     };
     const ftmlWorker = ${JSON.stringify(ftmlWorker)};
     const previewContent = document.getElementById('preview-content');
-  
+    previewContent.addEventListener('click', e => {
+      const a = e.target.closest('a.wj-collapsible-block-link');
+      if(!a || !previewContent.contains(a)) return;
+    console.log("!")
+
+      const container = a.closest('.wj-collapsible-block');
+
+      const unfolded = container.querySelector('.wj-collapsible-block-unfolded');
+      const folded = container.querySelector('.wj-collapsible-block-folded');
+      console.log(container, unfolded, folded)
+      if(a.classList.contains('wj-collapsible-block-unfolded')) {
+        unfolded.style.display = 'block';
+        folded.style.display = 'none';
+      } else {
+        unfolded.style.display = 'none';
+        folded.style.display = 'block';
+      }
+    })
     if (state.content) previewContent.innerHTML = state.content;
   
-    let ftml = new Worker(ftmlWorker, {
-      type: 'module',
-    });
-  
+    const url = URL.createObjectURL(new Blob([ftmlWorker], { type: 'application/javascript' }));
+    let ftml = new Worker(url, {
+          type: 'module', 
+        });
     ftml.addEventListener('message', e => {
+    console.log(e.data)
       const { html } = e.data;
       previewContent.innerHTML = html;
       state.content = html;
@@ -153,9 +171,9 @@ function createPreviewPanel(viewColumn?: number) {
   openPreviews.add(panelInfo.id);
   idToPreview.set(panelInfo.id, panel);
   idToInfo.set(panelInfo.id, panelInfo);
-  
+
   panel.webview.html = genHtml(panelInfo);
-  
+
   let activeEditor = vscode.window.activeTextEditor;
   if (activeEditor?.document.languageId == 'ftml') {
     panelInfo.fileName = activeEditor.document.fileName;
@@ -177,7 +195,7 @@ function createPreviewPanel(viewColumn?: number) {
 }
 
 export {
-  previewInfo,
+  type previewInfo,
   genTitle,
   genHtml,
   createPreviewPanel,
