@@ -3,12 +3,12 @@
   "publisher": "udotree",
   "displayName": "Wikidot Preview",
   "description": "Wikidot live preview & syntax highlight",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "license": "AGPL-3.0-or-later",
   "engines": {
     "vscode": "^1.107.0"
   },
-  "icon": "assets/vscode-ftml.128x128.png",
+  "icon": "assets/vscode-wikidot-preview.128x128.png",
   "repository": {
     "type": "git",
     "url": "https://github.com/smynudop/vscode-ftml"

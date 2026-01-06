@@ -1,4 +1,6 @@
 # Change Log
+## 0.1.1
+edit readme
 
 ## 0.1.0
 
