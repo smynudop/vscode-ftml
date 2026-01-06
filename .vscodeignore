@@ -7,3 +7,4 @@ src/**
 test/**
 node_modules/
 docs/
+dist_prebuild/**

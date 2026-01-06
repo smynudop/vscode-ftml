@@ -36,9 +36,9 @@ export default defineConfig({
         resolve(__dirname, '../src/extension'),
       ],
       formats: ["cjs"],
-      fileName: () => '[name].cjs',
+      fileName: () => '[name].js',
     },
     emptyOutDir: true,
-    sourcemap: true,
+    sourcemap: false,
   },
 });
