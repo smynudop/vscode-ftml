@@ -3,7 +3,7 @@
   "publisher": "udotree",
   "displayName": "Wikidot Preview",
   "description": "Wikidot live preview & syntax highlight",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "license": "AGPL-3.0-or-later",
   "engines": {
     "vscode": "^1.107.0"
@@ -133,7 +133,6 @@
     "watch": "tsc -w -p ./"
   },
   "devDependencies": {
-    "@types/diff": "^5.0.2",
     "@types/js-yaml": "^4.0.5",
     "@types/node": "^22.19.3",
     "@types/vscode": "^1.107.0",
@@ -147,10 +146,7 @@
   },
   "dependencies": {
     "@wikijump/ftml-wasm": "^1.6.3",
-    "cross-fetch": "^3.1.5",
-    "diff": "^5.0.0",
-    "front-matter": "^4.0.2",
-    "linkedom": "^0.14.25"
+    "front-matter": "^4.0.2"
   },
   "packageManager": "pnpm@9.11.0+sha1.4cd20e68438613738e8f2bc9aece61eaa6b3e649"
 }

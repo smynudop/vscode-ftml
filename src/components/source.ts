@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 import fm from 'front-matter';
-import { type PageData, getPreview } from "../wikidot/interface";
+import { type PageData } from "../wikidot/interface";
 import { unixNamify } from '../utils';
 
 /**
@@ -32,23 +32,6 @@ function parsePageData(source: string): PageData {
 function serveBackend(panel: vscode.WebviewPanel, fileName: string, source: string, backend: string) {
   let meta = parsePageData(source);
   switch (backend.toLowerCase()) {
-    case "wikidot":
-      getPreview({
-        source: meta.source,
-        wikiSite: meta.site,
-        wikiPage: meta.page,
-      }).then(res => {
-        panel.webview.postMessage({
-          type: "content",
-          backend,
-          fileName,
-          wdHtml: res,
-        });
-      }).catch(e => {
-        vscode.window.showErrorMessage(`Wikidot error: ${e.message}\n\nSite: ${e.site}\n\nFile: ${fileName.split("/").pop()}`);
-      })
-      break;
-    case "ftml":
     default:
       panel.webview.postMessage({
         type: "content",

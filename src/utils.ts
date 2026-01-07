@@ -1,21 +1,10 @@
 /**
- * Joins different parts of a url.
- * @returns string
- */
-const urljoin = (...parts: string[]) => {
-  let begin = parts.shift()?.replace(/\/+$/, '');
-  let end = parts.pop()?.replace(/^\/+/, '');
-  parts = parts.map(v=>v.replace(/(^\/+)|(\/+$)/, '')).filter(v=>!!v);
-  return parts.length ? begin + '/' + parts.join('/') + '/' + end : begin + '/' + end;
-}
-
-/**
  * Turns a string into Wikidot-standard unix names.
  * @param name The string to be unix-namified.
  * @param options
  * @returns string
  */
-const unixNamify = (
+export const unixNamify = (
   name: string,
   options?: {
     /**
@@ -36,10 +25,10 @@ const unixNamify = (
       .replace(/[^\:\w]+/g, "-")
       .split(":")
       .map(el => el.split("_")
-          .map((v,i)=>v.replace(/^\-|\-$/g, "")||(i==0?"_":""))
-          .filter(v=>!!v)
-          .join(""))
-      .filter(v=>!!v&&v!="_")
+        .map((v, i) => v.replace(/^\-|\-$/g, "") || (i == 0 ? "_" : ""))
+        .filter(v => !!v)
+        .join(""))
+      .filter(v => !!v && v != "_")
       .join(":");
   } else {
     output = output.replace(/[^a-z0-9]+/g, "-").replace(/^\-+|\-+$/g, "");
@@ -50,15 +39,8 @@ const unixNamify = (
 /**
  * Name of the extension.
  */
-const pkgname = "vscode-ftml";
+export const pkgname = "vscode-ftml";
 /**
  * Version of the extension.
  */
-const pkgver = "0.2.4";
-
-export {
-  urljoin,
-  unixNamify,
-  pkgname,
-  pkgver,
-}
+export const pkgver = "0.2.4";
