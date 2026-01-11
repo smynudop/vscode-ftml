@@ -8,7 +8,7 @@ This project narrows the feature set compared to the original FTML/Wikidot Works
 
 Wikidot, FTMLのシンタックスハイライト、プレビュー機能を提供するVS Code拡張です。[FTML/Wikidot Workshop](https://github.com/Zokhoi/vscode-ftml)のForkです。
 
-本家FTML/Wikidot Workshopから機能を絞っています。Wikidotの機能を利用したプレビュー機能と、Wikidotへのログイン/フェッチ/プッシュ機能は提供しません。
+本家FTML/Wikidot Workshopから機能を絞っています。プレビュー機能はFTMLのwikidot互換機能を使用しています。また、Wikidotへのログイン/フェッチ/プッシュ機能は提供しません。
 
 ![vscode-ftml-live-preview](./docs/vscode-ftml-live-preview.gif)
 
