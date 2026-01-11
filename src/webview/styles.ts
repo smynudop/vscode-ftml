@@ -1,3 +1,3 @@
-import "./css/wikidot.css"
+import "./css/wikidot.scss"
 import "./css/ponyfill.css"
-import "./css/collapsible.css"
+import "./css/collapsible.scss"

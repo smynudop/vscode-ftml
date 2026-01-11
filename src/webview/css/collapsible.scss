@@ -1,24 +1,29 @@
-details.wj-collapsible summary{
-    list-style: none;
-}
+details.wj-collapsible{
+    summary{
+        list-style: none;
+    }
 
-details.wj-collapsible summary span{
-    color: #bb0011;
-    cursor: pointer;
-}
+    summary span{
+        color: #bb0011;
+        cursor: pointer;
 
-details.wj-collapsible summary span:hover{
-    text-decoration: underline;
-}
+        &:hover{
+            text-decoration: underline;
+        }
+    }
 
+    &:open{
+        span.wj-collapsible-show-text{
+            display: none;
+        }
+    }
 
-details.wj-collapsible:open span.wj-collapsible-show-text{
-    display: none;
-}
-
-details.wj-collapsible:not(:open) span.wj-collapsible-hide-text{
-    display: none;
-}
+    &:not(:open) {
+        span.wj-collapsible-hide-text{
+            display: none;
+        }
+    }
+} 
 
 
 .wj-collapsible-content {
