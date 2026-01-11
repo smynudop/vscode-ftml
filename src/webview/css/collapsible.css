@@ -1,6 +1,47 @@
-.wj-collapsible-block-folded {
+details.wj-collapsible summary{
+    list-style: none;
+}
+
+details.wj-collapsible summary span{
+    color: #bb0011;
+    cursor: pointer;
+}
+
+details.wj-collapsible summary span:hover{
+    text-decoration: underline;
+}
+
+
+details.wj-collapsible:open span.wj-collapsible-show-text{
     display: none;
 }
+
+details.wj-collapsible:not(:open) span.wj-collapsible-hide-text{
+    display: none;
+}
+
+
+.wj-collapsible-content {
+  /* ▼ 閉じている時の状態 */
+  opacity: 0;
+  
+  /* 
+     allow-discrete: display:none と block の切り替わりを
+     アニメーション可能にするための新しい設定
+  */
+  transition: opacity 0.4s ease, display 0.4s allow-discrete;
+}
+
+details[open] .wj-collapsible-content {
+  /* ▼ 開いている時の状態 */
+  opacity: 1;
+
+  /* ▼ 開いた瞬間のスタート地点を指定（これが重要！） */
+  @starting-style {
+    opacity: 0;
+  }
+}
+
 
 /* colmod support */
 

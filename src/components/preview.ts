@@ -1,8 +1,7 @@
 import * as vscode from "vscode";
 import ftmlWorker from '../../dist_prebuild/ftml.web.worker.cjs?raw';
-import css from './css/wikidot.css?raw';
-import cssponyfill from './css/ponyfill.css?raw';
-import collapsible from './css/collapsible.css?raw';
+import css from '../../dist_prebuild/vscode-wikidot-preview.css?raw';
+
 import {
   idToInfo,
   idToPreview,
@@ -41,43 +40,31 @@ function genTitle(fileName: string, backend: string, live: boolean, lock: boolea
 /**
  * Generates an HTML body for the preview.
  */
-function genHtml(panelInfo: previewInfo) {
+function genHtml(panelInfo: previewInfo, wasmUri: vscode.Uri) {
+  const worker = ftmlWorker.replace("__WASM_PLACEHOLDER__", wasmUri.toString());
   return `<!DOCTYPE html>
   <html lang="en">
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wikitext Preview</title>
-    <style>
-    ${css}
-    ${cssponyfill}
-    ${collapsible}
-    </style>
+    <style>${css}</style>
   </head>
   <body>
   <div id="preview-content">loading...</div>
   <script>
     const vscode = acquireVsCodeApi();
-    let state = vscode.getState() || {
-      id: "${panelInfo.id}",
-      fileName: ${JSON.stringify(panelInfo.fileName)},
-      viewColumn: ${panelInfo.viewColumn},
-      content: ${JSON.stringify(panelInfo.content)},
-      backend: ${JSON.stringify(panelInfo.backend)},
-      live: ${panelInfo.live},
-    };
-    const ftmlWorker = ${JSON.stringify(ftmlWorker)};
+    let state = vscode.getState() || ${JSON.stringify(panelInfo)};
+    const ftmlWorker = ${JSON.stringify(worker)};
     const previewContent = document.getElementById('preview-content');
     previewContent.addEventListener('click', e => {
       const a = e.target.closest('a.wj-collapsible-block-link');
       if(!a || !previewContent.contains(a)) return;
-    console.log("!")
 
       const container = a.closest('.wj-collapsible-block');
 
       const unfolded = container.querySelector('.wj-collapsible-block-unfolded');
       const folded = container.querySelector('.wj-collapsible-block-folded');
-      console.log(container, unfolded, folded)
       if(a.classList.contains('wj-collapsible-block-unfolded')) {
         unfolded.style.display = 'block';
         folded.style.display = 'none';
@@ -138,7 +125,7 @@ function genHtml(panelInfo: previewInfo) {
  * Creates a preview panel at the specified column.
  * @param viewColumn Column to create at.
  */
-function createPreviewPanel(viewColumn?: number) {
+function createPreviewPanel(extensionUri: vscode.Uri, viewColumn?: number) {
   let backend = `${vscode.workspace.getConfiguration('ftml.preview').get('backend')}`.toLowerCase();
   let panelInfo = {
     id: Math.random().toString(36).substring(4),
@@ -172,7 +159,9 @@ function createPreviewPanel(viewColumn?: number) {
   idToPreview.set(panelInfo.id, panel);
   idToInfo.set(panelInfo.id, panelInfo);
 
-  panel.webview.html = genHtml(panelInfo);
+  const onDiskPath = vscode.Uri.joinPath(extensionUri, 'worker', 'ftml_bg.wasm');
+  const wasmUri = panel.webview.asWebviewUri(onDiskPath);
+  panel.webview.html = genHtml(panelInfo, wasmUri);
 
   let activeEditor = vscode.window.activeTextEditor;
   if (activeEditor?.document.languageId == 'ftml') {

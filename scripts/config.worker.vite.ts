@@ -22,18 +22,11 @@ export default defineConfig({
     outDir: join(process.cwd(), 'dist_prebuild'),
     assetsDir: '.',
     rollupOptions: {
-      external: "vscode",
-      output: {
-        globals: {
-          vscode: "vscode"
-        },
-        manualChunks: undefined,
-        experimentalMinChunkSize: 10 * 1024 * 1024,
-      }
     },
     lib: {
       entry: [
-        resolve(__dirname, '../src/components/ftml.web.worker')
+        resolve(__dirname, '../src/webview/ftml.web.worker'),
+        resolve(__dirname, '../src/webview/styles')
       ],
       formats: ["cjs"],
       fileName: () => '[name].cjs',

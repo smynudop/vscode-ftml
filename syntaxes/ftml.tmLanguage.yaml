@@ -29,7 +29,7 @@ patterns:
   - include: "#block-map"
   - include: "#block-align"
   - include: "#inline-align"
-  - include: "#header"
+  - include: "#heading"
   - include: "#list"
   - include: "#horizontal-rule"
   - include: "#separator-rule"
@@ -536,12 +536,14 @@ repository:
     captures:
       "1":
         name: punctuation.definition.align.ftml
-  header:
-    name: markup.header.ftml
-    match: ^(\+{1,6}\*?)(?=\s)
+  heading:
+    name: markup.heading.ftml
+    match: ^(\+{1,6}\*?)(?=\s*)(.*)
     captures:
       "1":
         name: punctuation.definition.header.ftml
+      "2":
+        name: entity.name.section.ftml
   list:
     name: markup.list.ftml
     match: ^\s*(\*|\#)(?=\s)

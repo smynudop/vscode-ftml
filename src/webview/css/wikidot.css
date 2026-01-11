@@ -1,0 +1,288 @@
+body {
+  font-size: calc(16px * 0.8);
+  /* 0.8em */
+  font-family: verdana, arial, helvetica, sans-serif;
+  background-color: white;
+  color: #333;
+}
+
+#preview-content{
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+
+p {
+  line-height: 141%;
+}
+
+a {
+  color: #bb0011;
+  text-decoration: none;
+  background: transparent;
+}
+
+h1{
+  color: #990011;
+  font-size: 190%;
+  font-weight: bold;
+}
+
+h2{
+  font-size: 150%;
+  font-weight: normal;
+}
+
+h3{
+    font-size: 130%;
+}
+h4{
+    font-size: 120%;
+}
+h5{
+    font-size: 100%;
+}
+h6{
+    font-size: 90%;
+}
+
+/* toc */
+
+#wj-toc {
+    margin: 1em auto 1em 0;
+    padding: 0em 0.5em;
+    border: 1px dashed gray;
+    background-color: #F7F7F7;
+    display: table;
+
+}
+#wj-toc .title {
+  font-weight: bold;
+  margin: 0.2em 0;
+  padding: 0 2em;
+  text-align: center;
+}
+
+#wj-toc #toc-action-bar {
+  padding: 2px;
+}
+
+#wj-toc #toc-list {
+  margin: 0.5em 0;
+}
+
+#wj-toc.floatright {
+  float: right;
+  margin: 1em;
+}
+
+#wj-toc.floatleft {
+  float: left;
+  margin: 1em;
+}
+#wj-toc ul{
+  list-style: none;
+  padding: 0;
+}
+
+#wj-toc ul ul{
+  padding-left: 1em;
+}
+
+
+
+
+blockquote,
+.blockquote {
+  border: 1px dashed #999;
+  padding: 0 1em;
+  background-color: #f4f4f4;
+}
+
+.wj-clear-float-both {
+  clear: both;
+}
+
+table.wiki-content-table,
+table.wj-table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  margin: 0.5em auto;
+}
+
+table.wiki-content-table td,
+table.wj-table td {
+  border: 1px solid #666;
+  padding: 0.3em 0.7em;
+}
+
+table.wiki-content-table th,
+table.wj-table th {
+  border: 1px solid #666;
+  padding: 0.3em 0.7em;
+  background-color: #333;
+}
+
+.wj-align-center {
+  text-align: center;
+}
+
+.wj-align-left {
+  text-align: left;
+}
+
+.wj-align-right {
+  text-align: right;
+}
+
+.wj-align-justify {
+  text-align: justify;
+}
+
+
+
+
+
+pre code{
+  padding: unset; /* vscodeのスタイル打ち消し */
+}
+
+code {
+  color: unset;
+  background-color: unset;
+  font-family: unset;
+}
+
+code, .wj-code{
+    border-radius: 8px;
+}
+.wj-code{
+    border: 1px dashed #DDD;
+    background-color: #F7F7F7;
+    font-family: 'Andale Mono', 'Courier New', Courier, monospace;
+    padding-inline: 1em;
+    margin: 0.4em 0;
+    overflow: auto;
+}
+
+.wj-monospace{
+    font-family: monospace;
+}
+
+
+.footnote .f-heading,
+.equation .e-heading,
+.reference .r-heading {
+  font-weight: bold;
+}
+
+.footnote .f-content,
+.reference .r-content {
+  margin: 0.5em 0;
+}
+
+.footnote .f-footer,
+.equation .e-footer,
+.reference .r-footer {
+  font-size: 90%;
+}
+
+/* emph*/
+.emph {
+  text-emphasis-style: dot;
+}
+
+
+/* user*/
+img.small {
+  vertical-align: -0.3em;
+  margin: 0;
+  width: 16px;
+  height: 16px;
+  z-index: 0;
+  padding: 1px 9px 1px 8px;
+  background-repeat: no-repeat;
+  background-position: center left;
+}
+
+/* Footnotes */
+.wj-title{
+      margin: 0.5em 0;
+    font-size: 130%;
+    font-weight: bold;
+}
+
+.wj-footnote-ref{
+  position: relative;
+}
+
+.wj-footnote-ref-marker{
+  /*sup*/
+    vertical-align: super;
+    font-size: smaller;
+    color: #bb0011;
+    cursor: pointer;
+}
+.wj-footnote-ref-marker:hover{
+    text-decoration: underline;
+}
+.wj-footnote-ref-tooltip{
+  position: absolute;
+  width: 160px;
+  top: 100%;
+  left: 0%;
+  transform: translateX(-50%);
+  display:none;
+  background-color: white;
+  padding: .5em;
+  border: 1px solid #333;
+}
+.wj-footnote-ref-tooltip > span{
+  display: block;
+}
+.wj-footnote-ref-tooltip-label{
+  font-weight: bold;
+  margin-bottom: .5em;
+}
+.wj-footnote-ref:hover .wj-footnote-ref-tooltip{
+  display: block;
+}
+
+.wj-footnote-list-item-marker{
+  /*sup*/
+    color: #bb0011;
+    cursor: pointer;
+}
+.wj-footnote-list-item-marker:hover{
+    text-decoration: underline;
+}
+
+
+.footnotes-footer {
+  margin: 0;
+  padding: 0.5em 0;
+  /*border-top: 1px solid #CCC;*/
+  height: 1%;
+}
+
+.wj-footnotes-list .wj-title {
+  margin: 0.5em 0;
+  font-size: 130%;
+  font-weight: bold;
+}
+
+a.footnoteref {
+  display: inline-block;
+}
+
+div.wj-footnote-list ol {
+  padding-inline-start: 0;
+}
+
+li.wj-footnote-list-item {
+  list-style: none;
+}
+
+div.wj-footnote-contents {
+  display: inline;
+}

@@ -35,17 +35,17 @@ export function activate(context: vscode.ExtensionContext) {
         openPreviews.add(state.id);
         idToPreview.set(state.id, webviewEditor);
         idToInfo.set(state.id, state);
-        webviewEditor.webview.html = genHtml(state);
+        webviewEditor.webview.html = genHtml(state, context.extensionUri);
         setListeners(webviewEditor, state.id);
       }
     }),
 
     vscode.commands.registerCommand('ftml.preview.open', () => {
-      createPreviewPanel();
+      createPreviewPanel(context.extensionUri);
     }),
 
     vscode.commands.registerCommand('ftml.preview.openToSide', () => {
-      createPreviewPanel(vscode.ViewColumn.Beside);
+      createPreviewPanel(context.extensionUri,vscode.ViewColumn.Beside);
     }),
 
     vscode.commands.registerCommand('ftml.preview.toggleLock', () => {
