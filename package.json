@@ -124,10 +124,11 @@
     "vscode:prepublish": "pnpm run compile",
     "update:syntax-blocks": "node scripts/updateBlocks.js",
     "compile:worker": "vite build --config ./scripts/config.worker.vite.ts",
+    "compile:client": "vite build --config ./scripts/config.client.vite.ts",
     "compile:vite": "vite build --config ./scripts/config.vite.ts",
     "compile:ts": "tsc -p ./",
     "compile:yaml": "pnpx js-yaml ./syntaxes/ftml.tmLanguage.yaml > ./syntaxes/ftml.tmLanguage.json",
-    "compile": "pnpm run compile:yaml && pnpm run compile:worker && pnpm run compile:vite",
+    "compile": "pnpm run compile:yaml && pnpm run compile:worker && pnpm run compile:client && pnpm run compile:vite",
     "package": "vsce package --no-dependencies",
     "lint": "eslint . --ext .ts,.tsx",
     "watch": "tsc -w -p ./"
@@ -144,6 +145,8 @@
     "vite": "^7.3.0"
   },
   "dependencies": {
+    "@wdprlib/parser": "^0.1.5",
+    "@wdprlib/render": "^0.1.5",
     "front-matter": "^4.0.2",
     "sass": "^1.97.2"
   },

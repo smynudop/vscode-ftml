@@ -4,3 +4,4 @@ dist/
 dist_prebuild/
 syntaxes/ftml.tmLanguage.json
 docs/sources
+webview_dist/

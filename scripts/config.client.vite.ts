@@ -19,13 +19,14 @@ export default defineConfig({
   ],
   build: {
     target: 'es2020',
-    outDir: join(process.cwd(), 'dist_prebuild'),
+    outDir: join(process.cwd(), 'webview_dist'),
     assetsDir: '.',
     rollupOptions: {
     },
     lib: {
       entry: [
-        resolve(__dirname, '../src/webview/ftml.web.worker'),
+        resolve(__dirname, '../src/webview/client'),
+        resolve(__dirname, '../src/webview/styles')
       ],
       formats: ["cjs"],
       fileName: () => '[name].cjs',

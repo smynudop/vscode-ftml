@@ -8,6 +8,12 @@ importers:
 
   .:
     dependencies:
+      '@wdprlib/parser':
+        specifier: ^0.1.5
+        version: 0.1.5
+      '@wdprlib/render':
+        specifier: ^0.1.5
+        version: 0.1.5
       front-matter:
         specifier: ^4.0.2
         version: 4.0.2
@@ -44,6 +50,9 @@ importers:
         version: 7.3.0(@types/node@22.19.3)(sass@1.97.2)
 
 packages:
+
+  '@braintree/sanitize-url@7.1.2':
+    resolution: {integrity: sha512-jigsZK+sMF/cuiB7sERuo9V7N9jx+dhmHHnQyDSVdpZwVutaBu7WvNYqMDLSgFgfB30n452TP3vjDAvFC973mA==}
 
   '@esbuild/aix-ppc64@0.27.2':
     resolution: {integrity: sha512-GZMB+a0mOMZs4MpDbj8RJp4cw+w1WV5NYD6xzgvzUJ5Ek2jerwfO2eADyI6ExDSUED+1X8aMbegahsJi+8mgpw==}
@@ -414,6 +423,15 @@ packages:
   '@types/vscode@1.107.0':
     resolution: {integrity: sha512-XS8YE1jlyTIowP64+HoN30OlC1H9xqSlq1eoLZUgFEC8oUTO6euYZxti1xRiLSfZocs4qytTzR6xCBYtioQTCg==}
 
+  '@wdprlib/ast@0.1.5':
+    resolution: {integrity: sha512-h6AYgN/do9CExKQHjBnyo0HkBL9Aq9Z8tDZZGdO/UTdnglp0k3fY/pUg20/1edX+DfdAxd/YCYnBeatIn1LBZA==}
+
+  '@wdprlib/parser@0.1.5':
+    resolution: {integrity: sha512-8Cykhdmg/B3IaS5gp3Oojf3Jb+o/bqaV6ZmA01Wa54EKQnF8cLaY0JFc33LOzRQKR8E6N3sOAebCPDkx1djGVQ==}
+
+  '@wdprlib/render@0.1.5':
+    resolution: {integrity: sha512-UAL1EBT3J4SLZsxH4OQ6obhwGWK+492cEQTq4NOpPb2IouOr+7deicdA4SBPBpELx1tt8JsgFWr0sPmu+XYW1Q==}
+
   argparse@1.0.10:
     resolution: {integrity: sha512-o5Roy6tNG4SL/FOkCAN6RzjiakZS25RLYFrcMttJqbdd8BWrnA+fGz57iN5Pb06pvBGvl5gQ0B48dJlslXvoTg==}
 
@@ -721,6 +739,8 @@ packages:
 
 snapshots:
 
+  '@braintree/sanitize-url@7.1.2': {}
+
   '@esbuild/aix-ppc64@0.27.2':
     optional: true
 
@@ -940,6 +960,17 @@ snapshots:
   '@types/vscode-webview@1.57.5': {}
 
   '@types/vscode@1.107.0': {}
+
+  '@wdprlib/ast@0.1.5': {}
+
+  '@wdprlib/parser@0.1.5':
+    dependencies:
+      '@braintree/sanitize-url': 7.1.2
+      '@wdprlib/ast': 0.1.5
+
+  '@wdprlib/render@0.1.5':
+    dependencies:
+      '@wdprlib/ast': 0.1.5
 
   argparse@1.0.10:
     dependencies:

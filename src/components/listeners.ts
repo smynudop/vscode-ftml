@@ -18,7 +18,7 @@ import { genTitle } from "./preview";
  * If `immediate` is passed, trigger the function on the
  * leading edge, instead of the trailing.
  */
-function debounce(func: (...args: any[]) => any, wait: number, immediate?: boolean): (...args: any[]) => any {
+function debounce<T extends (...args: any[]) => any>(func: T, wait: number, immediate?: boolean): (...args: Parameters<T>) => ReturnType<T> {
   let timeout: any;
   let currentArgs: any[];
   return function (this: any, ...args) {
@@ -34,7 +34,7 @@ function debounce(func: (...args: any[]) => any, wait: number, immediate?: boole
   };
 };
 
-const serveBackendDebounced = debounce(serveBackend, 250);
+const serveBackendDebounced = debounce(serveBackend, 400);
 
 /**
  * Sets all the source change listeners for a preview panel.

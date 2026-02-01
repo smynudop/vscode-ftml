@@ -48,7 +48,7 @@ h6{
 
 /* toc */
 
-#wj-toc {
+#toc {
   margin: 1em auto 1em 0;
   padding: 0em 0.5em;
   border: 1px dashed gray;
@@ -97,51 +97,51 @@ blockquote,
   background-color: #f4f4f4;
 }
 
-.wj-clear-float-both {
+.clear-float-both {
   clear: both;
 }
 
 table.wiki-content-table,
-table.wj-table {
+table.table {
   border-collapse: collapse;
   border-spacing: 0;
   margin: 0.5em auto;
 }
 
 table.wiki-content-table td,
-table.wj-table td {
+table.table td {
   border: 1px solid #666;
   padding: 0.3em 0.7em;
 }
 
 table.wiki-content-table th,
-table.wj-table th {
+table.table th {
     border: 1px solid #888;
     padding: 0.3em 0.7em;
     background-color: #EEE;
 }
 
-.wj-align-center {
+.align-center {
   text-align: center;
 }
 
-.wj-align-left {
+.align-left {
   text-align: left;
 }
 
-.wj-align-right {
+.align-right {
   text-align: right;
 }
 
-.wj-align-justify {
+.align-justify {
   text-align: justify;
 }
 
-.wj-float-right{
+.float-right{
   float: right;
 }
 
-.wj-float-left{
+.float-left{
   float: left;
 }
 
@@ -156,14 +156,14 @@ code {
   font-family: unset;
 }
 
-wj-code{
+code{
   display: block;
 }
 
-code, .wj-code{
+code, .code{
     border-radius: 8px;
 }
-.wj-code{
+.code{
     border: 1px dashed #DDD;
     background-color: #F7F7F7;
     font-family: 'Andale Mono', 'Courier New', Courier, monospace;
@@ -171,10 +171,7 @@ code, .wj-code{
     margin: 0.4em 0;
     overflow: auto;
 }
-wj-code-copy{
-  display:none;
-}
-.wj-monospace{
+.monospace{
     font-family: monospace;
 }
 
@@ -215,27 +212,27 @@ img.small {
 }
 
 /* Footnotes */
-.wj-title{
-      margin: 0.5em 0;
+.footnotes-footer .title {
+    margin: 0.5em 0;
     font-size: 130%;
     font-weight: bold;
 }
 
-.wj-footnote-ref{
+.footnote-ref{
   position: relative;
 }
 
-.wj-footnote-ref-marker{
+.footnote-ref-marker{
   /*sup*/
     vertical-align: super;
     font-size: smaller;
     color: #bb0011;
     cursor: pointer;
 }
-.wj-footnote-ref-marker:hover{
+.footnote-ref-marker:hover{
     text-decoration: underline;
 }
-.wj-footnote-ref-tooltip{
+.footnote-ref-tooltip{
   position: absolute;
   width: 160px;
   top: 100%;
@@ -246,23 +243,23 @@ img.small {
   padding: .5em;
   border: 1px solid #333;
 }
-.wj-footnote-ref-tooltip > span{
+.footnote-ref-tooltip > span{
   display: block;
 }
-.wj-footnote-ref-tooltip-label{
+.footnote-ref-tooltip-label{
   font-weight: bold;
   margin-bottom: .5em;
 }
-.wj-footnote-ref:hover .wj-footnote-ref-tooltip{
+.footnote-ref:hover .footnote-ref-tooltip{
   display: block;
 }
 
-.wj-footnote-list-item-marker{
+.footnote-list-item-marker{
   /*sup*/
     color: #bb0011;
     cursor: pointer;
 }
-.wj-footnote-list-item-marker:hover{
+.footnote-list-item-marker:hover{
     text-decoration: underline;
 }
 
@@ -274,7 +271,7 @@ img.small {
   height: 1%;
 }
 
-.wj-footnotes-list .wj-title {
+.footnotes-list .title {
   margin: 0.5em 0;
   font-size: 130%;
   font-weight: bold;
@@ -284,14 +281,14 @@ a.footnoteref {
   display: inline-block;
 }
 
-div.wj-footnote-list ol {
+div.footnote-list ol {
   padding-inline-start: 0;
 }
 
-li.wj-footnote-list-item {
+li.footnote-list-item {
   list-style: none;
 }
 
-div.wj-footnote-contents {
+div.footnote-contents {
   display: inline;
 }
