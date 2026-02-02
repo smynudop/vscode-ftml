@@ -1,0 +1,21 @@
+├─ @wdprlib/parser@0.1.5
+│  ├─ licenses: AGPL-3.0
+│  ├─ repository: https://github.com/r74tech/wdpr
+│  └─ path: C:\dev\vscode-ftml\node_modules\@wdprlib\parser
+├─ @wdprlib/render@0.1.5
+│  ├─ licenses: AGPL-3.0
+│  ├─ repository: https://github.com/r74tech/wdpr
+│  └─ path: C:\dev\vscode-ftml\node_modules\@wdprlib\render
+├─ front-matter@4.0.2
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/jxson/front-matter
+│  ├─ publisher: Jason Campbell
+│  ├─ email: jasoncampbell@google.com
+│  ├─ url: http://twitter.com/jxson
+│  ├─ path: C:\dev\vscode-ftml\node_modules\front-matter
+│  └─ licenseFile: C:\dev\vscode-ftml\node_modules\front-matter\LICENSE
+└─ vscode-wikidot-preview@0.3.0
+   ├─ licenses: AGPL-3.0-or-later
+   ├─ repository: https://github.com/smynudop/vscode-ftml
+   ├─ path: C:\dev\vscode-ftml
+   └─ licenseFile: C:\dev\vscode-ftml\LICENSE.md

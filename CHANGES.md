@@ -16,3 +16,12 @@ License version 3 (AGPL-3.0) or later. See LICENSE.md for the full license text.
 
 To request the Corresponding Source for any distributed binaries or running services,
 please refer to the repository URL or contact the maintainer.
+
+## Dependency
+
+This product includes software licensed under the GNU General Public License v3
+
+- @wdprlib/parser
+- @wdprlib/render
+
+https://github.com/r74tech/wdpr/
