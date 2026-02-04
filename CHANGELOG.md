@@ -1,5 +1,8 @@
 # Change Log
 
+## 0.4.0
+@wdprlib/parser, @wdprlib/renderを使うように変更
+
 ## 0.3.0
 FTMLのwikidot互換モードを使うように変更
 シンタックスを改良
