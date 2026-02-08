@@ -1,0 +1,31 @@
+body{
+    padding: 0 !important;
+}
+
+#address-bar{
+    height: 28px;
+    text-align: center;
+    font-size: 12px;
+    background-color: #d6d6d6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.address-bar-content{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 100%;
+    background-color: #ffffff;
+    color: #555;
+    border-radius: 7px;
+    line-height: 1;
+    padding: 2px 8px;
+    width: 80%;
+    border: 1px solid #ccc;
+}
+
+#container{
+    padding: 5px;
+}

@@ -48,64 +48,6 @@ export function activate(context: vscode.ExtensionContext) {
       createPreviewPanel(context,vscode.ViewColumn.Beside);
     }),
 
-    vscode.commands.registerCommand('ftml.preview.toggleLock', () => {
-      if (activePreview) {
-        let panel = idToPreview.get(activePreview)!;
-        let panelInfo = idToInfo.get(activePreview)!;
-        if (lockedPreviews.has(activePreview)) {
-          setTabChangeListener(panel, activePreview);
-          panel.title = genTitle(
-            basename(panelInfo.fileName),
-            panelInfo.backend,
-            panelInfo.live,
-            lockedPreviews.has(activePreview));
-        } else {
-          unsetTabChangeListener(panel, activePreview);
-          panel.title = genTitle(
-            basename(panelInfo.fileName),
-            panelInfo.backend,
-            panelInfo.live,
-            lockedPreviews.has(activePreview));
-        }
-      }
-    }),
-
-    vscode.commands.registerCommand('ftml.preview.toggleLive', () => {
-      if (activePreview) {
-        let panel = idToPreview.get(activePreview)!;
-        let panelInfo = idToInfo.get(activePreview)!;
-        panelInfo.live = !panelInfo.live;
-        panel.webview.postMessage({
-          type: "meta.live",
-          live: panelInfo.live,
-        })
-        panel.title = genTitle(
-          basename(panelInfo.fileName),
-          panelInfo.backend,
-          panelInfo.live,
-          lockedPreviews.has(activePreview));
-      }
-    }),
-
-    vscode.commands.registerCommand('ftml.preview.toggleBackend', () => {
-      if (activePreview) {
-        let panel = idToPreview.get(activePreview)!;
-        let panelInfo = idToInfo.get(activePreview)!;
-        panelInfo.backend = panelInfo.backend == 'ftml' ? 'wikidot' : 'ftml';
-        panel.webview.postMessage({
-          type: "meta.backend",
-          backend: panelInfo.backend,
-        })
-        panel.title = genTitle(
-          basename(panelInfo.fileName),
-          panelInfo.backend,
-          panelInfo.live,
-          lockedPreviews.has(activePreview));
-        vscode.commands.executeCommand('setContext', 'ftmlPreviewBackend', panelInfo.backend);
-        vscode.commands.executeCommand('ftml.preview.refresh');
-      }
-    }),
-
     vscode.commands.registerCommand('ftml.preview.refresh', () => {
       if (activePreview) {
         let panel = idToPreview.get(activePreview)!;

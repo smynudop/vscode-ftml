@@ -9,17 +9,14 @@ importers:
   .:
     dependencies:
       '@wdprlib/parser':
-        specifier: ^0.1.5
-        version: 0.1.5
+        specifier: ^1.1.0
+        version: 1.1.0
       '@wdprlib/render':
-        specifier: ^0.1.5
-        version: 0.1.5
+        specifier: ^1.2.0
+        version: 1.2.0
       front-matter:
         specifier: ^4.0.2
         version: 4.0.2
-      sass:
-        specifier: ^1.97.2
-        version: 1.97.2
     devDependencies:
       '@types/js-yaml':
         specifier: ^4.0.5
@@ -39,6 +36,9 @@ importers:
       js-yaml:
         specifier: ^4.1.0
         version: 4.1.1
+      sass:
+        specifier: ^1.97.2
+        version: 1.97.2
       toml:
         specifier: ^3.0.0
         version: 3.0.0
@@ -423,14 +423,14 @@ packages:
   '@types/vscode@1.107.0':
     resolution: {integrity: sha512-XS8YE1jlyTIowP64+HoN30OlC1H9xqSlq1eoLZUgFEC8oUTO6euYZxti1xRiLSfZocs4qytTzR6xCBYtioQTCg==}
 
-  '@wdprlib/ast@0.1.5':
-    resolution: {integrity: sha512-h6AYgN/do9CExKQHjBnyo0HkBL9Aq9Z8tDZZGdO/UTdnglp0k3fY/pUg20/1edX+DfdAxd/YCYnBeatIn1LBZA==}
+  '@wdprlib/ast@1.1.0':
+    resolution: {integrity: sha512-Jd9GtuZFbNzGrvn0ujHDJII2occQNFthwmDhdSeayoJfojFPffAKLjbM3dbgUYGjzOHvhqsJDZX894zQnJrI2w==}
 
-  '@wdprlib/parser@0.1.5':
-    resolution: {integrity: sha512-8Cykhdmg/B3IaS5gp3Oojf3Jb+o/bqaV6ZmA01Wa54EKQnF8cLaY0JFc33LOzRQKR8E6N3sOAebCPDkx1djGVQ==}
+  '@wdprlib/parser@1.1.0':
+    resolution: {integrity: sha512-OP2/Uv6hGlbhz1I/EPO4fQcbPpgFOTKB5CsCO8EJaMucjI6kak1n7w6Pwhc3XFXARJefADWMvKNmc6UFTl8wng==}
 
-  '@wdprlib/render@0.1.5':
-    resolution: {integrity: sha512-UAL1EBT3J4SLZsxH4OQ6obhwGWK+492cEQTq4NOpPb2IouOr+7deicdA4SBPBpELx1tt8JsgFWr0sPmu+XYW1Q==}
+  '@wdprlib/render@1.2.0':
+    resolution: {integrity: sha512-5dTFZS6i/av+Kt34YpzwEPMAypKtjCm1dB22nzEi3VtmrwclezcvGOsJ9Q1pCu+7P0z7wJqiyiPawL4Hu5ZwkA==}
 
   argparse@1.0.10:
     resolution: {integrity: sha512-o5Roy6tNG4SL/FOkCAN6RzjiakZS25RLYFrcMttJqbdd8BWrnA+fGz57iN5Pb06pvBGvl5gQ0B48dJlslXvoTg==}
@@ -446,10 +446,35 @@ packages:
     resolution: {integrity: sha512-Qgzu8kfBvo+cA4962jnP1KkS6Dop5NS6g7R5LFYJr4b8Ub94PPQXUksCw9PvXoeXPRRddRNC5C1JQUR2SMGtnA==}
     engines: {node: '>= 14.16.0'}
 
+  deepmerge@4.3.1:
+    resolution: {integrity: sha512-3sUqbMEc77XqpdNO7FRyRog+eW3ph+GYCbj+rK+uYyRMuwsVy0rMiVtPn+QJlKFvWP/1PYpapqYn0Me2knFn+A==}
+    engines: {node: '>=0.10.0'}
+
   detect-libc@1.0.3:
     resolution: {integrity: sha512-pGjwhsmsp4kL2RTz08wcOlGN83otlqHeD/Z5T8GXZB+/YcpQ/dgo+lbU8ZsGxV0HIvqqxo9l7mqYwyYMD9bKDg==}
     engines: {node: '>=0.10'}
     hasBin: true
+
+  dom-serializer@2.0.0:
+    resolution: {integrity: sha512-wIkAryiqt/nV5EQKqQpo3SToSOV9J0DnbJqwK7Wv/Trc92zIAYZ4FlMu+JPFW1DfGFt81ZTCGgDEabffXeLyJg==}
+
+  domelementtype@2.3.0:
+    resolution: {integrity: sha512-OLETBj6w0OsagBwdXnPdN0cnMfF9opN69co+7ZrbfPGrdpPVNBUj02spi6B1N7wChLQiPn4CSH/zJvXw56gmHw==}
+
+  domhandler@5.0.3:
+    resolution: {integrity: sha512-cgwlv/1iFQiFnU96XXgROh8xTeetsnJiDsTc7TYCLFd9+/WNkIqPTxiM/8pSd8VIrhXGTf1Ny1q1hquVqDJB5w==}
+    engines: {node: '>= 4'}
+
+  domutils@3.2.2:
+    resolution: {integrity: sha512-6kZKyUajlDuqlHKVX1w7gyslj9MPIXzIFiz/rGu35uC1wMi+kMhQwGhl4lt9unC9Vb9INnY9Z3/ZA3+FhASLaw==}
+
+  entities@4.5.0:
+    resolution: {integrity: sha512-V0hjH4dGPh9Ao5p0MoRY6BVqtwCjhz6vI5LT8AJ55H+4g9/4vbHx1I54fS0XuclLhDHArPQCiMjDxjaL8fPxhw==}
+    engines: {node: '>=0.12'}
+
+  entities@7.0.1:
+    resolution: {integrity: sha512-TWrgLOFUQTH994YUyl1yT4uyavY5nNB5muff+RtWaqNVCAK408b5ZnnbNAUEWLTCpum9w6arT70i1XdQ4UeOPA==}
+    engines: {node: '>=0.12'}
 
   esbuild-android-64@0.14.54:
     resolution: {integrity: sha512-Tz2++Aqqz0rJ7kYBfz+iqyE3QMycD4vk7LBRyWaAVFgFtQ/O8EJOnVmTOiDWYZ/uYzB4kvP+bqejYdVKzE5lAQ==}
@@ -581,6 +606,10 @@ packages:
     engines: {node: '>=18'}
     hasBin: true
 
+  escape-string-regexp@4.0.0:
+    resolution: {integrity: sha512-TtpcNJ3XAzx3Gq8sWRzJaVajRs0uVxA2YAkdb1jm2YkPz4G6egUFAyA3n5vtEIZefPk5Wa4UXbKuS5fKkJWdgA==}
+    engines: {node: '>=10'}
+
   esprima@4.0.1:
     resolution: {integrity: sha512-eGuFFw7Upda+g4p+QHvnW0RyTX/SVeJBDM/gCtMARO0cLuT2HcEKnTPvhjV6aGeqrCB/sbNop0Kszm0jsaWU4A==}
     engines: {node: '>=4'}
@@ -607,6 +636,12 @@ packages:
     engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
     os: [darwin]
 
+  htmlparser2@10.1.0:
+    resolution: {integrity: sha512-VTZkM9GWRAtEpveh7MSF6SjjrpNVNNVJfFup7xTY3UpFtm67foy9HDVXneLtFVt4pMz5kZtgNcvCniNFb1hlEQ==}
+
+  htmlparser2@8.0.2:
+    resolution: {integrity: sha512-GYdjWKDkbRLkZ5geuHs5NY1puJ+PXwP7+fHPRz06Eirsb9ugf6d8kkXav6ADhcODhFFPMIXyxkxSuMf3D6NCFA==}
+
   immutable@5.1.4:
     resolution: {integrity: sha512-p6u1bG3YSnINT5RQmx/yRZBpenIl30kVxkTLDyHLIMk0gict704Q9n+thfDI7lTRm9vXdDYutVzXhzcThxTnXA==}
 
@@ -621,6 +656,10 @@ packages:
   is-number@7.0.0:
     resolution: {integrity: sha512-41Cifkg6e8TylSpdtTpeLVMqvSBEVzTttHvERD741+pnZ8ANv0004MRL43QKPDlK9cGvNp6NZWZUBlbGXYxxng==}
     engines: {node: '>=0.12.0'}
+
+  is-plain-object@5.0.0:
+    resolution: {integrity: sha512-VRSzKkbMm5jMDoKLbltAkFQ5Qr7VDiTFGXxYFXXowVj387GeGNOCsOH6Msy00SGZ3Fp84b1Naa1psqgcCIEP5Q==}
+    engines: {node: '>=0.10.0'}
 
   js-yaml@3.14.2:
     resolution: {integrity: sha512-PMSmkqxr106Xa156c2M265Z+FTrPl+oxd/rgOQy2tijQeK5TxQ43psO1ZCwhVOSdnn+RzkzlRz/eY4BgJBYVpg==}
@@ -641,6 +680,9 @@ packages:
 
   node-addon-api@7.1.1:
     resolution: {integrity: sha512-5m3bsyrjFWE1xf7nz7YXdN4udnVtXK6/Yfgn5qnahL6bCkf2yKt4k3nuTKAtT4r3IG8JNR2ncsIMdZuAzJjHQQ==}
+
+  parse-srcset@1.0.2:
+    resolution: {integrity: sha512-/2qh0lav6CmI15FzA3i/2Bzk2zCgQhGMkvhOhKNcBVQ1ldgpbfiNTVslmooUmWJcADi1f1kIeynbDRVzNlfR6Q==}
 
   picocolors@1.1.1:
     resolution: {integrity: sha512-xceH2snhtb5M9liqDsmEw56le376mTZkEX/jEb/RxNFyegNul7eNslCXP9FDj/Lcu0X8KEyMceP2ntpaHrDEVA==}
@@ -666,6 +708,9 @@ packages:
     engines: {node: '>=18.0.0', npm: '>=8.0.0'}
     hasBin: true
 
+  sanitize-html@2.17.0:
+    resolution: {integrity: sha512-dLAADUSS8rBwhaevT12yCezvioCA+bmUTPH/u57xKPT8d++voeYE6HeluA/bPbQ15TwDBG2ii+QZIEmYx8VdxA==}
+
   sass@1.97.2:
     resolution: {integrity: sha512-y5LWb0IlbO4e97Zr7c3mlpabcbBtS+ieiZ9iwDooShpFKWXf62zz5pEPdwrLYm+Bxn1fnbwFGzHuCLSA9tBmrw==}
     engines: {node: '>=14.0.0'}
@@ -677,6 +722,10 @@ packages:
 
   sprintf-js@1.0.3:
     resolution: {integrity: sha512-D9cPgkvLlV3t3IzL0D0YLvGA9Ahk4PcvVwUbN0dSGr1aP0Nrt4AEnTUbuGvquEC0mA64Gqt1fzirlRs5ibXx8g==}
+
+  temml@0.13.1:
+    resolution: {integrity: sha512-/fL1utq8QUD9YpcLeZHPRnp9Cbzbexq5hZl5uSBhf8mNYiKkcS4eYbLidDB+/nF8C+RHAcBQbKw2bKoS83mz1Q==}
+    engines: {node: '>=18.13.0'}
 
   tinyglobby@0.2.15:
     resolution: {integrity: sha512-j2Zq4NyQYG5XMST4cbs02Ak8iJUdxRM0XI5QyxXuZOzKOINmWurp3smXu3y5wDcJrptwpSjgXHzIQxR0omXljQ==}
@@ -961,16 +1010,20 @@ snapshots:
 
   '@types/vscode@1.107.0': {}
 
-  '@wdprlib/ast@0.1.5': {}
+  '@wdprlib/ast@1.1.0': {}
 
-  '@wdprlib/parser@0.1.5':
+  '@wdprlib/parser@1.1.0':
     dependencies:
       '@braintree/sanitize-url': 7.1.2
-      '@wdprlib/ast': 0.1.5
+      '@wdprlib/ast': 1.1.0
 
-  '@wdprlib/render@0.1.5':
+  '@wdprlib/render@1.2.0':
     dependencies:
-      '@wdprlib/ast': 0.1.5
+      '@wdprlib/ast': 1.1.0
+      domhandler: 5.0.3
+      htmlparser2: 10.1.0
+      sanitize-html: 2.17.0
+      temml: 0.13.1
 
   argparse@1.0.10:
     dependencies:
@@ -987,8 +1040,32 @@ snapshots:
     dependencies:
       readdirp: 4.1.2
 
+  deepmerge@4.3.1: {}
+
   detect-libc@1.0.3:
     optional: true
+
+  dom-serializer@2.0.0:
+    dependencies:
+      domelementtype: 2.3.0
+      domhandler: 5.0.3
+      entities: 4.5.0
+
+  domelementtype@2.3.0: {}
+
+  domhandler@5.0.3:
+    dependencies:
+      domelementtype: 2.3.0
+
+  domutils@3.2.2:
+    dependencies:
+      dom-serializer: 2.0.0
+      domelementtype: 2.3.0
+      domhandler: 5.0.3
+
+  entities@4.5.0: {}
+
+  entities@7.0.1: {}
 
   esbuild-android-64@0.14.54:
     optional: true
@@ -1103,6 +1180,8 @@ snapshots:
       '@esbuild/win32-ia32': 0.27.2
       '@esbuild/win32-x64': 0.27.2
 
+  escape-string-regexp@4.0.0: {}
+
   esprima@4.0.1: {}
 
   fdir@6.5.0(picomatch@4.0.3):
@@ -1121,6 +1200,20 @@ snapshots:
   fsevents@2.3.3:
     optional: true
 
+  htmlparser2@10.1.0:
+    dependencies:
+      domelementtype: 2.3.0
+      domhandler: 5.0.3
+      domutils: 3.2.2
+      entities: 7.0.1
+
+  htmlparser2@8.0.2:
+    dependencies:
+      domelementtype: 2.3.0
+      domhandler: 5.0.3
+      domutils: 3.2.2
+      entities: 4.5.0
+
   immutable@5.1.4: {}
 
   is-extglob@2.1.1:
@@ -1133,6 +1226,8 @@ snapshots:
 
   is-number@7.0.0:
     optional: true
+
+  is-plain-object@5.0.0: {}
 
   js-yaml@3.14.2:
     dependencies:
@@ -1153,6 +1248,8 @@ snapshots:
 
   node-addon-api@7.1.1:
     optional: true
+
+  parse-srcset@1.0.2: {}
 
   picocolors@1.1.1: {}
 
@@ -1197,6 +1294,15 @@ snapshots:
       '@rollup/rollup-win32-x64-msvc': 4.54.0
       fsevents: 2.3.3
 
+  sanitize-html@2.17.0:
+    dependencies:
+      deepmerge: 4.3.1
+      escape-string-regexp: 4.0.0
+      htmlparser2: 8.0.2
+      is-plain-object: 5.0.0
+      parse-srcset: 1.0.2
+      postcss: 8.5.6
+
   sass@1.97.2:
     dependencies:
       chokidar: 4.0.3
@@ -1208,6 +1314,8 @@ snapshots:
   source-map-js@1.2.1: {}
 
   sprintf-js@1.0.3: {}
+
+  temml@0.13.1: {}
 
   tinyglobby@0.2.15:
     dependencies:

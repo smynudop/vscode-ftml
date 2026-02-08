@@ -51,7 +51,11 @@ function genHtml(context: vscode.ExtensionContext, panel: vscode.WebviewPanel) {
     <link href="${stylePath}" rel="stylesheet">
   </head>
   <body>
+
+  <div id="address-bar"><input class="address-bar-content" readonly></div>
+  <div id="container">
   <div id="preview-content">loading...</div>
+  </div>
   <script type="module" src="${scriptPath}"></script>
   </body>
   </html>`
