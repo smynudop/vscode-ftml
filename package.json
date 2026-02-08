@@ -1,154 +1,157 @@
 {
-  "name": "vscode-wikidot-preview",
-  "publisher": "udotree",
-  "displayName": "Wikidot Preview",
-  "description": "Wikidot live preview & syntax highlight",
-  "version": "0.4.0",
-  "license": "AGPL-3.0-or-later",
-  "engines": {
-    "vscode": "^1.107.0"
-  },
-  "icon": "assets/vscode-wikidot-preview.128x128.png",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/smynudop/vscode-ftml"
-  },
-  "bugs": {
-    "url": "https://github.com/smynudop/vscode-ftml/issues"
-  },
-  "categories": [
-    "Programming Languages"
-  ],
-  "activationEvents": [],
-  "main": "./dist/extension",
-  "contributes": {
-    "languages": [
-      {
-        "id": "ftml",
-        "aliases": [
-          "FTML",
-          "ftml",
-          "Wikidot code"
-        ],
-        "extensions": [
-          ".ftml",
-          ".wd",
-          ".wikidot",
-          ".wj",
-          ".wikijump"
-        ],
-        "configuration": "./language-configuration.json",
-        "icon": {
-          "dark": "./assets/ftmlang.64x64.png",
-          "light": "./assets/ftmlang.64x64.png"
-        }
-      }
-    ],
-    "grammars": [
-      {
-        "language": "ftml",
-        "scopeName": "text.ftml",
-        "path": "./syntaxes/ftml.tmLanguage.json",
-        "embeddedLanguages": {
-          "meta.embedded.block.css": "css",
-          "meta.embedded.block.html": "html",
-          "meta.embedded.block.katex": "katex",
-          "meta.embedded.block.yaml": "yaml"
-        }
-      }
-    ],
-    "commands": [
-      {
-        "command": "ftml.preview.open",
-        "title": "%ftml.preview.open%",
-        "category": "Ftml"
-      },
-      {
-        "command": "ftml.preview.openToSide",
-        "title": "%ftml.preview.openToSide%",
-        "category": "Ftml",
-        "icon": "$(open-preview)"
-      },
-      {
-        "command": "ftml.preview.refresh",
-        "title": "%ftml.preview.refresh%",
-        "category": "Ftml"
-      }
-    ],
-    "menus": {
-      "editor/context": [
-        {
-          "when": "resourceLangId == ftml && !isInDiffEditor",
-          "command": "ftml.preview.open",
-          "group": "4_ftml"
-        },
-        {
-          "when": "resourceLangId == ftml && !isInDiffEditor",
-          "command": "ftml.preview.openToSide",
-          "group": "4_ftml"
-        }
-      ],
-      "editor/title": [
-        {
-          "when": "resourceLangId == ftml && !isInDiffEditor",
-          "command": "ftml.preview.open",
-          "group": "4_ftml"
-        },
-        {
-          "when": "resourceLangId == ftml && !isInDiffEditor",
-          "command": "ftml.preview.openToSide",
-          "group": "navigation",
-          "icon": "$(preview)"
-        }
-      ]
-    },
-    "configuration": [
-      {
-        "title": "FTML",
-        "properties": {
-          "ftml.preview.lock": {
-            "type": "boolean",
-            "default": false,
-            "description": "%ftml.preview.lock%"
-          },
-          "ftml.preview.live": {
-            "type": "boolean",
-            "default": true,
-            "description": "%ftml.preview.live%"
-          }
-        }
-      }
-    ]
-  },
-  "scripts": {
-    "vscode:prepublish": "pnpm run compile",
-    "update:syntax-blocks": "node scripts/updateBlocks.js",
-    "compile:worker": "vite build --config ./scripts/config.worker.vite.ts",
-    "compile:client": "vite build --config ./scripts/config.client.vite.ts",
-    "compile:vite": "vite build --config ./scripts/config.vite.ts",
-    "compile:ts": "tsc -p ./",
-    "compile:yaml": "pnpx js-yaml ./syntaxes/ftml.tmLanguage.yaml > ./syntaxes/ftml.tmLanguage.json",
-    "compile": "pnpm run compile:yaml && pnpm run compile:worker && pnpm run compile:client && pnpm run compile:vite",
-    "package": "vsce package --no-dependencies",
-    "lint": "eslint . --ext .ts,.tsx",
-    "watch": "tsc -w -p ./"
-  },
-  "devDependencies": {
-    "@types/js-yaml": "^4.0.5",
-    "@types/node": "^22.19.3",
-    "@types/vscode": "^1.107.0",
-    "@types/vscode-webview": "^1.57.5",
-    "esbuild": "^0.14.27",
-    "js-yaml": "^4.1.0",
-    "sass": "^1.97.2",
-    "toml": "^3.0.0",
-    "typescript": "^5.9.3",
-    "vite": "^7.3.0"
-  },
-  "dependencies": {
-    "@wdprlib/parser": "^1.1.0",
-    "@wdprlib/render": "^1.2.0",
-    "front-matter": "^4.0.2"
-  },
-  "packageManager": "pnpm@10.28.0+sha512.05df71d1421f21399e053fde567cea34d446fa02c76571441bfc1c7956e98e363088982d940465fd34480d4d90a0668bc12362f8aa88000a64e83d0b0e47be48"
+	"name": "vscode-wikidot-preview",
+	"publisher": "udotree",
+	"displayName": "Wikidot Preview",
+	"description": "Wikidot live preview & syntax highlight",
+	"version": "0.4.0",
+	"license": "AGPL-3.0-or-later",
+	"engines": {
+		"vscode": "^1.107.0"
+	},
+	"icon": "assets/vscode-wikidot-preview.128x128.png",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/smynudop/vscode-ftml"
+	},
+	"bugs": {
+		"url": "https://github.com/smynudop/vscode-ftml/issues"
+	},
+	"categories": [
+		"Programming Languages"
+	],
+	"activationEvents": [],
+	"main": "./dist/extension",
+	"contributes": {
+		"languages": [
+			{
+				"id": "ftml",
+				"aliases": [
+					"FTML",
+					"ftml",
+					"Wikidot code"
+				],
+				"extensions": [
+					".ftml",
+					".wd",
+					".wikidot",
+					".wj",
+					".wikijump"
+				],
+				"configuration": "./language-configuration.json",
+				"icon": {
+					"dark": "./assets/ftmlang.64x64.png",
+					"light": "./assets/ftmlang.64x64.png"
+				}
+			}
+		],
+		"grammars": [
+			{
+				"language": "ftml",
+				"scopeName": "text.ftml",
+				"path": "./syntaxes/ftml.tmLanguage.json",
+				"embeddedLanguages": {
+					"meta.embedded.block.css": "css",
+					"meta.embedded.block.html": "html",
+					"meta.embedded.block.katex": "katex",
+					"meta.embedded.block.yaml": "yaml"
+				}
+			}
+		],
+		"commands": [
+			{
+				"command": "ftml.preview.open",
+				"title": "%ftml.preview.open%",
+				"category": "Ftml"
+			},
+			{
+				"command": "ftml.preview.openToSide",
+				"title": "%ftml.preview.openToSide%",
+				"category": "Ftml",
+				"icon": "$(open-preview)"
+			},
+			{
+				"command": "ftml.preview.refresh",
+				"title": "%ftml.preview.refresh%",
+				"category": "Ftml"
+			}
+		],
+		"menus": {
+			"editor/context": [
+				{
+					"when": "resourceLangId == ftml && !isInDiffEditor",
+					"command": "ftml.preview.open",
+					"group": "4_ftml"
+				},
+				{
+					"when": "resourceLangId == ftml && !isInDiffEditor",
+					"command": "ftml.preview.openToSide",
+					"group": "4_ftml"
+				}
+			],
+			"editor/title": [
+				{
+					"when": "resourceLangId == ftml && !isInDiffEditor",
+					"command": "ftml.preview.open",
+					"group": "4_ftml"
+				},
+				{
+					"when": "resourceLangId == ftml && !isInDiffEditor",
+					"command": "ftml.preview.openToSide",
+					"group": "navigation",
+					"icon": "$(preview)"
+				}
+			]
+		},
+		"configuration": [
+			{
+				"title": "FTML",
+				"properties": {
+					"ftml.preview.lock": {
+						"type": "boolean",
+						"default": false,
+						"description": "%ftml.preview.lock%"
+					},
+					"ftml.preview.live": {
+						"type": "boolean",
+						"default": true,
+						"description": "%ftml.preview.live%"
+					}
+				}
+			}
+		]
+	},
+	"scripts": {
+		"vscode:prepublish": "pnpm run compile",
+		"update:syntax-blocks": "node scripts/updateBlocks.js",
+		"compile:worker": "vite build --config ./scripts/config.worker.vite.ts",
+		"compile:client": "vite build --config ./scripts/config.client.vite.ts",
+		"compile:vite": "vite build --config ./scripts/config.vite.ts",
+		"compile:ts": "tsc -p ./",
+		"compile:yaml": "pnpx js-yaml ./syntaxes/ftml.tmLanguage.yaml > ./syntaxes/ftml.tmLanguage.json",
+		"compile": "pnpm run compile:yaml && pnpm run compile:worker && pnpm run compile:client && pnpm run compile:vite",
+		"package": "vsce package --no-dependencies",
+		"lint": "biome lint ",
+		"format": "@biomejs/biome format --write",
+		"biome:check": "pnpm dlx biome check",
+		"watch": "tsc -w -p ./"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^2.3.14",
+		"@types/js-yaml": "^4.0.5",
+		"@types/node": "^22.19.3",
+		"@types/vscode": "^1.107.0",
+		"@types/vscode-webview": "^1.57.5",
+		"esbuild": "^0.14.27",
+		"js-yaml": "^4.1.0",
+		"sass": "^1.97.2",
+		"toml": "^3.0.0",
+		"typescript": "^5.9.3",
+		"vite": "^7.3.0"
+	},
+	"dependencies": {
+		"@wdprlib/parser": "^1.1.0",
+		"@wdprlib/render": "^1.2.0",
+		"front-matter": "^4.0.2"
+	},
+	"packageManager": "pnpm@10.28.0+sha512.05df71d1421f21399e053fde567cea34d446fa02c76571441bfc1c7956e98e363088982d940465fd34480d4d90a0668bc12362f8aa88000a64e83d0b0e47be48"
 }

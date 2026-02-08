@@ -1,11 +1,11 @@
 import * as vscode from "vscode";
 
 import {
-  idToInfo,
-  idToPreview,
-  openPreviews,
-  lockedPreviews,
-  basename,
+	idToInfo,
+	idToPreview,
+	openPreviews,
+	lockedPreviews,
+	basename,
 } from "../global";
 import { serveBackend } from "./source";
 import { setListeners } from "./listeners";
@@ -14,13 +14,13 @@ import { setListeners } from "./listeners";
  * All the metadata associated with a preview tab.
  */
 type previewInfo = {
-  id: string,
-  fileName: string,
-  viewColumn: number,
-  content: string,
-  backend: string,
-  live: boolean,
-}
+	id: string;
+	fileName: string;
+	viewColumn: number;
+	content: string;
+	backend: string;
+	live: boolean;
+};
 
 /**
  * Generates a tab title for the preview.
@@ -29,20 +29,33 @@ type previewInfo = {
  * @param live The preview being live or not.
  * @param lock The preview being locked to a file or not.
  */
-function genTitle(fileName: string, backend: string, live: boolean, lock: boolean) {
-  let prefix = backend == "ftml" && live ? `Live ${backend}` : backend;
-  prefix = lock ? `[${prefix}]` : prefix;
-  return `${prefix} ${fileName}`;
+function genTitle(
+	fileName: string,
+	backend: string,
+	live: boolean,
+	lock: boolean,
+) {
+	let prefix = backend == "ftml" && live ? `Live ${backend}` : backend;
+	prefix = lock ? `[${prefix}]` : prefix;
+	return `${prefix} ${fileName}`;
 }
 
 /**
  * Generates an HTML body for the preview.
  */
 function genHtml(context: vscode.ExtensionContext, panel: vscode.WebviewPanel) {
-  const scriptPath = panel.webview.asWebviewUri(vscode.Uri.joinPath(context.extensionUri, 'webview_dist', 'client.cjs'));
-  const stylePath = panel.webview.asWebviewUri(vscode.Uri.joinPath(context.extensionUri, 'webview_dist', 'vscode-wikidot-preview.css'));
+	const scriptPath = panel.webview.asWebviewUri(
+		vscode.Uri.joinPath(context.extensionUri, "webview_dist", "client.cjs"),
+	);
+	const stylePath = panel.webview.asWebviewUri(
+		vscode.Uri.joinPath(
+			context.extensionUri,
+			"webview_dist",
+			"vscode-wikidot-preview.css",
+		),
+	);
 
-  return `<!DOCTYPE html>
+	return `<!DOCTYPE html>
   <html lang="en">
   <head>
     <meta charset="UTF-8">
@@ -58,72 +71,73 @@ function genHtml(context: vscode.ExtensionContext, panel: vscode.WebviewPanel) {
   </div>
   <script type="module" src="${scriptPath}"></script>
   </body>
-  </html>`
+  </html>`;
 }
 
 /**
  * Creates a preview panel at the specified column.
  * @param viewColumn Column to create at.
  */
-function createPreviewPanel(extensionContext: vscode.ExtensionContext, viewColumn?: number) {
-  let panelInfo = {
-    id: Math.random().toString(36).substring(4),
-    fileName: '',
-    viewColumn: viewColumn ?? vscode.ViewColumn.Active,
-    content: '',
-    backend: "ftml",
-    live: true,
-  }
-  while (openPreviews.has(panelInfo.id)) {
-    panelInfo.id = Math.random().toString(36).substring(4);
-  }
+function createPreviewPanel(
+	extensionContext: vscode.ExtensionContext,
+	viewColumn?: number,
+) {
+	let panelInfo = {
+		id: Math.random().toString(36).substring(4),
+		fileName: "",
+		viewColumn: viewColumn ?? vscode.ViewColumn.Active,
+		content: "",
+		backend: "ftml",
+		live: true,
+	};
+	while (openPreviews.has(panelInfo.id)) {
+		panelInfo.id = Math.random().toString(36).substring(4);
+	}
 
-  let locked = !!vscode.workspace.getConfiguration('ftml.preview').get('lock');
+	let locked = !!vscode.workspace.getConfiguration("ftml.preview").get("lock");
 
-  const panel = vscode.window.createWebviewPanel(
-    'ftml.preview',
-    genTitle(
-      basename(panelInfo.fileName),
-      panelInfo.backend,
-      panelInfo.live,
-      locked),
-    panelInfo.viewColumn ? panelInfo.viewColumn : vscode.ViewColumn.Active,
-    {
-      enableScripts: true,
-      retainContextWhenHidden: true,
-      enableFindWidget: true,
-    }
-  );
-  openPreviews.add(panelInfo.id);
-  idToPreview.set(panelInfo.id, panel);
-  idToInfo.set(panelInfo.id, panelInfo);
+	const panel = vscode.window.createWebviewPanel(
+		"ftml.preview",
+		genTitle(
+			basename(panelInfo.fileName),
+			panelInfo.backend,
+			panelInfo.live,
+			locked,
+		),
+		panelInfo.viewColumn ? panelInfo.viewColumn : vscode.ViewColumn.Active,
+		{
+			enableScripts: true,
+			retainContextWhenHidden: true,
+			enableFindWidget: true,
+		},
+	);
+	openPreviews.add(panelInfo.id);
+	idToPreview.set(panelInfo.id, panel);
+	idToInfo.set(panelInfo.id, panelInfo);
 
+	panel.webview.html = genHtml(extensionContext, panel);
 
-  panel.webview.html = genHtml(extensionContext, panel);
+	let activeEditor = vscode.window.activeTextEditor;
+	if (activeEditor?.document.languageId == "ftml") {
+		panelInfo.fileName = activeEditor.document.fileName;
+		serveBackend(
+			panel,
+			activeEditor.document.fileName,
+			activeEditor.document.getText(),
+			panelInfo.backend,
+		);
+		panel.title = genTitle(
+			basename(activeEditor.document.fileName),
+			panelInfo.backend,
+			panelInfo.live,
+			locked,
+		);
+	}
 
-  let activeEditor = vscode.window.activeTextEditor;
-  if (activeEditor?.document.languageId == 'ftml') {
-    panelInfo.fileName = activeEditor.document.fileName;
-    serveBackend(panel,
-      activeEditor.document.fileName,
-      activeEditor.document.getText(),
-      panelInfo.backend);
-    panel.title = genTitle(
-      basename(activeEditor.document.fileName),
-      panelInfo.backend,
-      panelInfo.live,
-      locked);
-  }
-
-  if (locked) {
-    lockedPreviews.add(panelInfo.id)
-  }
-  setListeners(panel, panelInfo.id);
+	if (locked) {
+		lockedPreviews.add(panelInfo.id);
+	}
+	setListeners(panel, panelInfo.id);
 }
 
-export {
-  type previewInfo,
-  genTitle,
-  genHtml,
-  createPreviewPanel,
-};
+export { type previewInfo, genTitle, genHtml, createPreviewPanel };

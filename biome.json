@@ -1,0 +1,23 @@
+{
+	"$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+	"files": {
+		"includes": [
+			"src/**/*.ts", "src/**/*.css"
+		]
+	},
+	"linter": {
+		"rules":{
+			"suspicious": {
+				"noExplicitAny": "off",
+				"noDoubleEquals": "off"
+			},
+			"style": {
+				"noNonNullAssertion": "off"
+			},
+			"correctness": {
+				"noUnusedVariables": "off",
+				"noUnusedFunctionParameters": "off"
+			}
+		}
+	}
+}

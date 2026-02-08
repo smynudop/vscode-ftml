@@ -1,0 +1,8 @@
+dist/
+dist_prebuild/
+node_modules
+.vscode/
+coverage
+*.min.js
+*.map
+webview_dist/

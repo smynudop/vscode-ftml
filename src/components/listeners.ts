@@ -1,16 +1,15 @@
-import * as vscode from 'vscode';
+import * as vscode from "vscode";
 import {
-  ctx,
-  idToInfo,
-  idToTabChangeListener,
-  openPreviews,
-  lockedPreviews,
-  setActivePreview,
-  basename,
+	ctx,
+	idToInfo,
+	idToTabChangeListener,
+	openPreviews,
+	lockedPreviews,
+	setActivePreview,
+	basename,
 } from "../global";
 import { serveBackend } from "./source";
 import { genTitle } from "./preview";
-
 
 /**
  * Returns a function, that, as long as it continues to be invoked, will not
@@ -18,21 +17,25 @@ import { genTitle } from "./preview";
  * If `immediate` is passed, trigger the function on the
  * leading edge, instead of the trailing.
  */
-function debounce<T extends (...args: any[]) => any>(func: T, wait: number, immediate?: boolean): (...args: Parameters<T>) => ReturnType<T> {
-  let timeout: any;
-  let currentArgs: any[];
-  return function (this: any, ...args) {
-    let context = this;
-    let later = function () {
-      timeout = null;
-      if (!immediate) return func.apply(context, currentArgs);
-    };
-    let callNow = immediate && !timeout;
-    if (!timeout) timeout = setTimeout(later, wait);
-    currentArgs = args;
-    if (callNow) return func.apply(context, currentArgs);
-  };
-};
+function debounce<T extends (...args: any[]) => any>(
+	func: T,
+	wait: number,
+	immediate?: boolean,
+): (...args: Parameters<T>) => ReturnType<T> {
+	let timeout: any;
+	let currentArgs: any[];
+	return function (this: any, ...args) {
+		let context = this;
+		let later = function () {
+			timeout = null;
+			if (!immediate) return func.apply(context, currentArgs);
+		};
+		let callNow = immediate && !timeout;
+		if (!timeout) timeout = setTimeout(later, wait);
+		currentArgs = args;
+		if (callNow) return func.apply(context, currentArgs);
+	};
+}
 
 const serveBackendDebounced = debounce(serveBackend, 400);
 
@@ -42,45 +45,59 @@ const serveBackendDebounced = debounce(serveBackend, 400);
  * @param panelId The preview panel id. This is an id we assign.
  */
 function setListeners(panel: vscode.WebviewPanel, panelId: string) {
-  let viewChangeDisposable = panel.onDidChangeViewState(_ => {
-    vscode.commands.executeCommand('setContext', 'ftmlPreviewFocus', panel.active);
-    if (panel.active) setActivePreview(panelId);
-    let panelInfo = idToInfo.get(panelId)!;
-    panelInfo.viewColumn = panel.viewColumn ?? panelInfo.viewColumn;
-    idToInfo.set(panelId, panelInfo);
-    vscode.commands.executeCommand('setContext', 'ftmlPreviewBackend', panelInfo.backend);
-  })
-  let docChangeDisposable = vscode.workspace.onDidChangeTextDocument(e => {
-    let panelInfo = idToInfo.get(panelId)!;
-    if (lockedPreviews.has(panelId) && panelInfo.fileName != e.document.fileName) return;
-    if (e.document.languageId == 'ftml') {
-      if (panelInfo.backend == 'ftml' && panelInfo.live) {
-        serveBackendDebounced(panel,
-          e.document.fileName,
-          e.document.getText(),
-          panelInfo.backend);
-      }
-    }
-  });
-  if (!lockedPreviews.has(panelId)) {
-    setTabChangeListener(panel, panelId);
-  }
+	let viewChangeDisposable = panel.onDidChangeViewState((_) => {
+		vscode.commands.executeCommand(
+			"setContext",
+			"ftmlPreviewFocus",
+			panel.active,
+		);
+		if (panel.active) setActivePreview(panelId);
+		let panelInfo = idToInfo.get(panelId)!;
+		panelInfo.viewColumn = panel.viewColumn ?? panelInfo.viewColumn;
+		idToInfo.set(panelId, panelInfo);
+		vscode.commands.executeCommand(
+			"setContext",
+			"ftmlPreviewBackend",
+			panelInfo.backend,
+		);
+	});
+	let docChangeDisposable = vscode.workspace.onDidChangeTextDocument((e) => {
+		let panelInfo = idToInfo.get(panelId)!;
+		if (
+			lockedPreviews.has(panelId) &&
+			panelInfo.fileName != e.document.fileName
+		)
+			return;
+		if (e.document.languageId == "ftml") {
+			if (panelInfo.backend == "ftml" && panelInfo.live) {
+				serveBackendDebounced(
+					panel,
+					e.document.fileName,
+					e.document.getText(),
+					panelInfo.backend,
+				);
+			}
+		}
+	});
+	if (!lockedPreviews.has(panelId)) {
+		setTabChangeListener(panel, panelId);
+	}
 
-  panel.onDidDispose(() => {
-    openPreviews.delete(panelId);
+	panel.onDidDispose(() => {
+		openPreviews.delete(panelId);
 
-    if (lockedPreviews.has(panelId)) {
-      lockedPreviews.delete(panelId);
-      ctx.workspaceState.update('ftml.lockedPreviews', [...lockedPreviews]);
-    }
-    ctx.workspaceState.update(`ftml.previews.${panelId}`, undefined);
-    viewChangeDisposable.dispose();
-    docChangeDisposable.dispose();
-    if (idToTabChangeListener.has(panelId)) {
-      idToTabChangeListener.get(panelId)?.dispose();
-      idToTabChangeListener.delete(panelId);
-    }
-  })
+		if (lockedPreviews.has(panelId)) {
+			lockedPreviews.delete(panelId);
+			ctx.workspaceState.update("ftml.lockedPreviews", [...lockedPreviews]);
+		}
+		ctx.workspaceState.update(`ftml.previews.${panelId}`, undefined);
+		viewChangeDisposable.dispose();
+		docChangeDisposable.dispose();
+		if (idToTabChangeListener.has(panelId)) {
+			idToTabChangeListener.get(panelId)?.dispose();
+			idToTabChangeListener.delete(panelId);
+		}
+	});
 }
 
 /**
@@ -89,28 +106,34 @@ function setListeners(panel: vscode.WebviewPanel, panelId: string) {
  * @param panelId The preview panel id. This is an id we assign.
  */
 function setTabChangeListener(panel: vscode.WebviewPanel, panelId: string) {
-  let tabChangeDisposable = vscode.window.onDidChangeActiveTextEditor(e => {
-    if (e?.document.languageId == 'ftml' && e?.document.uri.scheme != 'wikidot-rev') {
-      let panelInfo = idToInfo.get(panelId)!;
-      panelInfo.fileName = e.document.fileName;
-      if (panelInfo.backend == 'ftml' && panelInfo.live) {
-        serveBackendDebounced(panel,
-          panelInfo.fileName,
-          e.document.getText(),
-          panelInfo.backend);
-      }
-      panel.title = genTitle(
-        basename(panelInfo.fileName),
-        panelInfo.backend,
-        panelInfo.live,
-        lockedPreviews.has(panelId));
-    }
-  });
-  idToTabChangeListener.set(panelId, tabChangeDisposable);
-  if (lockedPreviews.has(panelId)) {
-    lockedPreviews.delete(panelId);
-    ctx.workspaceState.update('ftml.lockedPreviews', [...lockedPreviews]);
-  }
+	let tabChangeDisposable = vscode.window.onDidChangeActiveTextEditor((e) => {
+		if (
+			e?.document.languageId == "ftml" &&
+			e?.document.uri.scheme != "wikidot-rev"
+		) {
+			let panelInfo = idToInfo.get(panelId)!;
+			panelInfo.fileName = e.document.fileName;
+			if (panelInfo.backend == "ftml" && panelInfo.live) {
+				serveBackendDebounced(
+					panel,
+					panelInfo.fileName,
+					e.document.getText(),
+					panelInfo.backend,
+				);
+			}
+			panel.title = genTitle(
+				basename(panelInfo.fileName),
+				panelInfo.backend,
+				panelInfo.live,
+				lockedPreviews.has(panelId),
+			);
+		}
+	});
+	idToTabChangeListener.set(panelId, tabChangeDisposable);
+	if (lockedPreviews.has(panelId)) {
+		lockedPreviews.delete(panelId);
+		ctx.workspaceState.update("ftml.lockedPreviews", [...lockedPreviews]);
+	}
 }
 
 /**
@@ -119,16 +142,12 @@ function setTabChangeListener(panel: vscode.WebviewPanel, panelId: string) {
  * @param panelId The preview panel id. This is an id we assign.
  */
 function unsetTabChangeListener(panel: vscode.WebviewPanel, panelId: string) {
-  idToTabChangeListener.get(panelId)?.dispose();
-  idToTabChangeListener.delete(panelId);
-  if (!lockedPreviews.has(panelId)) {
-    lockedPreviews.add(panelId);
-    ctx.workspaceState.update('ftml.lockedPreviews', [...lockedPreviews]);
-  }
+	idToTabChangeListener.get(panelId)?.dispose();
+	idToTabChangeListener.delete(panelId);
+	if (!lockedPreviews.has(panelId)) {
+		lockedPreviews.add(panelId);
+		ctx.workspaceState.update("ftml.lockedPreviews", [...lockedPreviews]);
+	}
 }
 
-export {
-  setListeners,
-  setTabChangeListener,
-  unsetTabChangeListener,
-};
+export { setListeners, setTabChangeListener, unsetTabChangeListener };

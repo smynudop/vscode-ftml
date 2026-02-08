@@ -1,20 +1,14 @@
 {
-  "compilerOptions": {
-    "module": "commonjs",
-    "target": "es2020",
-    "sourceMap": true,
-    "moduleResolution": "Node",
-    "skipLibCheck": true,
-    "strict": true,
-    "isolatedModules": true,
-    "types": [
-      "node",
-      "vite/client"
-    ],
-    "allowSyntheticDefaultImports": true
-  },
-  "exclude": [
-    "../**/node_modules",
-    "../src"
-  ]
+	"compilerOptions": {
+		"module": "commonjs",
+		"target": "es2020",
+		"sourceMap": true,
+		"moduleResolution": "Node",
+		"skipLibCheck": true,
+		"strict": true,
+		"isolatedModules": true,
+		"types": ["node", "vite/client"],
+		"allowSyntheticDefaultImports": true
+	},
+	"exclude": ["../**/node_modules", "../src"]
 }
