@@ -55,7 +55,7 @@ export function activate(context: vscode.ExtensionContext) {
 					(doc) => doc.fileName == panelInfo.fileName,
 				);
 				if (td) {
-					serveBackend(panel, td.fileName, td.getText(), panelInfo.backend);
+					serveBackend(panel, td.fileName, td.getText());
 				}
 			}
 		}),

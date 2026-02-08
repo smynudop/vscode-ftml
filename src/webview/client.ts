@@ -6,11 +6,10 @@ type State = {
 	fileName: string;
 	viewColumn: number;
 	content: string;
-	backend: string;
-	live: boolean;
 };
 
 const workerMesssage: WorkerMessage = {
+	file: "",
 	source: "",
 	url: "/test",
 };
@@ -72,19 +71,13 @@ ftml.addEventListener("message", (e) => {
 });
 
 window.addEventListener("message", (e) => {
-	const { type, fileName, backend, live, ftmlSource, wdHtml } = e.data;
+	const { type, fileName, ftmlSource } = e.data;
 	switch (type.toLowerCase()) {
-		case "meta":
-			state.live = live;
-			state.backend = backend;
-			break;
-		case "meta.live":
-			state.live = live;
-			break;
-		case "meta.backend":
-			state.backend = backend;
-			break;
 		case "content":
+			if(workerMesssage.file !== fileName){
+				workerMesssage.url = `/${fileName}`;
+				workerMesssage.file = fileName;
+			}
 			workerMesssage.source = ftmlSource;
 			sendMessageToWorker(workerMesssage);
 			state.fileName = fileName;

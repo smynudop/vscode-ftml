@@ -1,11 +1,11 @@
 import * as vscode from "vscode";
-
 import {
 	idToInfo,
 	idToPreview,
 	openPreviews,
 	lockedPreviews,
 	basename,
+	basenameWithoutExt,
 } from "../global";
 import { serveBackend } from "./source";
 import { setListeners } from "./listeners";
@@ -18,8 +18,6 @@ type previewInfo = {
 	fileName: string;
 	viewColumn: number;
 	content: string;
-	backend: string;
-	live: boolean;
 };
 
 /**
@@ -31,13 +29,8 @@ type previewInfo = {
  */
 function genTitle(
 	fileName: string,
-	backend: string,
-	live: boolean,
-	lock: boolean,
 ) {
-	let prefix = backend == "ftml" && live ? `Live ${backend}` : backend;
-	prefix = lock ? `[${prefix}]` : prefix;
-	return `${prefix} ${fileName}`;
+	return `Preview ${fileName}`;
 }
 
 /**
@@ -82,13 +75,11 @@ function createPreviewPanel(
 	extensionContext: vscode.ExtensionContext,
 	viewColumn?: number,
 ) {
-	const panelInfo = {
+	const panelInfo : previewInfo = {
 		id: Math.random().toString(36).substring(4),
 		fileName: "",
 		viewColumn: viewColumn ?? vscode.ViewColumn.Active,
 		content: "",
-		backend: "ftml",
-		live: true,
 	};
 	while (openPreviews.has(panelInfo.id)) {
 		panelInfo.id = Math.random().toString(36).substring(4);
@@ -98,12 +89,7 @@ function createPreviewPanel(
 
 	const panel = vscode.window.createWebviewPanel(
 		"ftml.preview",
-		genTitle(
-			basename(panelInfo.fileName),
-			panelInfo.backend,
-			panelInfo.live,
-			locked,
-		),
+		genTitle(basename(panelInfo.fileName)),
 		panelInfo.viewColumn ? panelInfo.viewColumn : vscode.ViewColumn.Active,
 		{
 			enableScripts: true,
@@ -119,19 +105,14 @@ function createPreviewPanel(
 
 	const activeEditor = vscode.window.activeTextEditor;
 	if (activeEditor?.document.languageId == "ftml") {
-		panelInfo.fileName = activeEditor.document.fileName;
+		panelInfo.fileName = activeEditor.document.fileName
+		
 		serveBackend(
 			panel,
-			activeEditor.document.fileName,
+			basenameWithoutExt(activeEditor.document.fileName),
 			activeEditor.document.getText(),
-			panelInfo.backend,
 		);
-		panel.title = genTitle(
-			basename(activeEditor.document.fileName),
-			panelInfo.backend,
-			panelInfo.live,
-			locked,
-		);
+		panel.title = genTitle(basename(activeEditor.document.fileName));
 	}
 
 	if (locked) {

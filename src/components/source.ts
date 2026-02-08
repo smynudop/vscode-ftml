@@ -7,7 +7,7 @@ import { unixNamify } from "../utils";
  * Parses an FTML file to obtain its page data.
  * @param source Source of the FTML file.
  */
-function parsePageData(source: string): PageData {
+export function parsePageData(source: string): PageData {
 	const meta: PageData = {
 		site: `${vscode.workspace.getConfiguration("ftml.preview").get("wikidot")}`,
 		page: "",
@@ -29,23 +29,17 @@ function parsePageData(source: string): PageData {
  * @param source Source of the FTML file.
  * @param backend The backend to be used.
  */
-function serveBackend(
+export function serveBackend(
 	panel: vscode.WebviewPanel,
 	fileName: string,
 	source: string,
-	backend: string,
 ) {
 	const meta = parsePageData(source);
-	switch (backend.toLowerCase()) {
-		default:
-			panel.webview.postMessage({
-				type: "content",
-				backend,
-				fileName,
-				ftmlSource: meta.source,
-			});
-			break;
-	}
-}
 
-export { parsePageData, serveBackend };
+	panel.webview.postMessage({
+		type: "content",
+		fileName,
+		ftmlSource: meta.source,
+	});
+
+}

@@ -48,8 +48,13 @@ let idToTabChangeListener: Map<string, vscode.Disposable>;
 let WdRevUriToSourceEditor: Map<string, vscode.TextEditor>;
 let lockedPreviews: Set<string>;
 
-const NOOP = () => {};
-const basename = (path: string) => path.split(/[/\\]/).pop()!;
+export const basename = (path: string) => path.split(/[/\\]/).pop()!;
+export const basenameWithoutExt = (path: string) => {
+	const base = basename(path);
+	const lastDotIndex = base.lastIndexOf(".");
+	if (lastDotIndex === -1) return base;
+	return base.substring(0, lastDotIndex);
+}
 
 export {
 	ctx,
@@ -64,6 +69,4 @@ export {
 	idToPreview,
 	idToTabChangeListener,
 	WdRevUriToSourceEditor,
-	NOOP,
-	basename,
 };

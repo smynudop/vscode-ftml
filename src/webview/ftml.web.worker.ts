@@ -2,6 +2,7 @@ import * as Parser from "@wdprlib/parser";
 import * as Render from "@wdprlib/render";
 
 export type WorkerMessage = {
+	file: string,
 	source: string;
 	url: string;
 };

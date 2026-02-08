@@ -134,7 +134,8 @@
 				"lint:summary": "biome lint --reporter=summary",
 		"format": "@biomejs/biome format --write",
 		"biome:check": "pnpm dlx biome check",
-		"watch": "tsc -w -p ./"
+		"watch": "tsc -w -p ./",
+		"tsc": "tsc --noEmit"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^2.3.14",
