@@ -1,4 +1,4 @@
-import * as vscode from "vscode";
+import type * as vscode from "vscode";
 import type { previewInfo } from "./components/preview";
 
 /**
@@ -49,7 +49,7 @@ let WdRevUriToSourceEditor: Map<string, vscode.TextEditor>;
 let lockedPreviews: Set<string>;
 
 const NOOP = () => {};
-const basename = (path: string) => path.split(/[\/\\]/).pop()!;
+const basename = (path: string) => path.split(/[/\\]/).pop()!;
 
 export {
 	ctx,

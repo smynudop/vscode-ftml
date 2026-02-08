@@ -1,6 +1,6 @@
 import * as vscode from "vscode";
 import fm from "front-matter";
-import { type PageData } from "../wikidot/interface";
+import type { PageData } from "../wikidot/interface";
 import { unixNamify } from "../utils";
 
 /**
@@ -8,13 +8,13 @@ import { unixNamify } from "../utils";
  * @param source Source of the FTML file.
  */
 function parsePageData(source: string): PageData {
-	let meta: PageData = {
+	const meta: PageData = {
 		site: `${vscode.workspace.getConfiguration("ftml.preview").get("wikidot")}`,
 		page: "",
 		source: "",
 	};
 	if (fm.test(source)) {
-		let fmparsed = fm(source);
+		const fmparsed = fm(source);
 		Object.assign(meta, fmparsed.attributes);
 		meta.source = fmparsed.body;
 	} else meta.source = source;
@@ -35,7 +35,7 @@ function serveBackend(
 	source: string,
 	backend: string,
 ) {
-	let meta = parsePageData(source);
+	const meta = parsePageData(source);
 	switch (backend.toLowerCase()) {
 		default:
 			panel.webview.postMessage({

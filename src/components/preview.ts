@@ -82,7 +82,7 @@ function createPreviewPanel(
 	extensionContext: vscode.ExtensionContext,
 	viewColumn?: number,
 ) {
-	let panelInfo = {
+	const panelInfo = {
 		id: Math.random().toString(36).substring(4),
 		fileName: "",
 		viewColumn: viewColumn ?? vscode.ViewColumn.Active,
@@ -94,7 +94,7 @@ function createPreviewPanel(
 		panelInfo.id = Math.random().toString(36).substring(4);
 	}
 
-	let locked = !!vscode.workspace.getConfiguration("ftml.preview").get("lock");
+	const locked = !!vscode.workspace.getConfiguration("ftml.preview").get("lock");
 
 	const panel = vscode.window.createWebviewPanel(
 		"ftml.preview",
@@ -117,7 +117,7 @@ function createPreviewPanel(
 
 	panel.webview.html = genHtml(extensionContext, panel);
 
-	let activeEditor = vscode.window.activeTextEditor;
+	const activeEditor = vscode.window.activeTextEditor;
 	if (activeEditor?.document.languageId == "ftml") {
 		panelInfo.fileName = activeEditor.document.fileName;
 		serveBackend(

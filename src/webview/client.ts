@@ -16,7 +16,7 @@ const workerMesssage: WorkerMessage = {
 };
 
 const vscode = window.acquireVsCodeApi<State>();
-let state = vscode.getState() || {
+const state = vscode.getState() || {
 	id: Math.random().toString(36).substring(4),
 	fileName: "",
 	viewColumn: -1,
@@ -49,8 +49,7 @@ previewContent.addEventListener("click", (e) => {
 	}
 
 	const a = target.closest("a");
-	console.log(a, a && a.href, a && a.href && a.href.startsWith("/"));
-	if (a && a.href && a.getAttribute("href")!.startsWith("/")) {
+	if (a?.href && a.getAttribute("href")!.startsWith("/")) {
 		console.log("Intercepted link click: ", a.href);
 		e.preventDefault();
 		workerMesssage.url = a.getAttribute("href")!;
@@ -62,7 +61,7 @@ if (state.content) previewContent.innerHTML = state.content;
 const url = URL.createObjectURL(
 	new Blob([ftmlWorker], { type: "application/javascript" }),
 );
-let ftml = new Worker(url, {
+const ftml = new Worker(url, {
 	type: "module",
 });
 ftml.addEventListener("message", (e) => {

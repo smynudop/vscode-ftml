@@ -25,15 +25,14 @@ function debounce<T extends (...args: any[]) => any>(
 	let timeout: any;
 	let currentArgs: any[];
 	return function (this: any, ...args) {
-		let context = this;
-		let later = function () {
+		const later = () => {
 			timeout = null;
-			if (!immediate) return func.apply(context, currentArgs);
+			if (!immediate) return func.apply(this, currentArgs);
 		};
-		let callNow = immediate && !timeout;
+		const callNow = immediate && !timeout;
 		if (!timeout) timeout = setTimeout(later, wait);
 		currentArgs = args;
-		if (callNow) return func.apply(context, currentArgs);
+		if (callNow) return func.apply(this, currentArgs);
 	};
 }
 
@@ -45,14 +44,14 @@ const serveBackendDebounced = debounce(serveBackend, 400);
  * @param panelId The preview panel id. This is an id we assign.
  */
 function setListeners(panel: vscode.WebviewPanel, panelId: string) {
-	let viewChangeDisposable = panel.onDidChangeViewState((_) => {
+	const viewChangeDisposable = panel.onDidChangeViewState((_) => {
 		vscode.commands.executeCommand(
 			"setContext",
 			"ftmlPreviewFocus",
 			panel.active,
 		);
 		if (panel.active) setActivePreview(panelId);
-		let panelInfo = idToInfo.get(panelId)!;
+		const panelInfo = idToInfo.get(panelId)!;
 		panelInfo.viewColumn = panel.viewColumn ?? panelInfo.viewColumn;
 		idToInfo.set(panelId, panelInfo);
 		vscode.commands.executeCommand(
@@ -61,8 +60,8 @@ function setListeners(panel: vscode.WebviewPanel, panelId: string) {
 			panelInfo.backend,
 		);
 	});
-	let docChangeDisposable = vscode.workspace.onDidChangeTextDocument((e) => {
-		let panelInfo = idToInfo.get(panelId)!;
+	const docChangeDisposable = vscode.workspace.onDidChangeTextDocument((e) => {
+		const panelInfo = idToInfo.get(panelId)!;
 		if (
 			lockedPreviews.has(panelId) &&
 			panelInfo.fileName != e.document.fileName
@@ -106,12 +105,12 @@ function setListeners(panel: vscode.WebviewPanel, panelId: string) {
  * @param panelId The preview panel id. This is an id we assign.
  */
 function setTabChangeListener(panel: vscode.WebviewPanel, panelId: string) {
-	let tabChangeDisposable = vscode.window.onDidChangeActiveTextEditor((e) => {
+	const tabChangeDisposable = vscode.window.onDidChangeActiveTextEditor((e) => {
 		if (
 			e?.document.languageId == "ftml" &&
 			e?.document.uri.scheme != "wikidot-rev"
 		) {
-			let panelInfo = idToInfo.get(panelId)!;
+			const panelInfo = idToInfo.get(panelId)!;
 			panelInfo.fileName = e.document.fileName;
 			if (panelInfo.backend == "ftml" && panelInfo.live) {
 				serveBackendDebounced(

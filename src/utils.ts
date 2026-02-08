@@ -18,25 +18,25 @@ export const unixNamify = (
 		colonReplacer?: string | RegExp;
 	},
 ): string => {
-	let acceptsCategory: boolean = options?.acceptsCategory ?? true;
-	let colonReplacer: string | RegExp = options?.colonReplacer ?? /~+/g;
+	const acceptsCategory: boolean = options?.acceptsCategory ?? true;
+	const colonReplacer: string | RegExp = options?.colonReplacer ?? /~+/g;
 	let output = name.trim().toLowerCase();
 	if (acceptsCategory) {
 		output = output
 			.replace(new RegExp(colonReplacer), ":")
-			.replace(/[^\:\w]+/g, "-")
+			.replace(/[^:\w]+/g, "-")
 			.split(":")
 			.map((el) =>
 				el
 					.split("_")
-					.map((v, i) => v.replace(/^\-|\-$/g, "") || (i == 0 ? "_" : ""))
+					.map((v, i) => v.replace(/^-|-$/g, "") || (i == 0 ? "_" : ""))
 					.filter((v) => !!v)
 					.join(""),
 			)
 			.filter((v) => !!v && v != "_")
 			.join(":");
 	} else {
-		output = output.replace(/[^a-z0-9]+/g, "-").replace(/^\-+|\-+$/g, "");
+		output = output.replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
 	}
 	return output;
 };

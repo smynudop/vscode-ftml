@@ -49,9 +49,9 @@ export function activate(context: vscode.ExtensionContext) {
 
 		vscode.commands.registerCommand("ftml.preview.refresh", () => {
 			if (activePreview) {
-				let panel = idToPreview.get(activePreview)!;
-				let panelInfo = idToInfo.get(activePreview)!;
-				let td = vscode.workspace.textDocuments.find(
+				const panel = idToPreview.get(activePreview)!;
+				const panelInfo = idToInfo.get(activePreview)!;
+				const td = vscode.workspace.textDocuments.find(
 					(doc) => doc.fileName == panelInfo.fileName,
 				);
 				if (td) {

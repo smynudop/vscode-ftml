@@ -130,7 +130,8 @@
 		"compile:yaml": "pnpx js-yaml ./syntaxes/ftml.tmLanguage.yaml > ./syntaxes/ftml.tmLanguage.json",
 		"compile": "pnpm run compile:yaml && pnpm run compile:worker && pnpm run compile:client && pnpm run compile:vite",
 		"package": "vsce package --no-dependencies",
-		"lint": "biome lint ",
+		"lint": "biome lint --fix",
+				"lint:summary": "biome lint --reporter=summary",
 		"format": "@biomejs/biome format --write",
 		"biome:check": "pnpm dlx biome check",
 		"watch": "tsc -w -p ./"
