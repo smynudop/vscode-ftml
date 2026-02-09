@@ -1,5 +1,9 @@
 # Change Log
 
+## 0.5.0
+ListModulesを使った疑似ページ遷移構文に対応
+.wj, .wikijump, .ftmlを対象外に。.wd, .wikidotのみ対象へ
+
 ## 0.4.0
 @wdprlib/parser, @wdprlib/renderを使うように変更
 

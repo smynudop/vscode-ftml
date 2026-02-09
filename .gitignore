@@ -3,5 +3,6 @@ node_modules
 dist/
 dist_prebuild/
 syntaxes/ftml.tmLanguage.json
+syntaxes/wikidot.tmLanguage.json
 docs/sources
 webview_dist/

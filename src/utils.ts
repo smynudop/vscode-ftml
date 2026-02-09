@@ -40,12 +40,3 @@ export const unixNamify = (
 	}
 	return output;
 };
-
-/**
- * Name of the extension.
- */
-export const pkgname = "vscode-ftml";
-/**
- * Version of the extension.
- */
-export const pkgver = "0.2.4";

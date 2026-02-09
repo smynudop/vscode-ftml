@@ -1,12 +1,9 @@
 $schema: https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json
-name: FTML/Wikidot Code
-scopeName: text.ftml
+name: Wikidot Code
+scopeName: text.wikidot
 fileTypes:
-  - ftml
   - wd
-  - wj
   - wikidot
-  - wikijump
 patterns:
   - include: "#comment"
   - include: "#yaml-frontmatter"
@@ -61,29 +58,29 @@ repository:
       - include: "#link-single"
   attribute:
     patterns:
-      - name: meta.attribute.style.ftml
+      - name: meta.attribute.style.wikidot
         begin: style(?![\w:-])
         beginCaptures:
           "0":
-            name: entity.other.attribute-name.ftml
+            name: entity.other.attribute-name.wikidot
         end: (?=\s*+[^=\s])
         patterns:
           - name: meta.embedded.line.css
             begin: "="
             beginCaptures:
               "0":
-                name: punctuation.separator.key-value.ftml
+                name: punctuation.separator.key-value.wikidot
             end: (?<=(?<=[^\\=])\")(?=[\s\]]*)
             patterns:
-              - name: string.quoted.double.ftml
+              - name: string.quoted.double.wikidot
                 begin: '"'
                 beginCaptures:
                   "0":
-                    name: punctuation.definition.string.begin.ftml
+                    name: punctuation.definition.string.begin.wikidot
                 end: (")
                 endCaptures:
                   "0":
-                    name: punctuation.definition.string.end.ftml
+                    name: punctuation.definition.string.end.wikidot
                   "1":
                     name: source.css-ignored-vscode
                 contentName: source.css
@@ -92,18 +89,18 @@ repository:
       - match: (\S+?)\s*(=)\s*((\")(?:[^"]|\\")*((\")))
         captures:
           "1":
-            name: entity.other.attribute-name.ftml
+            name: entity.other.attribute-name.wikidot
           "2":
-            name: punctuation.separator.key-value.ftml
+            name: punctuation.separator.key-value.wikidot
           "3":
-            name: string.quoted.double.ftml
+            name: string.quoted.double.wikidot
           "4":
-            name: punctuation.definition.string.begin.ftml
+            name: punctuation.definition.string.begin.wikidot
           "5":
-            name: punctuation.definition.string.end.ftml
+            name: punctuation.definition.string.end.wikidot
           "6":
             name: source.css-ignored-vscode
-        name: meta.attribute.$1.ftml
+        name: meta.attribute.$1.wikidot
   attribute-messy-include:
     patterns:
       - match: (\|?)\s*(\S+?)\s*(=)\s*((?:(?!\]\])[^\n\|])+)\s*(\|?)
@@ -111,16 +108,16 @@ repository:
           "1":
             name: source.css-ignored-vscode
           "2":
-            name: entity.other.attribute-name.ftml
+            name: entity.other.attribute-name.wikidot
           "3":
-            name: punctuation.separator.key-value.ftml
+            name: punctuation.separator.key-value.wikidot
           "4":
-            name: string.other.value.ftml
+            name: string.other.value.wikidot
           "5":
             name: source.css-ignored-vscode
-        name: meta.attribute.$1.ftml
+        name: meta.attribute.$1.wikidot
   comment:
-    name: comment.block.ftml
+    name: comment.block.wikidot
     begin: \[\!\-\-
     end: \-\-\]
   yaml-frontmatter:
@@ -128,11 +125,11 @@ repository:
     begin: \A^(\-{3})$
     beginCaptures:
       "1":
-        name: punctuation.definition.yfm.begin.ftml
+        name: punctuation.definition.yfm.begin.wikidot
     end: ^(\-{3})$
     endCaptures:
       "1":
-        name: punctuation.definition.yfm.end.ftml
+        name: punctuation.definition.yfm.end.wikidot
     contentName: meta.embedded.block.yaml
     patterns:
       - include: source.yaml
@@ -142,21 +139,21 @@ repository:
   #   begin: (?i)(\[\[)\s*(css)\s*(\]\])
   #   beginCaptures:
   #     '1':
-  #       name: punctuation.definition.tag.begin.ftml
+  #       name: punctuation.definition.tag.begin.wikidot
   #     '2':
-  #       name: entity.name.tag.ftml
+  #       name: entity.name.tag.wikidot
   #     '3':
-  #       name: punctuation.definition.tag.end.ftml
+  #       name: punctuation.definition.tag.end.wikidot
   #   end: (?i)((\[\[)\s*\/)\s*(css)\s*(\]\])
   #   endCaptures:
   #     '1':
-  #       name: punctuation.definition.tag.begin.ftml
+  #       name: punctuation.definition.tag.begin.wikidot
   #     '2':
   #       name: source.css-ignored-vscode
   #     '3':
-  #       name: entity.name.tag.ftml
+  #       name: entity.name.tag.wikidot
   #     '4':
-  #       name: punctuation.definition.tag.end.ftml
+  #       name: punctuation.definition.tag.end.wikidot
   #   contentName: meta.embedded.block.css
   #   patterns:
   #     - include: source.css
@@ -165,26 +162,26 @@ repository:
     begin: (?i)(\[\[)\s*(module|module654)\s+(css)(?:\s+((?:(?!\]\]).)+))?\s*(\]\])
     beginCaptures:
       "1":
-        name: punctuation.definition.tag.begin.ftml
+        name: punctuation.definition.tag.begin.wikidot
       "2":
-        name: entity.name.tag.ftml
+        name: entity.name.tag.wikidot
       "3":
-        name: string.other.value.ftml
+        name: string.other.value.wikidot
       "4":
         patterns:
           - include: "#attribute"
       "5":
-        name: punctuation.definition.tag.end.ftml
+        name: punctuation.definition.tag.end.wikidot
     end: (?i)((\[\[)\s*\/)\s*(module)\s*(\]\])
     endCaptures:
       "1":
-        name: punctuation.definition.tag.begin.ftml
+        name: punctuation.definition.tag.begin.wikidot
       "2":
         name: source.css-ignored-vscode
       "3":
-        name: entity.name.tag.ftml
+        name: entity.name.tag.wikidot
       "4":
-        name: punctuation.definition.tag.end.ftml
+        name: punctuation.definition.tag.end.wikidot
     contentName: meta.embedded.block.css
     patterns:
       - include: source.css
@@ -193,278 +190,278 @@ repository:
     begin: (?i)(\[\[)\s*(html|embed)\s*(\]\])
     beginCaptures:
       "1":
-        name: punctuation.definition.tag.begin.ftml
+        name: punctuation.definition.tag.begin.wikidot
       "2":
-        name: entity.name.tag.ftml
+        name: entity.name.tag.wikidot
       "3":
-        name: punctuation.definition.tag.end.ftml
+        name: punctuation.definition.tag.end.wikidot
     end: (?i)((\[\[)\s*\/)\s*(html|embed)\s*(\]\])
     endCaptures:
       "1":
-        name: punctuation.definition.tag.begin.ftml
+        name: punctuation.definition.tag.begin.wikidot
       "2":
         name: source.css-ignored-vscode
       "3":
-        name: entity.name.tag.ftml
+        name: entity.name.tag.wikidot
       "4":
-        name: punctuation.definition.tag.end.ftml
+        name: punctuation.definition.tag.end.wikidot
     contentName: meta.embedded.block.html
     patterns:
       - include: text.html.basic
   block-math:
-    name: markup.inserted.math.display.ftml
+    name: markup.inserted.math.display.wikidot
     begin: (?i)(\[\[)\s*(math)\s*(\]\])
     beginCaptures:
       "1":
-        name: punctuation.definition.tag.begin.ftml
+        name: punctuation.definition.tag.begin.wikidot
       "2":
-        name: entity.name.tag.ftml
+        name: entity.name.tag.wikidot
       "3":
-        name: punctuation.definition.tag.end.ftml
+        name: punctuation.definition.tag.end.wikidot
     end: (?i)((\[\[)\s*\/)\s*(math)\s*(\]\])
     endCaptures:
       "1":
-        name: punctuation.definition.tag.begin.ftml
+        name: punctuation.definition.tag.begin.wikidot
       "2":
         name: source.css-ignored-vscode
       "3":
-        name: entity.name.tag.ftml
+        name: entity.name.tag.wikidot
       "4":
-        name: punctuation.definition.tag.end.ftml
+        name: punctuation.definition.tag.end.wikidot
     contentName: meta.embedded.block.katex
     patterns:
       - include: text.katex
   inline-math:
-    name: markup.inserted.math.display.ftml
+    name: markup.inserted.math.display.wikidot
     begin: (\[\[)\s*(\$)
     beginCaptures:
       "1":
-        name: punctuation.definition.tag.begin.ftml
+        name: punctuation.definition.tag.begin.wikidot
       "2":
-        name: entity.name.tag.ftml
+        name: entity.name.tag.wikidot
     end: (\$)\s*(\]\])
     endCaptures:
       "1":
-        name: entity.name.tag.ftml
+        name: entity.name.tag.wikidot
       "2":
-        name: punctuation.definition.tag.end.ftml
+        name: punctuation.definition.tag.end.wikidot
     contentName: meta.embedded.inline.katex
     patterns:
       - include: text.katex
   block-include:
-    name: meta.block.structure.standalone.ftml
+    name: meta.block.structure.standalone.wikidot
     begin: (?i)(\[\[)\s*(include(?:-messy)?)\s*\s+([^\s\]]+)(?=\s|\]\])
     beginCaptures:
       "1":
-        name: punctuation.definition.tag.begin.ftml
+        name: punctuation.definition.tag.begin.wikidot
       "2":
-        name: entity.name.tag.ftml
+        name: entity.name.tag.wikidot
       "3":
-        name: string.other.value.ftml
+        name: string.other.value.wikidot
       "4":
-        name: punctuation.definition.tag.end.ftml
+        name: punctuation.definition.tag.end.wikidot
     end: \]\]
     endCaptures:
       "0":
-        name: punctuation.definition.tag.end.ftml
+        name: punctuation.definition.tag.end.wikidot
     patterns:
       - include: "#attribute-messy-include"
   block-code:
-    name: meta.block.structure.standalone.ftml
+    name: meta.block.structure.standalone.wikidot
     begin: (?i)(\[\[)\s*(code)(?:\s+((?:(?!\]\]).)+))?\s*(\]\])
     beginCaptures:
       "0":
-        name: meta.block.structure.begin.ftml
+        name: meta.block.structure.begin.wikidot
       "1":
-        name: punctuation.definition.tag.begin.ftml
+        name: punctuation.definition.tag.begin.wikidot
       "2":
-        name: entity.name.tag.ftml
+        name: entity.name.tag.wikidot
       "3":
         patterns:
           - include: "#attribute"
       "4":
-        name: punctuation.definition.tag.end.ftml
+        name: punctuation.definition.tag.end.wikidot
     end: ((\[\[)\/)\s*(code)\s*(\]\])
     endCaptures:
       "0":
-        name: meta.block.structure.end.ftml
+        name: meta.block.structure.end.wikidot
       "1":
-        name: punctuation.definition.tag.begin.ftml
+        name: punctuation.definition.tag.begin.wikidot
       "2":
         name: source.css-ignored-vscode
       "3":
-        name: entity.name.tag.ftml
+        name: entity.name.tag.wikidot
       "4":
-        name: punctuation.definition.tag.end.ftml
+        name: punctuation.definition.tag.end.wikidot
     contentName: markup.raw
   block-module-begin:
     match: >-
       (?i)(\[\[)\s*(module|module654)\s+([^\s\]]+)(?:\s+((?:(?!\]\]).)+))?\s*(\]\])
     captures:
       "0":
-        name: meta.block.structure.begin.ftml
+        name: meta.block.structure.begin.wikidot
       "1":
-        name: punctuation.definition.tag.begin.ftml
+        name: punctuation.definition.tag.begin.wikidot
       "2":
-        name: entity.name.tag.ftml
+        name: entity.name.tag.wikidot
       "3":
-        name: string.other.value.ftml
+        name: string.other.value.wikidot
       "4":
         patterns:
           - include: "#attribute"
       "5":
-        name: punctuation.definition.tag.end.ftml
-    name: meta.block.structure.module.$3.ftml
+        name: punctuation.definition.tag.end.wikidot
+    name: meta.block.structure.module.$3.wikidot
   block-module-end:
-    name: meta.block.structure.module.end.ftml
+    name: meta.block.structure.module.end.wikidot
     match: (?i)((\[\[)\/)\s*(module|module654)\s*(\]\])
     captures:
       "0":
-        name: meta.block.structure.end.ftml
+        name: meta.block.structure.end.wikidot
       "1":
-        name: punctuation.definition.tag.begin.ftml
+        name: punctuation.definition.tag.begin.wikidot
       "2":
         name: source.css-ignored-vscode
       "3":
-        name: entity.name.tag.ftml
+        name: entity.name.tag.wikidot
       "4":
-        name: punctuation.definition.tag.end.ftml
+        name: punctuation.definition.tag.end.wikidot
   block-standalone:
     match: (?i)(\[\[)\s*()\s*(\]\])
     captures:
       "1":
-        name: punctuation.definition.tag.begin.ftml
+        name: punctuation.definition.tag.begin.wikidot
       "2":
-        name: entity.name.tag.ftml
+        name: entity.name.tag.wikidot
       "3":
-        name: punctuation.definition.tag.end.ftml
-    name: meta.block.structure.$2.standalone.ftml
+        name: punctuation.definition.tag.end.wikidot
+    name: meta.block.structure.$2.standalone.wikidot
   block-standalone-value:
     match: >-
       (?i)(\[\[)\s*(char|character|equation|eref|eqref|lines|newlines|target|target|anchortarget|user|\*user)\s+((?:(?!\]\]).)+)\s*(\]\])
     captures:
       "1":
-        name: punctuation.definition.tag.begin.ftml
+        name: punctuation.definition.tag.begin.wikidot
       "2":
-        name: entity.name.tag.ftml
+        name: entity.name.tag.wikidot
       "3":
-        name: string.other.value.ftml
+        name: string.other.value.wikidot
       "4":
-        name: punctuation.definition.tag.end.ftml
-    name: meta.block.structure.$2.standalone.ftml
+        name: punctuation.definition.tag.end.wikidot
+    name: meta.block.structure.$2.standalone.wikidot
   block-standalone-value-map:
     match: >-
       (?i)(\[\[)\s*(date|iframe|image|=image|<image|>image|f<image|f>image|include-elements|radio|radio-button|\*radio|\*radio-button)\s+([^\s\]]+)(?:\s+((?:(?!\]\]).)+))?\s*(\]\])
     captures:
       "1":
-        name: punctuation.definition.tag.begin.ftml
+        name: punctuation.definition.tag.begin.wikidot
       "2":
-        name: entity.name.tag.ftml
+        name: entity.name.tag.wikidot
       "3":
-        name: string.other.value.ftml
+        name: string.other.value.wikidot
       "4":
         patterns:
           - include: "#attribute"
       "5":
-        name: punctuation.definition.tag.end.ftml
-    name: meta.block.structure.$2.standalone.ftml
+        name: punctuation.definition.tag.end.wikidot
+    name: meta.block.structure.$2.standalone.wikidot
   block-standalone-map:
     match: >-
       (?i)(\[\[)\s*(checkbox|\*checkbox|footnoteblock|toc|f<toc|f>toc)(?:\s+((?:(?!\]\]).)+))?\s*(\]\])
     captures:
       "1":
-        name: punctuation.definition.tag.begin.ftml
+        name: punctuation.definition.tag.begin.wikidot
       "2":
-        name: entity.name.tag.ftml
+        name: entity.name.tag.wikidot
       "3":
         patterns:
           - include: "#attribute"
       "4":
-        name: punctuation.definition.tag.end.ftml
-    name: meta.block.structure.$2.standalone.ftml
+        name: punctuation.definition.tag.end.wikidot
+    name: meta.block.structure.$2.standalone.wikidot
   block:
     begin: (?i)(\[\[)\s*(footnote|tabview|tabs)\s*(\]\])
     beginCaptures:
       "0":
-        name: meta.block.structure.begin.ftml
+        name: meta.block.structure.begin.wikidot
       "1":
-        name: punctuation.definition.tag.begin.ftml
+        name: punctuation.definition.tag.begin.wikidot
       "2":
-        name: entity.name.tag.ftml
+        name: entity.name.tag.wikidot
       "3":
-        name: punctuation.definition.tag.end.ftml
+        name: punctuation.definition.tag.end.wikidot
     end: (?i)((\[\[)\/)\s*(footnote|tabview|tabs)\s*(\]\])
     endCaptures:
       "0":
-        name: meta.block.structure.end.ftml
+        name: meta.block.structure.end.wikidot
       "1":
-        name: punctuation.definition.tag.begin.ftml
+        name: punctuation.definition.tag.begin.wikidot
       "2":
         name: source.css-ignored-vscode
       "3":
-        name: entity.name.tag.ftml
+        name: entity.name.tag.wikidot
       "4":
-        name: punctuation.definition.tag.end.ftml
-    name: meta.block.structure.$2.ftml
+        name: punctuation.definition.tag.end.wikidot
+    name: meta.block.structure.$2.wikidot
     patterns:
       - include: $self
   block-value:
     begin: (?i)(\[\[)\s*(ifcategory|iftags|size|tab)\s+((?:(?!\]\]).)+)\s*(\]\])
     beginCaptures:
       "0":
-        name: meta.block.structure.begin.ftml
+        name: meta.block.structure.begin.wikidot
       "1":
-        name: punctuation.definition.tag.begin.ftml
+        name: punctuation.definition.tag.begin.wikidot
       "2":
-        name: entity.name.tag.ftml
+        name: entity.name.tag.wikidot
       "3":
-        name: string.other.value.ftml
+        name: string.other.value.wikidot
       "4":
-        name: punctuation.definition.tag.end.ftml
+        name: punctuation.definition.tag.end.wikidot
     end: (?i)((\[\[)\/)\s*(ifcategory|iftags|size|tab)\s*(\]\])
     endCaptures:
       "0":
-        name: meta.block.structure.end.ftml
+        name: meta.block.structure.end.wikidot
       "1":
-        name: punctuation.definition.tag.begin.ftml
+        name: punctuation.definition.tag.begin.wikidot
       "2":
         name: source.css-ignored-vscode
       "3":
-        name: entity.name.tag.ftml
+        name: entity.name.tag.wikidot
       "4":
-        name: punctuation.definition.tag.end.ftml
-    name: meta.block.structure.$2.ftml
+        name: punctuation.definition.tag.end.wikidot
+    name: meta.block.structure.$2.wikidot
     patterns:
       - include: $self
   block-value-map:
     begin: (?i)(\[\[)\s*()\s+([^\s\]]+)(?:\s+((?:(?!\]\]).)+))?\s*(\]\])
     beginCaptures:
       "0":
-        name: meta.block.structure.begin.ftml
+        name: meta.block.structure.begin.wikidot
       "1":
-        name: punctuation.definition.tag.begin.ftml
+        name: punctuation.definition.tag.begin.wikidot
       "2":
-        name: entity.name.tag.ftml
+        name: entity.name.tag.wikidot
       "3":
-        name: string.other.value.ftml
+        name: string.other.value.wikidot
       "4":
         patterns:
           - include: "#attribute"
       "5":
-        name: punctuation.definition.tag.end.ftml
+        name: punctuation.definition.tag.end.wikidot
     end: (?i)((\[\[)\/)\s*()\s*(\]\])
     endCaptures:
       "0":
-        name: meta.block.structure.end.ftml
+        name: meta.block.structure.end.wikidot
       "1":
-        name: punctuation.definition.tag.begin.ftml
+        name: punctuation.definition.tag.begin.wikidot
       "2":
         name: source.css-ignored-vscode
       "3":
-        name: entity.name.tag.ftml
+        name: entity.name.tag.wikidot
       "4":
-        name: punctuation.definition.tag.end.ftml
-    name: meta.block.structure.$2.ftml
+        name: punctuation.definition.tag.end.wikidot
+    name: meta.block.structure.$2.wikidot
     patterns:
       - include: $self
   block-map:
@@ -472,299 +469,299 @@ repository:
       (?i)(\[\[)\s*(anchor_|a_|anchor|a|\*anchor_|\*a_|\*anchor|\*a|blockquote|quote|bold|b|strong|collapsible|del|deletion|div_|div|hidden|ins|insertion|invisible|italics|i|em|emphasis|ol_|ol|ul_|ul|li_|li|mark|highlight|monospace|tt|mono|paragraph|p|ruby|rt|rubytext|span_|span|strikethrough|s|subscript|sub|superscript|sup|super|table|cell|hcell|row|underline|u)(?:\s+((?:(?!\]\]).)+))?\s*(\]\])
     beginCaptures:
       "0":
-        name: meta.block.structure.begin.ftml
+        name: meta.block.structure.begin.wikidot
       "1":
-        name: punctuation.definition.tag.begin.ftml
+        name: punctuation.definition.tag.begin.wikidot
       "2":
-        name: entity.name.tag.ftml
+        name: entity.name.tag.wikidot
       "3":
         patterns:
           - include: "#attribute"
       "4":
-        name: punctuation.definition.tag.end.ftml
+        name: punctuation.definition.tag.end.wikidot
     end: >-
       (?i)((\[\[)\/)\s*(anchor_|a_|anchor|a|\*anchor_|\*a_|\*anchor|\*a|blockquote|quote|bold|b|strong|collapsible|del|deletion|div_|div|hidden|ins|insertion|invisible|italics|i|em|emphasis|ol_|ol|ul_|ul|li_|li|mark|highlight|monospace|tt|mono|paragraph|p|ruby|rt|rubytext|span_|span|strikethrough|s|subscript|sub|superscript|sup|super|table|cell|hcell|row|underline|u)\s*(\]\])
     endCaptures:
       "0":
-        name: meta.block.structure.end.ftml
+        name: meta.block.structure.end.wikidot
       "1":
-        name: punctuation.definition.tag.begin.ftml
+        name: punctuation.definition.tag.begin.wikidot
       "2":
         name: source.css-ignored-vscode
       "3":
-        name: entity.name.tag.ftml
+        name: entity.name.tag.wikidot
       "4":
-        name: punctuation.definition.tag.end.ftml
-    name: meta.block.structure.$2.ftml
+        name: punctuation.definition.tag.end.wikidot
+    name: meta.block.structure.$2.wikidot
     patterns:
       - include: $self
   block-align:
-    name: meta.block.structure.align.ftml
+    name: meta.block.structure.align.wikidot
     begin: (\[\[)\s*(\<|\>|\=|\=\=)\s*(\]\])
     beginCaptures:
       "0":
-        name: meta.block.structure.begin.ftml
+        name: meta.block.structure.begin.wikidot
       "1":
-        name: punctuation.definition.tag.begin.ftml
+        name: punctuation.definition.tag.begin.wikidot
       "2":
-        name: entity.name.tag.ftml
+        name: entity.name.tag.wikidot
       "3":
-        name: punctuation.definition.tag.end.ftml
+        name: punctuation.definition.tag.end.wikidot
     end: ((\[\[)\s*\/)\s*(\<|\>|\=|\=\=)\s*(\]\])
     endCaptures:
       "0":
-        name: meta.block.structure.end.ftml
+        name: meta.block.structure.end.wikidot
       "1":
-        name: punctuation.definition.tag.begin.ftml
+        name: punctuation.definition.tag.begin.wikidot
       "2":
         name: source.css-ignored-vscode
       "3":
-        name: entity.name.tag.ftml
+        name: entity.name.tag.wikidot
       "4":
-        name: punctuation.definition.tag.end.ftml
+        name: punctuation.definition.tag.end.wikidot
     patterns:
       - include: $self
   blockquote:
-    name: markup.quote.ftml
+    name: markup.quote.wikidot
     match: ^(\>+)(?=\s)
     captures:
       "1":
-        name: punctuation.definition.quote.ftml
+        name: punctuation.definition.quote.wikidot
   inline-align:
-    name: markup.align.ftml
+    name: markup.align.wikidot
     match: ^(\=)\s
     captures:
       "1":
-        name: punctuation.definition.align.ftml
+        name: punctuation.definition.align.wikidot
   heading:
-    name: markup.heading.ftml
+    name: markup.heading.wikidot
     match: ^(\+{1,6}\*?)(?=\s*)(.*)
     captures:
       "1":
-        name: punctuation.definition.header.ftml
+        name: punctuation.definition.header.wikidot
       "2":
-        name: entity.name.section.ftml
+        name: entity.name.section.wikidot
   list:
-    name: markup.list.ftml
+    name: markup.list.wikidot
     match: ^\s*(\*|\#)(?=\s)
     captures:
       "1":
-        name: punctuation.definition.list.ftml
+        name: punctuation.definition.list.wikidot
   color:
-    name: markup.color.ftml
+    name: markup.color.wikidot
     begin: (\#\#)\s*(\#\d+|[^\n\|]+)\s*(\|)
     captures:
       "1":
-        name: punctuation.definition.tag.begin.ftml
+        name: punctuation.definition.tag.begin.wikidot
       "2":
-        name: entity.name.variable.ftml
+        name: entity.name.variable.wikidot
       "3":
-        name: punctuation.separator.key-value.ftml
+        name: punctuation.separator.key-value.wikidot
     end: \#\#
     endCaptures:
       "0":
-        name: punctuation.definition.tag.end.ftml
+        name: punctuation.definition.tag.end.wikidot
     patterns:
       - include: $self
   italics:
-    name: markup.italic.ftml
+    name: markup.italic.wikidot
     begin: (?<!\:)\/\/
     beginCaptures:
       "0":
-        name: punctuation.definition.tag.begin.ftml
+        name: punctuation.definition.tag.begin.wikidot
     end: \/\/
     endCaptures:
       "0":
-        name: punctuation.definition.tag.end.ftml
+        name: punctuation.definition.tag.end.wikidot
     patterns:
       - include: $self
   bold:
-    name: markup.bold.ftml
+    name: markup.bold.wikidot
     begin: \*\*(?=[^\n]*[\S]\*\*)
     beginCaptures:
       "0":
-        name: punctuation.definition.tag.begin.ftml
+        name: punctuation.definition.tag.begin.wikidot
     end: \*\*
     endCaptures:
       "0":
-        name: punctuation.definition.tag.end.ftml
+        name: punctuation.definition.tag.end.wikidot
     patterns:
       - include: $self
   strikethrough:
-    name: markup.strikethrough.ftml
+    name: markup.strikethrough.wikidot
     begin: \-\-(?=[^\n]*[\S]\-\-)
     beginCaptures:
       "0":
-        name: punctuation.definition.tag.begin.ftml
+        name: punctuation.definition.tag.begin.wikidot
     end: \-\-
     endCaptures:
       "0":
-        name: punctuation.definition.tag.end.ftml
+        name: punctuation.definition.tag.end.wikidot
     patterns:
       - include: $self
   underline:
-    name: markup.underline.ftml
+    name: markup.underline.wikidot
     begin: \_\_
     beginCaptures:
       "0":
-        name: punctuation.definition.tag.begin.ftml
+        name: punctuation.definition.tag.begin.wikidot
     end: \_\_
     endCaptures:
       "0":
-        name: punctuation.definition.tag.end.ftml
+        name: punctuation.definition.tag.end.wikidot
     patterns:
       - include: $self
   subscript:
-    name: markup.subscript.ftml
+    name: markup.subscript.wikidot
     begin: \,\,
     beginCaptures:
       "0":
-        name: punctuation.definition.tag.begin.ftml
+        name: punctuation.definition.tag.begin.wikidot
     end: \,\,
     endCaptures:
       "0":
-        name: punctuation.definition.tag.end.ftml
+        name: punctuation.definition.tag.end.wikidot
     patterns:
       - include: $self
   superscript:
-    name: markup.subscript.ftml
+    name: markup.subscript.wikidot
     begin: \^\^
     beginCaptures:
       "0":
-        name: punctuation.definition.tag.begin.ftml
+        name: punctuation.definition.tag.begin.wikidot
     end: \^\^
     endCaptures:
       "0":
-        name: punctuation.definition.tag.end.ftml
+        name: punctuation.definition.tag.end.wikidot
     patterns:
       - include: $self
   teletype:
-    name: markup.teletype.ftml
+    name: markup.teletype.wikidot
     begin: \{\{
     beginCaptures:
       "0":
-        name: punctuation.definition.tag.begin.ftml
+        name: punctuation.definition.tag.begin.wikidot
     end: \}\}
     endCaptures:
       "0":
-        name: punctuation.definition.tag.end.ftml
+        name: punctuation.definition.tag.end.wikidot
     patterns:
       - include: $self
   raw:
-    name: markup.raw.ftml
+    name: markup.raw.wikidot
     match: (\@\@)\s*((?:(?!\@\@).)+)\s*(?<=[^\@])(\@\@)
     captures:
       "1":
-        name: punctuation.definition.tag.begin.ftml
+        name: punctuation.definition.tag.begin.wikidot
       "2":
-        name: string.other.raw.ftml
+        name: string.other.raw.wikidot
       "3":
-        name: punctuation.definition.tag.end.ftml
+        name: punctuation.definition.tag.end.wikidot
   escape:
-    name: markup.raw.ftml
+    name: markup.raw.wikidot
     match: (\@\<)\s*((?:(?!\>\@).)+)\s*(\>\@)
     captures:
       "1":
-        name: punctuation.definition.tag.begin.ftml
+        name: punctuation.definition.tag.begin.wikidot
       "2":
-        name: string.other.escape.ftml
+        name: string.other.escape.wikidot
       "3":
-        name: punctuation.definition.tag.end.ftml
+        name: punctuation.definition.tag.end.wikidot
   link-triple:
-    name: markup.underline.link.ftml
+    name: markup.underline.link.wikidot
     match: >-
       ((\[\[\[)\s*(?:\*)?)\s*((?:(?!\]\]\])[^\*\n\|])+)\s*(?:(\|)\s*((?:(?!\]\]\]).)+)?)?\s*(?<=[^\]])(\]\]\])
     captures:
       "1":
-        name: punctuation.definition.tag.begin.ftml
+        name: punctuation.definition.tag.begin.wikidot
       "2":
         name: source.css-ignored-vscode
       "3":
-        name: entity.name.variable.ftml
+        name: entity.name.variable.wikidot
       "4":
-        name: punctuation.separator.key-value.ftml
+        name: punctuation.separator.key-value.wikidot
       "5":
-        name: string.other.value.ftml
+        name: string.other.value.wikidot
       "6":
-        name: punctuation.definition.tag.end.ftml
+        name: punctuation.definition.tag.end.wikidot
   link-single:
-    name: markup.underline.link.ftml
+    name: markup.underline.link.wikidot
     match: >-
       ((\[)\s*(?:\*)?)\s*((?:\/(?!\/)|\#|(?:[^\:\/]+\:)?\/\/)[^\n\s\|]+)\s+((?:(?!\]).)+)?\s*(?<=[^\]])(\])
     captures:
       "1":
-        name: punctuation.definition.tag.begin.ftml
+        name: punctuation.definition.tag.begin.wikidot
       "2":
         name: source.css-ignored-vscode
       "3":
-        name: entity.name.variable.ftml
+        name: entity.name.variable.wikidot
       "4":
-        name: string.other.value.ftml
+        name: string.other.value.wikidot
       "5":
-        name: punctuation.definition.tag.end.ftml
+        name: punctuation.definition.tag.end.wikidot
   ruby-short:
     match: >-
       (?i)(\[\[)\s*(rb|ruby2)\s+((?:(?!\]\]|\|).)+)\s*(\|)\s*((?:(?!\]\]|\|).)+)\s*(\]\])
     captures:
       "1":
-        name: punctuation.definition.tag.begin.ftml
+        name: punctuation.definition.tag.begin.wikidot
       "2":
-        name: entity.name.tag.ftml
+        name: entity.name.tag.wikidot
       "3":
-        name: string.other.value.ftml
+        name: string.other.value.wikidot
       "4":
-        name: punctuation.separator.key-value.ftml
+        name: punctuation.separator.key-value.wikidot
       "5":
-        name: string.other.value.ftml
+        name: string.other.value.wikidot
       "6":
-        name: punctuation.definition.tag.end.ftml
-    name: meta.block.structure.$2.standalone.ftml
+        name: punctuation.definition.tag.end.wikidot
+    name: meta.block.structure.$2.standalone.wikidot
   horizontal-rule:
-    name: markup.hr.ftml
+    name: markup.hr.wikidot
     match: ^(\-{4,})\s*$
     captures:
       "1":
-        name: punctuation.definition.tag.ftml
+        name: punctuation.definition.tag.wikidot
   separator-rule:
-    name: markup.hr.ftml
+    name: markup.hr.wikidot
     match: ^(\={4,})\s*$
     captures:
       "1":
-        name: punctuation.definition.tag.ftml
+        name: punctuation.definition.tag.wikidot
   table:
-    name: markup.table.ftml
+    name: markup.table.wikidot
     begin: ^(\|\|)+\~?
     beginCaptures:
       "1":
-        name: punctuation.definition.tag.ftml
+        name: punctuation.definition.tag.wikidot
     end: (\|\|)\s*$
     endCaptures:
       "1":
-        name: punctuation.definition.tag.ftml
+        name: punctuation.definition.tag.wikidot
     patterns:
       - match: (\|\|)+\~?
         captures:
           "1":
-            name: punctuation.definition.tag.ftml
+            name: punctuation.definition.tag.wikidot
       - match: \s(\_)$
         captures:
           "1":
-            name: punctuation.definition.tag.ftml
+            name: punctuation.definition.tag.wikidot
       - include: $self
   page-variables:
     match: >-
       \%\%((crea|upda|commen)ted_(at|by|by_(unix|id|linked))|(parent_)?((full)?name|category|titl(e|e_linked))|link|content(\{\d+\})?|preview(\(\d+\))|summary|first_paragraph|_?tags(_linked(\|.+)?)?|form_(data|raw|label|hint)(\{.+\})?|children|comments|size|rating(_votes|_percent)|revisions|index|total|limit|total_or_limit|site_(title|name|domain))\%\%
     captures:
       "1":
-        name: entity.name.variable.ftml
-    name: variable.other.ftmlmodules.$1.ftml
+        name: entity.name.variable.wikidot
+    name: variable.other.wikidotmodules.$1.wikidot
   user-variables:
     match: \{\$[^\}]+\}
     captures:
       "1":
-        name: entity.name.variable.ftml
-    name: variable.other.ftmlmodules.$1.ftml
+        name: entity.name.variable.wikidot
+    name: variable.other.wikidotmodules.$1.wikidot
   deprecated-variables:
     match: >-
       \%\%(linked_title|page_unix_name|(full_)?page_name|author|date|(author|user|date)_edited|description|short|text|long|body)\%\%
-    name: invalid.deprecated.variable.other.ftmlmodules.$1.ftml
+    name: invalid.deprecated.variable.other.wikidotmodules.$1.wikidot

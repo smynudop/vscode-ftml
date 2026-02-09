@@ -23,10 +23,10 @@ import { serveBackend } from "./components/source";
 export function activate(context: vscode.ExtensionContext) {
 	setContext(context);
 	initInfo();
-	setLockedPreviews(context.workspaceState.get("ftml.lockedPreviews"));
+	setLockedPreviews(context.workspaceState.get("wikidot.lockedPreviews"));
 
 	context.subscriptions.push(
-		vscode.window.registerWebviewPanelSerializer("ftml.preview", {
+		vscode.window.registerWebviewPanelSerializer("wikidot.preview", {
 			async deserializeWebviewPanel(
 				webviewEditor: vscode.WebviewPanel,
 				state: previewInfo,
@@ -39,15 +39,15 @@ export function activate(context: vscode.ExtensionContext) {
 			},
 		}),
 
-		vscode.commands.registerCommand("ftml.preview.open", () => {
+		vscode.commands.registerCommand("wikidot.preview.open", () => {
 			createPreviewPanel(context);
 		}),
 
-		vscode.commands.registerCommand("ftml.preview.openToSide", () => {
+		vscode.commands.registerCommand("wikidot.preview.openToSide", () => {
 			createPreviewPanel(context, vscode.ViewColumn.Beside);
 		}),
 
-		vscode.commands.registerCommand("ftml.preview.refresh", () => {
+		vscode.commands.registerCommand("wikidot.preview.refresh", () => {
 			if (activePreview) {
 				const panel = idToPreview.get(activePreview)!;
 				const panelInfo = idToInfo.get(activePreview)!;

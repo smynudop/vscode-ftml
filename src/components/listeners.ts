@@ -68,7 +68,7 @@ export function setListeners(panel: vscode.WebviewPanel, panelId: string) {
 			panelInfo.fileName != e.document.fileName
 		)
 			return;
-		if (e.document.languageId == "ftml") {
+		if (e.document.languageId == "wikidot") {
 			serveBackendDebounced(
 				panel,
 				basenameWithoutExt(e.document.fileName),
@@ -85,9 +85,9 @@ export function setListeners(panel: vscode.WebviewPanel, panelId: string) {
 
 		if (lockedPreviews.has(panelId)) {
 			lockedPreviews.delete(panelId);
-			ctx.workspaceState.update("ftml.lockedPreviews", [...lockedPreviews]);
+			ctx.workspaceState.update("wikidot.lockedPreviews", [...lockedPreviews]);
 		}
-		ctx.workspaceState.update(`ftml.previews.${panelId}`, undefined);
+		ctx.workspaceState.update(`wikidot.previews.${panelId}`, undefined);
 		viewChangeDisposable.dispose();
 		docChangeDisposable.dispose();
 		if (idToTabChangeListener.has(panelId)) {
@@ -105,7 +105,7 @@ export function setListeners(panel: vscode.WebviewPanel, panelId: string) {
 export function setTabChangeListener(panel: vscode.WebviewPanel, panelId: string) {
 	const tabChangeDisposable = vscode.window.onDidChangeActiveTextEditor((e) => {
 		if (
-			e?.document.languageId == "ftml" &&
+			e?.document.languageId == "wikidot" &&
 			e?.document.uri.scheme != "wikidot-rev"
 		) {
 			const panelInfo = idToInfo.get(panelId)!;
@@ -123,7 +123,7 @@ export function setTabChangeListener(panel: vscode.WebviewPanel, panelId: string
 	idToTabChangeListener.set(panelId, tabChangeDisposable);
 	if (lockedPreviews.has(panelId)) {
 		lockedPreviews.delete(panelId);
-		ctx.workspaceState.update("ftml.lockedPreviews", [...lockedPreviews]);
+		ctx.workspaceState.update("wikidot.lockedPreviews", [...lockedPreviews]);
 	}
 }
 
@@ -137,7 +137,7 @@ export function unsetTabChangeListener(panel: vscode.WebviewPanel, panelId: stri
 	idToTabChangeListener.delete(panelId);
 	if (!lockedPreviews.has(panelId)) {
 		lockedPreviews.add(panelId);
-		ctx.workspaceState.update("ftml.lockedPreviews", [...lockedPreviews]);
+		ctx.workspaceState.update("wikidot.lockedPreviews", [...lockedPreviews]);
 	}
 }
 

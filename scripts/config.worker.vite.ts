@@ -22,7 +22,7 @@ export default defineConfig({
 		assetsDir: ".",
 		rollupOptions: {},
 		lib: {
-			entry: [resolve(__dirname, "../src/webview/ftml.web.worker")],
+			entry: [resolve(__dirname, "../src/webview/wikidot.web.worker")],
 			formats: ["cjs"],
 			fileName: () => "[name].cjs",
 		},

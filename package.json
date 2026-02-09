@@ -3,7 +3,7 @@
 	"publisher": "udotree",
 	"displayName": "Wikidot Preview",
 	"description": "Wikidot live preview & syntax highlight",
-	"version": "0.4.0",
+	"version": "0.5.0",
 	"license": "AGPL-3.0-or-later",
 	"engines": {
 		"vscode": "^1.107.0"
@@ -24,18 +24,15 @@
 	"contributes": {
 		"languages": [
 			{
-				"id": "ftml",
+				"id": "wikidot",
 				"aliases": [
-					"FTML",
-					"ftml",
+					"wikidot",
+					"wd",
 					"Wikidot code"
 				],
 				"extensions": [
-					".ftml",
-					".wd",
 					".wikidot",
-					".wj",
-					".wikijump"
+					".wd"
 				],
 				"configuration": "./language-configuration.json",
 				"icon": {
@@ -46,9 +43,9 @@
 		],
 		"grammars": [
 			{
-				"language": "ftml",
-				"scopeName": "text.ftml",
-				"path": "./syntaxes/ftml.tmLanguage.json",
+				"language": "wikidot",
+				"scopeName": "text.wikidot",
+				"path": "./syntaxes/wikidot.tmLanguage.json",
 				"embeddedLanguages": {
 					"meta.embedded.block.css": "css",
 					"meta.embedded.block.html": "html",
@@ -59,44 +56,44 @@
 		],
 		"commands": [
 			{
-				"command": "ftml.preview.open",
-				"title": "%ftml.preview.open%",
-				"category": "Ftml"
+				"command": "wikidot.preview.open",
+				"title": "%wikidot.preview.open%",
+				"category": "Wikidot"
 			},
 			{
-				"command": "ftml.preview.openToSide",
-				"title": "%ftml.preview.openToSide%",
-				"category": "Ftml",
+				"command": "wikidot.preview.openToSide",
+				"title": "%wikidot.preview.openToSide%",
+				"category": "Wikidot",
 				"icon": "$(open-preview)"
 			},
 			{
-				"command": "ftml.preview.refresh",
-				"title": "%ftml.preview.refresh%",
-				"category": "Ftml"
+				"command": "wikidot.preview.refresh",
+				"title": "%wikidot.preview.refresh%",
+				"category": "Wikidot"
 			}
 		],
 		"menus": {
 			"editor/context": [
 				{
-					"when": "resourceLangId == ftml && !isInDiffEditor",
-					"command": "ftml.preview.open",
-					"group": "4_ftml"
+					"when": "resourceLangId == wikidot && !isInDiffEditor",
+					"command": "wikidot.preview.open",
+					"group": "4_wikidot"
 				},
 				{
-					"when": "resourceLangId == ftml && !isInDiffEditor",
-					"command": "ftml.preview.openToSide",
-					"group": "4_ftml"
+					"when": "resourceLangId == wikidot && !isInDiffEditor",
+					"command": "wikidot.preview.openToSide",
+					"group": "4_wikidot"
 				}
 			],
 			"editor/title": [
 				{
-					"when": "resourceLangId == ftml && !isInDiffEditor",
-					"command": "ftml.preview.open",
-					"group": "4_ftml"
+					"when": "resourceLangId == wikidot && !isInDiffEditor",
+					"command": "wikidot.preview.open",
+					"group": "4_wikidot"
 				},
 				{
-					"when": "resourceLangId == ftml && !isInDiffEditor",
-					"command": "ftml.preview.openToSide",
+					"when": "resourceLangId == wikidot && !isInDiffEditor",
+					"command": "wikidot.preview.openToSide",
 					"group": "navigation",
 					"icon": "$(preview)"
 				}
@@ -104,19 +101,7 @@
 		},
 		"configuration": [
 			{
-				"title": "FTML",
-				"properties": {
-					"ftml.preview.lock": {
-						"type": "boolean",
-						"default": false,
-						"description": "%ftml.preview.lock%"
-					},
-					"ftml.preview.live": {
-						"type": "boolean",
-						"default": true,
-						"description": "%ftml.preview.live%"
-					}
-				}
+				"title": "Wikidot"
 			}
 		]
 	},
@@ -127,7 +112,7 @@
 		"compile:client": "vite build --config ./scripts/config.client.vite.ts",
 		"compile:vite": "vite build --config ./scripts/config.vite.ts",
 		"compile:ts": "tsc -p ./",
-		"compile:yaml": "pnpx js-yaml ./syntaxes/ftml.tmLanguage.yaml > ./syntaxes/ftml.tmLanguage.json",
+		"compile:yaml": "pnpx js-yaml ./syntaxes/wikidot.tmLanguage.yaml > ./syntaxes/wikidot.tmLanguage.json",
 		"compile": "pnpm run compile:yaml && pnpm run compile:worker && pnpm run compile:client && pnpm run compile:vite",
 		"package": "vsce package --no-dependencies",
 		"lint": "biome lint --fix",

@@ -85,10 +85,10 @@ function createPreviewPanel(
 		panelInfo.id = Math.random().toString(36).substring(4);
 	}
 
-	const locked = !!vscode.workspace.getConfiguration("ftml.preview").get("lock");
+	const locked = !!vscode.workspace.getConfiguration("wikidot.preview").get("lock");
 
 	const panel = vscode.window.createWebviewPanel(
-		"ftml.preview",
+		"wikidot.preview",
 		genTitle(basename(panelInfo.fileName)),
 		panelInfo.viewColumn ? panelInfo.viewColumn : vscode.ViewColumn.Active,
 		{
@@ -104,7 +104,7 @@ function createPreviewPanel(
 	panel.webview.html = genHtml(extensionContext, panel);
 
 	const activeEditor = vscode.window.activeTextEditor;
-	if (activeEditor?.document.languageId == "ftml") {
+	if (activeEditor?.document.languageId == "wikidot") {
 		panelInfo.fileName = activeEditor.document.fileName
 		
 		serveBackend(

@@ -4,12 +4,12 @@ import type { PageData } from "../wikidot/interface";
 import { unixNamify } from "../utils";
 
 /**
- * Parses an FTML file to obtain its page data.
- * @param source Source of the FTML file.
+ * Parses an wikidot file to obtain its page data.
+ * @param source Source of the wikidot file.
  */
 export function parsePageData(source: string): PageData {
 	const meta: PageData = {
-		site: `${vscode.workspace.getConfiguration("ftml.preview").get("wikidot")}`,
+		site: `${vscode.workspace.getConfiguration("wikidot.preview").get("wikidot")}`,
 		page: "",
 		source: "",
 	};
@@ -26,7 +26,7 @@ export function parsePageData(source: string): PageData {
  * Posts a packet of preview data to backend to refresh the preview once.
  * @param panel The preview panel.
  * @param fileName Name of source file for the preview.
- * @param source Source of the FTML file.
+ * @param source Source of the wikidot file.
  * @param backend The backend to be used.
  */
 export function serveBackend(
@@ -39,7 +39,7 @@ export function serveBackend(
 	panel.webview.postMessage({
 		type: "content",
 		fileName,
-		ftmlSource: meta.source,
+		wikidotSource: meta.source,
 	});
 
 }

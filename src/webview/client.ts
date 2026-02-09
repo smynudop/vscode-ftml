@@ -1,6 +1,6 @@
 /// <reference types="./client.d.ts" />
-import type { WorkerMessage } from "./ftml.web.worker";
-import ftmlWorker from "../../dist_prebuild/ftml.web.worker.cjs?raw";
+import type { WorkerMessage } from "./wikidot.web.worker";
+import wikidotWorker from "../../dist_prebuild/wikidot.web.worker.cjs?raw";
 type State = {
 	id: string;
 	fileName: string;
@@ -15,13 +15,11 @@ const workerMesssage: WorkerMessage = {
 };
 
 const vscode = window.acquireVsCodeApi<State>();
-const state = vscode.getState() || {
+const state: State = vscode.getState() || {
 	id: Math.random().toString(36).substring(4),
 	fileName: "",
 	viewColumn: -1,
 	content: "",
-	backend: "ftml",
-	live: true,
 };
 const previewContent = document.getElementById("preview-content")!;
 previewContent.addEventListener("click", (e) => {
@@ -58,12 +56,12 @@ previewContent.addEventListener("click", (e) => {
 if (state.content) previewContent.innerHTML = state.content;
 
 const url = URL.createObjectURL(
-	new Blob([ftmlWorker], { type: "application/javascript" }),
+	new Blob([wikidotWorker], { type: "application/javascript" }),
 );
-const ftml = new Worker(url, {
+const worker = new Worker(url, {
 	type: "module",
 });
-ftml.addEventListener("message", (e) => {
+worker.addEventListener("message", (e) => {
 	const { html } = e.data;
 	previewContent.innerHTML = html;
 	state.content = html;
@@ -71,14 +69,14 @@ ftml.addEventListener("message", (e) => {
 });
 
 window.addEventListener("message", (e) => {
-	const { type, fileName, ftmlSource } = e.data;
+	const { type, fileName, wikidotSource } = e.data;
 	switch (type.toLowerCase()) {
 		case "content":
 			if(workerMesssage.file !== fileName){
 				workerMesssage.url = `/${fileName}`;
 				workerMesssage.file = fileName;
 			}
-			workerMesssage.source = ftmlSource;
+			workerMesssage.source = wikidotSource;
 			sendMessageToWorker(workerMesssage);
 			state.fileName = fileName;
 			break;
@@ -92,5 +90,5 @@ const sendMessageToWorker = (message: WorkerMessage) => {
 			"#address-bar .address-bar-content",
 		)! as HTMLInputElement
 	).value = message.url;
-	ftml.postMessage(message);
+	worker.postMessage(message);
 };

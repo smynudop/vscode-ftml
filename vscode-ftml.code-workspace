@@ -9,6 +9,7 @@
 			"dist/**": true,
 			"dist_prebuild/**": true,
 			"webview_dist/**": true,
+			"snytaxes/**.json": true,
 		}
 	}
 }
