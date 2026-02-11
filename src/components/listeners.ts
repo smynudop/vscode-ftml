@@ -37,7 +37,7 @@ function debounce<T extends (...args: any[]) => any>(
 	};
 }
 
-const serveBackendDebounced = debounce(serveBackend, 400);
+const serveBackendDebounced = debounce(serveBackend, 400, false);
 
 /**
  * Sets all the source change listeners for a preview panel.

@@ -103,6 +103,14 @@ function createPreviewPanel(
 
 	panel.webview.html = genHtml(extensionContext, panel);
 
+	const outputChannel = vscode.window.createOutputChannel('Wikidot Preview');
+
+	panel.webview.onDidReceiveMessage(message => {
+		if (message.type === 'log') {
+			outputChannel.appendLine(message.text);
+		}
+	});
+
 	const activeEditor = vscode.window.activeTextEditor;
 	if (activeEditor?.document.languageId == "wikidot") {
 		panelInfo.fileName = activeEditor.document.fileName

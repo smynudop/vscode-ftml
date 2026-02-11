@@ -116,7 +116,7 @@
 		"compile": "pnpm run compile:yaml && pnpm run compile:worker && pnpm run compile:client && pnpm run compile:vite",
 		"package": "vsce package --no-dependencies",
 		"lint": "biome lint --fix",
-				"lint:summary": "biome lint --reporter=summary",
+		"lint:summary": "biome lint --reporter=summary",
 		"format": "@biomejs/biome format --write",
 		"biome:check": "pnpm dlx biome check",
 		"watch": "tsc -w -p ./",
@@ -138,6 +138,7 @@
 	"dependencies": {
 		"@wdprlib/parser": "^1.1.0",
 		"@wdprlib/render": "^1.2.0",
+		"@wdprlib/runtime": "^1.0.1",
 		"front-matter": "^4.0.2"
 	},
 	"packageManager": "pnpm@10.28.0+sha512.05df71d1421f21399e053fde567cea34d446fa02c76571441bfc1c7956e98e363088982d940465fd34480d4d90a0668bc12362f8aa88000a64e83d0b0e47be48"

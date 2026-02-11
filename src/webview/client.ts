@@ -1,6 +1,7 @@
 /// <reference types="./client.d.ts" />
-import type { WorkerMessage } from "./wikidot.web.worker";
 import wikidotWorker from "../../dist_prebuild/wikidot.web.worker.cjs?raw";
+import * as Runtime from "@wdprlib/runtime";
+
 type State = {
 	id: string;
 	fileName: string;
@@ -8,6 +9,20 @@ type State = {
 	content: string;
 };
 
+type WorkerMessage = {
+	file: string,
+	source: string;
+	url: string;
+};
+
+export type WorkerRequest = WorkerMessage & { id: number };
+export type WorkerResponse = {
+	id: number;
+	html: string;
+	blocks: string[] | undefined
+};
+
+let startTimeDic = new Map<number, number>();
 const workerMesssage: WorkerMessage = {
 	file: "",
 	source: "",
@@ -21,30 +36,20 @@ const state: State = vscode.getState() || {
 	viewColumn: -1,
 	content: "",
 };
+
 const previewContent = document.getElementById("preview-content")!;
+
+let runtime = Runtime.initWdprRuntime({
+	root: previewContent,
+});
+
+const log = (text: string) => {
+	vscode.postMessage({ type: "log", text });
+}
+
 previewContent.addEventListener("click", (e) => {
 	// Collapsible block toggle
 	const target = e.target as HTMLElement;
-	const collapsibleBlockLink = target.closest("a.collapsible-block-link");
-	if (collapsibleBlockLink) {
-		const container = collapsibleBlockLink.closest(".collapsible-block")!;
-
-		const unfolded = container.querySelector(
-			".collapsible-block-unfolded",
-		)! as HTMLElement;
-		const folded = container.querySelector(
-			".collapsible-block-folded",
-		)! as HTMLElement;
-		if (collapsibleBlockLink.closest(".collapsible-block-folded")) {
-			unfolded.style.display = "block";
-			folded.style.display = "none";
-		} else {
-			unfolded.style.display = "none";
-			folded.style.display = "block";
-		}
-		return;
-	}
-
 	const a = target.closest("a");
 	if (a?.href && a.getAttribute("href")!.startsWith("/")) {
 		console.log("Intercepted link click: ", a.href);
@@ -61,9 +66,22 @@ const url = URL.createObjectURL(
 const worker = new Worker(url, {
 	type: "module",
 });
-worker.addEventListener("message", (e) => {
-	const { html } = e.data;
+worker.addEventListener("message", (e: MessageEvent<WorkerResponse>) => {
+	const { id, html, blocks = [] } = e.data;
 	previewContent.innerHTML = html;
+	const iframes = Array.from(previewContent.querySelectorAll("iframe"));
+	for(let i = 0; i < iframes.length; i++){ 
+		const iframe = iframes[i];
+		iframe.srcdoc = blocks?.[i] ?? null
+	}
+	runtime?.destroy();
+	runtime = Runtime.initWdprRuntime({
+		root: previewContent,
+	});
+	const endTime = performance.now();
+	const startTime = startTimeDic.get(id) ?? endTime;
+	log(`Rendering time: ${endTime - startTime} ms(id: ${id})`);
+
 	state.content = html;
 	vscode.setState(state);
 });
@@ -84,11 +102,14 @@ window.addEventListener("message", (e) => {
 	vscode.setState(state);
 });
 
+let id = 0;
 const sendMessageToWorker = (message: WorkerMessage) => {
 	(
 		document.querySelector(
 			"#address-bar .address-bar-content",
 		)! as HTMLInputElement
 	).value = message.url;
-	worker.postMessage(message);
+	id++;
+	startTimeDic.set(id, performance.now());
+	worker.postMessage({id, ...message});
 };

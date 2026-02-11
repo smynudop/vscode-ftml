@@ -14,6 +14,9 @@ importers:
       '@wdprlib/render':
         specifier: ^1.2.0
         version: 1.2.0
+      '@wdprlib/runtime':
+        specifier: ^1.0.1
+        version: 1.0.1
       front-matter:
         specifier: ^4.0.2
         version: 4.0.2
@@ -488,6 +491,9 @@ packages:
   '@wdprlib/render@1.2.0':
     resolution: {integrity: sha512-5dTFZS6i/av+Kt34YpzwEPMAypKtjCm1dB22nzEi3VtmrwclezcvGOsJ9Q1pCu+7P0z7wJqiyiPawL4Hu5ZwkA==}
 
+  '@wdprlib/runtime@1.0.1':
+    resolution: {integrity: sha512-Ml4mjkM8VXYIaUSGAAPnAKTYIQ7uoxKvo6h8/vsUc4Ah2h6RgAcNTBjYKj2l6w0vnMa/0dgtsAZ+iftxWNF4tg==}
+
   argparse@1.0.10:
     resolution: {integrity: sha512-o5Roy6tNG4SL/FOkCAN6RzjiakZS25RLYFrcMttJqbdd8BWrnA+fGz57iN5Pb06pvBGvl5gQ0B48dJlslXvoTg==}
 
@@ -691,6 +697,9 @@ packages:
     resolution: {integrity: sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==}
     engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
     os: [darwin]
+
+  hfmath@0.0.2:
+    resolution: {integrity: sha512-cKUi0yiQLGfLgs8+3Iw5nAiqSH13Knp7vCf0G1vlF5nfiKKO1XmxNagMvyp0F4ZvUNaHpRGTkmc7nowCy1S58g==}
 
   htmlparser2@10.1.0:
     resolution: {integrity: sha512-VTZkM9GWRAtEpveh7MSF6SjjrpNVNNVJfFup7xTY3UpFtm67foy9HDVXneLtFVt4pMz5kZtgNcvCniNFb1hlEQ==}
@@ -1116,6 +1125,10 @@ snapshots:
       sanitize-html: 2.17.0
       temml: 0.13.1
 
+  '@wdprlib/runtime@1.0.1':
+    dependencies:
+      hfmath: 0.0.2
+
   argparse@1.0.10:
     dependencies:
       sprintf-js: 1.0.3
@@ -1290,6 +1303,8 @@ snapshots:
 
   fsevents@2.3.3:
     optional: true
+
+  hfmath@0.0.2: {}
 
   htmlparser2@10.1.0:
     dependencies:

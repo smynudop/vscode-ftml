@@ -1,14 +1,11 @@
 import * as Parser from "@wdprlib/parser";
 import * as Render from "@wdprlib/render";
+import * as Runtime from "@wdprlib/runtime";
 
-export type WorkerMessage = {
-	file: string,
-	source: string;
-	url: string;
-};
+import type { WorkerRequest } from "./client";
 
-self.onmessage = async (e: MessageEvent<WorkerMessage>) => {
-	const { source, url }: WorkerMessage = e.data;
+self.onmessage = async (e: MessageEvent<WorkerRequest>) => {
+	const { id, source, url } = e.data;
 
 	const page: Parser.PageData = {
 		name: "name",
@@ -44,15 +41,12 @@ self.onmessage = async (e: MessageEvent<WorkerMessage>) => {
 	// Full pipeline with includes and modules
 
 	// 1. Resolve includes
-	// const expanded = resolveIncludes(content, (ref: PageRef) => {
-	//   // このサンプルでは外部ページ取得ロジックが無いため、ローカルの `content` を返す
-	//   // 実運用ではここで DB や API からページ本文を取得する関数を呼んでください
-	//   console.log(`Include requested: `, ref)
-	//   return content
-	// })/
+	const expanded = Parser.resolveIncludes(source, (ref: Parser.PageRef) => {
+	  return `[${ref.page}]`; // Dummy include content
+	})
 
 	// 2. Parse
-	const ast = Parser.parse(source);
+	const ast = Parser.parse(expanded);
 
 	// 3. Extract data requirements for modules
 	const { requirements, compiledListPagesTemplates } =
@@ -105,5 +99,5 @@ self.onmessage = async (e: MessageEvent<WorkerMessage>) => {
 	});
 
 	// sending message back to main thread
-	postMessage({ html });
+	postMessage({ id, html, blocks: resolved["html-blocks"],  });
 };
