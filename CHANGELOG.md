@@ -1,5 +1,8 @@
 # Change Log
 
+## 0.6.0
+表示処理に@wdprlib/runtimeを使用するように変更
+
 ## 0.5.0
 ListModulesを使った疑似ページ遷移構文に対応
 .wj, .wikijump, .ftmlを対象外に。.wd, .wikidotのみ対象へ
