@@ -1,5 +1,9 @@
 # Change Log
 
+## 0.7.0
+依存パッケージを更新
+syntaxを少し改良
+
 ## 0.6.0
 表示処理に@wdprlib/runtimeを使用するように変更
 

@@ -3,7 +3,7 @@
 	"publisher": "udotree",
 	"displayName": "Wikidot Preview",
 	"description": "Wikidot live preview & syntax highlight",
-	"version": "0.6.0",
+	"version": "0.7.0",
 	"license": "AGPL-3.0-or-later",
 	"engines": {
 		"vscode": "^1.107.0"
