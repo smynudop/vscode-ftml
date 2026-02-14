@@ -36,6 +36,7 @@ patterns:
   - include: "#page-variables"
   - include: "#user-variables"
   - include: "#deprecated-variables"
+  - include: "#blockquote"
 repository:
   shorthands:
     comments: These are the shorthand markups.
@@ -523,11 +524,15 @@ repository:
       - include: $self
   blockquote:
     name: markup.quote.wikidot
-    match: ^(\>+)(?=\s)
-    captures:
+    begin: ^(>+)\s
+    end: $
+    begincaptures:
       "1":
         name: punctuation.definition.quote.wikidot
-  inline-align:
+    patterns:
+      - include: "#block"
+      - include: "#shorthands"
+  inline-align: 
     name: markup.align.wikidot
     match: ^(\=)\s
     captures:
