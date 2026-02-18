@@ -46,7 +46,8 @@ self.onmessage = async (e: MessageEvent<WorkerRequest>) => {
 	})
 
 	// 2. Parse
-	const ast = Parser.parse(expanded);
+	const {ast, diagnostics} = Parser.parse(expanded);
+	console.log(diagnostics)
 
 	// 3. Extract data requirements for modules
 	const { requirements, compiledListPagesTemplates } =
@@ -74,7 +75,7 @@ self.onmessage = async (e: MessageEvent<WorkerRequest>) => {
 			getPageTags: () => ["tag1", "tag2"],
 		},
 		{
-			parse: Parser.parse,
+			parse: (source: string) => Parser.parse(source).ast,
 			compiledListPagesTemplates,
 			requirements,
 			urlPath: url,

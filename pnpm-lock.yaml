@@ -9,14 +9,14 @@ importers:
   .:
     dependencies:
       '@wdprlib/parser':
-        specifier: ^1.1.4
-        version: 1.1.4
+        specifier: ^2.0.2
+        version: 2.0.2
       '@wdprlib/render':
-        specifier: ^1.3.0
-        version: 1.3.0
+        specifier: ^1.3.2
+        version: 1.3.2
       '@wdprlib/runtime':
-        specifier: ^1.0.1
-        version: 1.0.1
+        specifier: ^1.0.2
+        version: 1.0.2
       front-matter:
         specifier: ^4.0.2
         version: 4.0.2
@@ -482,20 +482,17 @@ packages:
   '@types/vscode@1.107.0':
     resolution: {integrity: sha512-XS8YE1jlyTIowP64+HoN30OlC1H9xqSlq1eoLZUgFEC8oUTO6euYZxti1xRiLSfZocs4qytTzR6xCBYtioQTCg==}
 
-  '@wdprlib/ast@1.1.1':
-    resolution: {integrity: sha512-Y8ORCKynU89UoXq7BQtu05wm41KbNt8Kv44vHCuXbZCJPMwXe/nxKKp/8L7BSGv/mz+EI8V+48/+LdkF0k240Q==}
+  '@wdprlib/ast@1.2.1':
+    resolution: {integrity: sha512-2/rIMgE6M0Gqwim98RNHtGrpSHK/bwxQ/1o/HmS8kQiHrxnvjm0IzN2XFiLb3bYBhhfvsIGP2KOr2Z57ACLf1A==}
 
-  '@wdprlib/ast@1.2.0':
-    resolution: {integrity: sha512-UCzca2zwPMSjiJH/rGKQnFAfdh7E9gxkoXe2c0fXusJOb9XffoMsI+Igzw6kmQBLoGexHPImQXPXrQ2h5IzabA==}
+  '@wdprlib/parser@2.0.2':
+    resolution: {integrity: sha512-gyLYLhzAJRswrvz/G2xOQpmFy95ZiVoeYs33X6f2aHSTls5wbCQGHVwTxedwH3T0zV+7UFW9mY0u3Bvhax+LRA==}
 
-  '@wdprlib/parser@1.1.4':
-    resolution: {integrity: sha512-Od/QbG7DpLYZ1Zz8lQ3HkvkjEoMPd2kS19wYsBfFdKoUuR+tBO+f4fGOeYaZeEBfj1GHzqI0pwNK7EP+H2PfJA==}
+  '@wdprlib/render@1.3.2':
+    resolution: {integrity: sha512-Bb86rJoBahBCtGcPQp30sbdSqE1EHko1ZSJ91n4NYa38EAAsaHgMpZBhRXDKDxd2n5QZcnOM8pSUhziTAvJh5A==}
 
-  '@wdprlib/render@1.3.0':
-    resolution: {integrity: sha512-iV5iFjsYmheI8aL3C/06Tyk+qCS75trNC7XnMdMsiD+hd4m/PAj3AmPlTV8WqZHnHuK0vadWl524tEX9V9LRig==}
-
-  '@wdprlib/runtime@1.0.1':
-    resolution: {integrity: sha512-Ml4mjkM8VXYIaUSGAAPnAKTYIQ7uoxKvo6h8/vsUc4Ah2h6RgAcNTBjYKj2l6w0vnMa/0dgtsAZ+iftxWNF4tg==}
+  '@wdprlib/runtime@1.0.2':
+    resolution: {integrity: sha512-L+PQurATEs8Yyvur1xoHrNl2u5duguA8I3Fgak7TVSekxkAFSnHPdMPkk4bKbnhboL4ampUF8kSP2CDin6dlwA==}
 
   argparse@1.0.10:
     resolution: {integrity: sha512-o5Roy6tNG4SL/FOkCAN6RzjiakZS25RLYFrcMttJqbdd8BWrnA+fGz57iN5Pb06pvBGvl5gQ0B48dJlslXvoTg==}
@@ -1113,24 +1110,22 @@ snapshots:
 
   '@types/vscode@1.107.0': {}
 
-  '@wdprlib/ast@1.1.1': {}
+  '@wdprlib/ast@1.2.1': {}
 
-  '@wdprlib/ast@1.2.0': {}
-
-  '@wdprlib/parser@1.1.4':
+  '@wdprlib/parser@2.0.2':
     dependencies:
       '@braintree/sanitize-url': 7.1.2
-      '@wdprlib/ast': 1.1.1
+      '@wdprlib/ast': 1.2.1
 
-  '@wdprlib/render@1.3.0':
+  '@wdprlib/render@1.3.2':
     dependencies:
-      '@wdprlib/ast': 1.2.0
+      '@wdprlib/ast': 1.2.1
       domhandler: 5.0.3
       htmlparser2: 10.1.0
       sanitize-html: 2.17.0
       temml: 0.13.1
 
-  '@wdprlib/runtime@1.0.1':
+  '@wdprlib/runtime@1.0.2':
     dependencies:
       hfmath: 0.0.2
 
