@@ -9,11 +9,11 @@ importers:
   .:
     dependencies:
       '@wdprlib/parser':
-        specifier: ^2.0.2
-        version: 2.0.2
+        specifier: ^2.0.9
+        version: 2.0.9
       '@wdprlib/render':
-        specifier: ^1.3.2
-        version: 1.3.2
+        specifier: ^1.3.3
+        version: 1.3.3
       '@wdprlib/runtime':
         specifier: ^1.0.2
         version: 1.0.2
@@ -485,11 +485,11 @@ packages:
   '@wdprlib/ast@1.2.1':
     resolution: {integrity: sha512-2/rIMgE6M0Gqwim98RNHtGrpSHK/bwxQ/1o/HmS8kQiHrxnvjm0IzN2XFiLb3bYBhhfvsIGP2KOr2Z57ACLf1A==}
 
-  '@wdprlib/parser@2.0.2':
-    resolution: {integrity: sha512-gyLYLhzAJRswrvz/G2xOQpmFy95ZiVoeYs33X6f2aHSTls5wbCQGHVwTxedwH3T0zV+7UFW9mY0u3Bvhax+LRA==}
+  '@wdprlib/parser@2.0.9':
+    resolution: {integrity: sha512-soqmsQO51gY8OsIZXVSkgeIIfMXlcfXJyh0uPtSrRm+jvv881+rCxepoEWGr1J2HtAQg0sRzPQSMOwJUvllVMg==}
 
-  '@wdprlib/render@1.3.2':
-    resolution: {integrity: sha512-Bb86rJoBahBCtGcPQp30sbdSqE1EHko1ZSJ91n4NYa38EAAsaHgMpZBhRXDKDxd2n5QZcnOM8pSUhziTAvJh5A==}
+  '@wdprlib/render@1.3.3':
+    resolution: {integrity: sha512-iGiZtIXxYuT2KmjFrh5xtpMermqHKNeAp0R32YyKj2rbbZ+GO9av5kFkDvy51zd/Vpkdz0hoNHlZkDztbZL9LQ==}
 
   '@wdprlib/runtime@1.0.2':
     resolution: {integrity: sha512-L+PQurATEs8Yyvur1xoHrNl2u5duguA8I3Fgak7TVSekxkAFSnHPdMPkk4bKbnhboL4ampUF8kSP2CDin6dlwA==}
@@ -1112,12 +1112,12 @@ snapshots:
 
   '@wdprlib/ast@1.2.1': {}
 
-  '@wdprlib/parser@2.0.2':
+  '@wdprlib/parser@2.0.9':
     dependencies:
       '@braintree/sanitize-url': 7.1.2
       '@wdprlib/ast': 1.2.1
 
-  '@wdprlib/render@1.3.2':
+  '@wdprlib/render@1.3.3':
     dependencies:
       '@wdprlib/ast': 1.2.1
       domhandler: 5.0.3

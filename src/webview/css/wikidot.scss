@@ -145,6 +145,9 @@ table.table th {
   float: left;
 }
 
+pre, code{
+  font-family: 'Andale Mono', 'Courier New', Courier, monospace;
+}
 
 pre code{
   padding: unset; /* vscodeのスタイル打ち消し */
@@ -166,7 +169,6 @@ code, .code{
 .code{
     border: 1px dashed #DDD;
     background-color: #F7F7F7;
-    font-family: 'Andale Mono', 'Courier New', Courier, monospace;
     padding-inline: 1em;
     margin: 0.4em 0;
     overflow: auto;
