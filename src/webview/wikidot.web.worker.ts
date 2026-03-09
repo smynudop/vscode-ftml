@@ -5,7 +5,8 @@ import * as Runtime from "@wdprlib/runtime";
 import type { WorkerRequest } from "./client";
 
 self.onmessage = async (e: MessageEvent<WorkerRequest>) => {
-	const { id, source, url } = e.data;
+	const { id, source, url, includes } = e.data;
+	console.log(includes)
 
 	const page: Parser.PageData = {
 		name: "name",
@@ -42,7 +43,11 @@ self.onmessage = async (e: MessageEvent<WorkerRequest>) => {
 
 	// 1. Resolve includes
 	const expanded = Parser.resolveIncludes(source, (ref: Parser.PageRef) => {
-	  return `[${ref.page}]`; // Dummy include content
+		// siteは無視する
+		// Strip category prefix if present (colons are invalid in Windows filenames)
+		const page = ref.page.includes(":") ? ref.page.split(":").pop()! : ref.page;
+		console.log(page)
+		return includes?.[page] ?? null;
 	})
 
 	// 2. Parse

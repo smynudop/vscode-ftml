@@ -13,6 +13,7 @@ type WorkerMessage = {
 	file: string,
 	source: string;
 	url: string;
+	includes: Record<string, string>;
 };
 
 export type WorkerRequest = WorkerMessage & { id: number };
@@ -27,6 +28,7 @@ const workerMesssage: WorkerMessage = {
 	file: "",
 	source: "",
 	url: "/test",
+	includes: {},
 };
 
 const vscode = window.acquireVsCodeApi<State>();
@@ -87,7 +89,7 @@ worker.addEventListener("message", (e: MessageEvent<WorkerResponse>) => {
 });
 
 window.addEventListener("message", (e) => {
-	const { type, fileName, wikidotSource } = e.data;
+	const { type, fileName, wikidotSource, includes } = e.data;
 	switch (type.toLowerCase()) {
 		case "content":
 			if(workerMesssage.file !== fileName){
@@ -95,6 +97,7 @@ window.addEventListener("message", (e) => {
 				workerMesssage.file = fileName;
 			}
 			workerMesssage.source = wikidotSource;
+			workerMesssage.includes = includes ?? {};
 			sendMessageToWorker(workerMesssage);
 			state.fileName = fileName;
 			break;

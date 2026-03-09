@@ -71,6 +71,7 @@ export function setListeners(panel: vscode.WebviewPanel, panelId: string) {
 		if (e.document.languageId == "wikidot") {
 			serveBackendDebounced(
 				panel,
+				e.document.uri,
 				basenameWithoutExt(e.document.fileName),
 				e.document.getText(),
 			);
@@ -112,6 +113,7 @@ export function setTabChangeListener(panel: vscode.WebviewPanel, panelId: string
 			panelInfo.fileName = e.document.fileName;
 			serveBackendDebounced(
 				panel,
+				e.document.uri,
 				basenameWithoutExt(panelInfo.fileName),
 				e.document.getText(),
 			);

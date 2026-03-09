@@ -21,7 +21,7 @@ export default defineConfig({
 		outDir: join(process.cwd(), "dist"),
 		assetsDir: ".",
 		rollupOptions: {
-			external: "vscode",
+			external: ["vscode", "path"],
 			output: {
 				globals: {
 					vscode: "vscode",

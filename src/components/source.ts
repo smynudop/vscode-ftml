@@ -1,4 +1,5 @@
 import * as vscode from "vscode";
+import * as path from "path";
 import fm from "front-matter";
 import type { PageData } from "../wikidot/interface";
 import { unixNamify } from "../utils";
@@ -22,24 +23,70 @@ export function parsePageData(source: string): PageData {
 	return meta;
 }
 
+const WIKIDOT_EXTENSIONS = [".wd", ".wikidot"];
+
+/**
+ * Reads all sibling Wikidot files (`.wd` / `.wikidot`) in the same directory
+ * as the given file URI and returns a map of `{ filenameWithoutExt: content }`.
+ */
+async function readSiblingFiles(fileUri: vscode.Uri): Promise<Record<string, string>> {
+	const dirUri = vscode.Uri.file(path.dirname(fileUri.fsPath));
+	const currentBasename = path.basename(fileUri.fsPath);
+
+	let entries: [string, vscode.FileType][];
+	try {
+		entries = await vscode.workspace.fs.readDirectory(dirUri);
+	} catch {
+		return {};
+	}
+
+	const includes: Record<string, string> = {};
+	await Promise.all(
+		entries
+			.filter(([name, type]) =>
+				type === vscode.FileType.File &&
+				name !== currentBasename &&
+				WIKIDOT_EXTENSIONS.some((ext) => name.endsWith(ext))
+			)
+			.map(async ([name]) => {
+				const ext = WIKIDOT_EXTENSIONS.find((e) => name.endsWith(e))!;
+				const nameWithoutExt = name.slice(0, -ext.length);
+				try {
+					const bytes = await vscode.workspace.fs.readFile(
+						vscode.Uri.joinPath(dirUri, name)
+					);
+					const content = new TextDecoder().decode(bytes);
+					const pageMeta = parsePageData(content);
+					includes[nameWithoutExt] = pageMeta.source;
+				} catch {
+					// Skip unreadable files
+				}
+			})
+	);
+	return includes;
+}
+
 /**
  * Posts a packet of preview data to backend to refresh the preview once.
  * @param panel The preview panel.
- * @param fileName Name of source file for the preview.
+ * @param fileUri URI of the source file.
+ * @param fileName Name of source file for the preview (without extension).
  * @param source Source of the wikidot file.
- * @param backend The backend to be used.
  */
-export function serveBackend(
+export async function serveBackend(
 	panel: vscode.WebviewPanel,
+	fileUri: vscode.Uri,
 	fileName: string,
 	source: string,
 ) {
 	const meta = parsePageData(source);
+	const includes = await readSiblingFiles(fileUri);
 
 	panel.webview.postMessage({
 		type: "content",
 		fileName,
 		wikidotSource: meta.source,
+		includes,
 	});
 
 }

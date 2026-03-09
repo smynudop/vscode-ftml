@@ -117,6 +117,7 @@ function createPreviewPanel(
 		
 		serveBackend(
 			panel,
+			activeEditor.document.uri,
 			basenameWithoutExt(activeEditor.document.fileName),
 			activeEditor.document.getText(),
 		);
