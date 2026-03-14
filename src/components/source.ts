@@ -4,6 +4,8 @@ import fm from "front-matter";
 import type { PageData } from "../wikidot/interface";
 import { unixNamify } from "../utils";
 
+const WIKIDOT_EXTENSIONS = [".wd", ".wikidot"];
+
 /**
  * Parses an wikidot file to obtain its page data.
  * @param source Source of the wikidot file.
@@ -23,70 +25,42 @@ export function parsePageData(source: string): PageData {
 	return meta;
 }
 
-const WIKIDOT_EXTENSIONS = [".wd", ".wikidot"];
-
 /**
- * Reads all sibling Wikidot files (`.wd` / `.wikidot`) in the same directory
- * as the given file URI and returns a map of `{ filenameWithoutExt: content }`.
+ * Reads a single Wikidot include file by page name from the same directory as
+ * the given file URI. Tries `.wd` and `.wikidot` extensions in order.
+ * Returns the parsed source content, or `null` if the file was not found.
  */
-async function readSiblingFiles(fileUri: vscode.Uri): Promise<Record<string, string>> {
+export async function readSingleInclude(fileUri: vscode.Uri, pageName: string): Promise<string | null> {
 	const dirUri = vscode.Uri.file(path.dirname(fileUri.fsPath));
-	const currentBasename = path.basename(fileUri.fsPath);
-
-	let entries: [string, vscode.FileType][];
-	try {
-		entries = await vscode.workspace.fs.readDirectory(dirUri);
-	} catch {
-		return {};
+	for (const ext of WIKIDOT_EXTENSIONS) {
+		try {
+			const bytes = await vscode.workspace.fs.readFile(
+				vscode.Uri.joinPath(dirUri, pageName + ext)
+			);
+			const content = new TextDecoder().decode(bytes);
+			return parsePageData(content).source;
+		} catch {
+			// Try next extension
+		}
 	}
-
-	const includes: Record<string, string> = {};
-	await Promise.all(
-		entries
-			.filter(([name, type]) =>
-				type === vscode.FileType.File &&
-				name !== currentBasename &&
-				WIKIDOT_EXTENSIONS.some((ext) => name.endsWith(ext))
-			)
-			.map(async ([name]) => {
-				const ext = WIKIDOT_EXTENSIONS.find((e) => name.endsWith(e))!;
-				const nameWithoutExt = name.slice(0, -ext.length);
-				try {
-					const bytes = await vscode.workspace.fs.readFile(
-						vscode.Uri.joinPath(dirUri, name)
-					);
-					const content = new TextDecoder().decode(bytes);
-					const pageMeta = parsePageData(content);
-					includes[nameWithoutExt] = pageMeta.source;
-				} catch {
-					// Skip unreadable files
-				}
-			})
-	);
-	return includes;
+	return null;
 }
 
 /**
- * Posts a packet of preview data to backend to refresh the preview once.
+ * Posts a packet of preview data to the webview to refresh the preview once.
  * @param panel The preview panel.
- * @param fileUri URI of the source file.
  * @param fileName Name of source file for the preview (without extension).
  * @param source Source of the wikidot file.
  */
-export async function serveBackend(
+export function serveBackend(
 	panel: vscode.WebviewPanel,
-	fileUri: vscode.Uri,
 	fileName: string,
 	source: string,
 ) {
 	const meta = parsePageData(source);
-	const includes = await readSiblingFiles(fileUri);
-
 	panel.webview.postMessage({
 		type: "content",
 		fileName,
 		wikidotSource: meta.source,
-		includes,
 	});
-
 }

@@ -9,8 +9,10 @@ import {
 	basename,
 	basenameWithoutExt
 } from "../global";
-import { serveBackend } from "./source";
+import { serveBackend, readSingleInclude } from "./source";
 import { genTitle } from "./preview";
+
+const outputChannel = vscode.window.createOutputChannel('Wikidot Preview');
 
 /**
  * Returns a function, that, as long as it continues to be invoked, will not
@@ -45,6 +47,31 @@ const serveBackendDebounced = debounce(serveBackend, 400, false);
  * @param panelId The preview panel id. This is an id we assign.
  */
 export function setListeners(panel: vscode.WebviewPanel, panelId: string) {
+	const includeCache = new Map<string, string | null>();
+
+	panel.webview.onDidReceiveMessage(async (message) => {
+		if (message.type === 'log') {
+			outputChannel.appendLine(message.text);
+		} else if (message.type === 'fetch-include') {
+			let content: string | null;
+			if (includeCache.has(message.page)) {
+				outputChannel.appendLine(`Cache hit for include: ${message.page}`);
+				content = includeCache.get(message.page)!;
+			} else {
+				outputChannel.appendLine(`Fetching include: ${message.page}`);
+				const panelInfo = idToInfo.get(panelId)!;
+				const fileUri = vscode.Uri.file(panelInfo.fileName);
+				content = await readSingleInclude(fileUri, message.page);
+				includeCache.set(message.page, content);
+			}
+			panel.webview.postMessage({
+				type: 'include-result',
+				requestId: message.requestId,
+				content,
+			});
+		}
+	});
+
 	const viewChangeDisposable = panel.onDidChangeViewState((_) => {
 		// vscode.commands.executeCommand(
 		// 	"setContext",
@@ -71,7 +98,6 @@ export function setListeners(panel: vscode.WebviewPanel, panelId: string) {
 		if (e.document.languageId == "wikidot") {
 			serveBackendDebounced(
 				panel,
-				e.document.uri,
 				basenameWithoutExt(e.document.fileName),
 				e.document.getText(),
 			);
@@ -113,7 +139,6 @@ export function setTabChangeListener(panel: vscode.WebviewPanel, panelId: string
 			panelInfo.fileName = e.document.fileName;
 			serveBackendDebounced(
 				panel,
-				e.document.uri,
 				basenameWithoutExt(panelInfo.fileName),
 				e.document.getText(),
 			);

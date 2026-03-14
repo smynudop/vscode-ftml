@@ -13,7 +13,6 @@ type WorkerMessage = {
 	file: string,
 	source: string;
 	url: string;
-	includes: Record<string, string>;
 };
 
 export type WorkerRequest = WorkerMessage & { id: number };
@@ -28,7 +27,6 @@ const workerMesssage: WorkerMessage = {
 	file: "",
 	source: "",
 	url: "/test",
-	includes: {},
 };
 
 const vscode = window.acquireVsCodeApi<State>();
@@ -68,8 +66,13 @@ const url = URL.createObjectURL(
 const worker = new Worker(url, {
 	type: "module",
 });
-worker.addEventListener("message", (e: MessageEvent<WorkerResponse>) => {
-	const { id, html, blocks = [] } = e.data;
+worker.addEventListener("message", (e: MessageEvent) => {
+	if (e.data?.type === 'fetch-include') {
+		// Worker needs a file: relay the request to the VS Code extension
+		vscode.postMessage({ type: 'fetch-include', page: e.data.page, requestId: e.data.requestId });
+		return;
+	}
+	const { id, html, blocks = [] } = e.data as WorkerResponse;
 	previewContent.innerHTML = html;
 	const iframes = Array.from(previewContent.querySelectorAll("iframe"));
 	for(let i = 0; i < iframes.length; i++){ 
@@ -89,7 +92,7 @@ worker.addEventListener("message", (e: MessageEvent<WorkerResponse>) => {
 });
 
 window.addEventListener("message", (e) => {
-	const { type, fileName, wikidotSource, includes } = e.data;
+	const { type, fileName, wikidotSource, requestId, content } = e.data;
 	switch (type.toLowerCase()) {
 		case "content":
 			if(workerMesssage.file !== fileName){
@@ -97,9 +100,12 @@ window.addEventListener("message", (e) => {
 				workerMesssage.file = fileName;
 			}
 			workerMesssage.source = wikidotSource;
-			workerMesssage.includes = includes ?? {};
 			sendMessageToWorker(workerMesssage);
 			state.fileName = fileName;
+			break;
+		case "include-result":
+			// Extension fetched the file: relay the result back to the worker
+			worker.postMessage({ type: 'include-result', requestId, content });
 			break;
 	}
 	vscode.setState(state);
