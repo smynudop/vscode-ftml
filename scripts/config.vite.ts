@@ -27,7 +27,7 @@ export default defineConfig({
 					vscode: "vscode",
 				},
 				manualChunks: undefined,
-				experimentalMinChunkSize: 10 * 1024 * 1024,
+				//experimentalMinChunkSize: 10 * 1024 * 1024,
 			},
 		},
 		lib: {

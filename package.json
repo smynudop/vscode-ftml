@@ -128,15 +128,14 @@
 		"@types/node": "^22.19.3",
 		"@types/vscode": "^1.107.0",
 		"@types/vscode-webview": "^1.57.5",
-		"esbuild": "^0.14.27",
 		"js-yaml": "^4.1.0",
 		"sass": "^1.97.2",
 		"toml": "^3.0.0",
 		"typescript": "^5.9.3",
-		"vite": "^7.3.0"
+		"vite": "^8.0.0"
 	},
 	"dependencies": {
-		"@wdprlib/parser": "^2.0.9",
+		"@wdprlib/parser": "^2.1.0",
 		"@wdprlib/render": "^1.3.3",
 		"@wdprlib/runtime": "^1.0.2",
 		"front-matter": "^4.0.2"

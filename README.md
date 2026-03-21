@@ -12,6 +12,12 @@ Wikidotのシンタックスハイライト、プレビュー機能を提供す�
 
 ![vscode-ftml-live-preview](./docs/vscode-ftml-live-preview.gif)
 
+## include
+include構文に対応しています。
+コロンで区切られた最後のセクションの名前でファイルを用意してください。
+たとえば [[include :site-name:component:test]] であれば、 `test.wd` を同階層に用意することで、プレビュー時に自動で読み込まれます。
+この仕様は暫定的なものであり、予告なく変更になる可能性があります。
+
 ## Development
 
 ```bash

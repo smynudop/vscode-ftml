@@ -106,7 +106,7 @@ self.onmessage = async (e: MessageEvent<WorkerRequest>) => {
 	const includes = await fetchAllIncludes(source);
 
 	// 2. Resolve includes
-	const expanded = Parser.resolveIncludes(source, (ref: Parser.PageRef) => {
+	const expanded = await Parser.resolveIncludesAsync(source, async (ref: Parser.PageRef) => {
 		const page = normalizePage(ref);
 		return includes[page] ?? `[${ref.site}:${ref.page}]`; // Leave unresolved if not found
 	})
