@@ -69,6 +69,8 @@ async function fetchAllIncludes(source: string): Promise<Record<string, string |
 self.onmessage = async (e: MessageEvent<WorkerRequest>) => {
 	const { id, source, url } = e.data;
 
+	if(!source) return;
+
 	const page: Parser.PageData = {
 		name: "name",
 		category: "category",
